@@ -54,13 +54,20 @@ function rocket_lazyload_script() {
 			class_loading: "lazyloading",
 			class_loaded: "lazyloaded",
 			callback_set: function(element) {
-				if (  $( element ).filter( $("iframe") ).length ) {
-					if ( $( element ).filter( $("iframe") ).hasClass( "loaded" ) ) {
-						$( element ).filter( $("iframe") ).fitVids();
+				if (  element.tagName === "IFRAME" ) {
+					if ( element.classList.contains("lazyloaded") ) {
+						console.log("loaded, go!");
+						if ( typeof $.fn.fitVids === "function" ) {
+							console.log("fitvids ok");
+							$( element ).parent().fitVids();
+						}
 					} else {
+						console.log("iframe not loaded");
 						var temp = setInterval( function() {
-							if ( $( element ).filter( $("iframe.loaded") ).length ) {
-								$( element ).filter( $("iframe.loaded") ).parent().fitVids();
+							console.log("checking");
+							if ( element.classList.contains("lazyloaded") && typeof $.fn.fitVids === "function" ) {
+								console.log("iframe loaded, fitvids coming…");
+								$( element ).parent().fitVids();
 								clearInterval( temp );
 							}
 						}, 50 );
