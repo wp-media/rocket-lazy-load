@@ -49,8 +49,8 @@ function rocket_lazyload_script() {
 	echo '<script data-cfasync="false">(function(w,d){function loadScript(c,b){var a=d.createElement("script");a.async=!0;a.readyState?a.onreadystatechange=function(){if("loaded"===a.readyState||"complete"===a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()};a.src=c;d.getElementsByTagName("head")[0].appendChild(a)}loadScript("' . $ll_url . '",function(){
 		var rocket_ll = new LazyLoad({
 			elements_selector: "img, iframe",
-			data_src: "data-lazy-src",
-			data_srcset: "data-lazy-srcset",
+			data_src: "lazy-src",
+			data_srcset: "lazy-srcset",
 			class_loading: "lazyloading",
 			class_loaded: "lazyloaded",
 			callback_set: function(element) {
