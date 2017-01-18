@@ -123,7 +123,7 @@ function __rocket_lazyload_replace_callback( $matches ) {
 		*/
 		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
 		
-		$html = sprintf( '<img%1$s src="%4$s" data-lazy-original=%2$s%3$s>', $matches[1], $matches[2], $matches[3], $placeholder );
+		$html = sprintf( '<img%1$s src="%4$s" data-lazy-src=%2$s%3$s>', $matches[1], $matches[2], $matches[3], $placeholder );
 
 		$html_noscript = sprintf( '<noscript><img%1$s src=%2$s%3$s></noscript>', $matches[1], $matches[2], $matches[3] );
 
@@ -244,4 +244,19 @@ function rocket_translate_smiley( $matches ) {
 		return sprintf( ' <img src="%s" alt="%s" class="wp-smiley" /> ', esc_url( $src_url ), esc_attr( $smiley ) );
 	}
 
+}
+
+/**
+ * Compatibility with images with srcset attribute
+ *
+ * @since 1.1
+ * @author Geoffrey Crofte (code from WP Rocket plugin)
+ */
+add_filter( 'rocket_lazyload_html', '__rocket_lazyload_on_srcset' );
+function __rocket_lazyload_on_srcset( $html ) {
+	if ( preg_match( '/srcset=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html ) ) {
+		$html = str_replace( 'srcset=', 'data-lazy-srcset=', $html );
+	}
+	
+	return $html;
 }
