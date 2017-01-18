@@ -47,32 +47,32 @@ function rocket_lazyload_script() {
 	//echo '<script data-cfasync="false">(function(w,d){function a(){var b=d.createElement("script");b.async=!0;b.src="' . $ll_url .'";var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)}w.attachEvent?w.attachEvent("onload",a):w.addEventListener("load",a,!1)})(window,document);</script>';
 
 	echo '<script data-cfasync="false">(function(w,d){function loadScript(c,b){var a=d.createElement("script");a.async=!0;a.readyState?a.onreadystatechange=function(){if("loaded"===a.readyState||"complete"===a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()};a.src=c;d.getElementsByTagName("head")[0].appendChild(a)}loadScript("' . $ll_url . '",function(){
-		new LazyLoad({
+		var rocket_ll = new LazyLoad({
 			elements_selector: "img, iframe",
 			data_src: "data-lazy-src",
 			data_srcset: "data-lazy-srcset",
 			class_loading: "lazyloading",
 			class_loaded: "lazyloaded",
 			callback_set: function(element) {
-				if (  element.tagName === "IFRAME" ) {
+				//todo: check fitvids compatibility (class or data-attribute)
+				if (  element.tagName === "IFRAME" && element.classList.contains("fitvidscompatible") ) {
 					if ( element.classList.contains("lazyloaded") ) {
-						console.log("loaded, go!");
-						if ( typeof $.fn.fitVids === "function" ) {
-							console.log("fitvids ok");
+						//todo: check if $.fn.fitvids() is available
+						if ( typeof $ === "function" ) {
 							$( element ).parent().fitVids();
 						}
 					} else {
-						console.log("iframe not loaded");
 						var temp = setInterval( function() {
-							console.log("checking");
-							if ( element.classList.contains("lazyloaded") && typeof $.fn.fitVids === "function" ) {
-								console.log("iframe loaded, fitvids coming…");
+							//todo: check if $.fn.fitvids() is available
+							if ( element.classList.contains("lazyloaded") && typeof $ === "function" ) {
 								$( element ).parent().fitVids();
+								clearInterval( temp );
+							} else {
 								clearInterval( temp );
 							}
 						}, 50 );
 					}
-				}
+				} // if element is an iframe
 			}	
 		});
 	});})(window,document);</script>';
@@ -269,5 +269,55 @@ function __rocket_lazyload_on_srcset( $html ) {
 		$html = str_replace( 'srcset=', 'data-lazy-srcset=', $html );
 	}
 	
+	return $html;
+}
+
+/**
+ * Replace iframes by LazyLoad
+ *
+ * @since 1.1
+ * @author Geoffrey Crofte (code from WP Rocket plugin)
+ */
+add_filter( 'the_content', 'rocket_lazyload_iframes', PHP_INT_MAX );
+add_filter( 'widget_text', 'rocket_lazyload_iframes', PHP_INT_MAX );
+function rocket_lazyload_iframes( $html ) {
+	// Don't LazyLoad if process is stopped for these reasons
+	if ( ! apply_filters( 'do_rocket_lazyload_iframes', true ) || is_feed() || is_preview() || empty( $html ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) ) {
+		return $html;
+	}
+
+	$matches = array();
+	preg_match_all( '/<iframe\s+.*?>/', $html, $matches );
+
+	foreach ( $matches[0] as $k => $iframe ) {
+
+		// Don't mess with the Gravity Forms ajax iframe
+		if ( strpos( $iframe, 'gform_ajax_frame' ) ) {
+			continue;
+		}
+
+        // Don't lazyload if iframe has data-no-lazy attribute
+		if ( strpos( $iframe, 'data-no-lazy=' ) ) {
+			continue;
+		}
+		
+		/** This filter is documented in inc/front/lazyload.php */
+		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+
+		//todo: add "fitvids compatible" class or data-attribute to check in JS (see JS L.57)
+		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" data-lazy-src=', $iframe );
+
+		$html = str_replace( $matches[0][ $k ], $iframe, $html );
+		
+		/**
+		 * Filter the LazyLoad HTML output on iframes
+		 *
+		 * @since 1.1
+		 *
+		 * @param array $html Output that will be printed
+		*/
+		$html = apply_filters( 'rocket_lazyload_iframe_html', $html );
+	}
+
 	return $html;
 }
