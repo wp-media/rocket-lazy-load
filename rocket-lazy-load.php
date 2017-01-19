@@ -102,7 +102,7 @@ function rocket_lazyload_images( $html ) {
 		return $html;
 	}
 
-	$html = preg_replace_callback( '#<img([^>]*) src=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))([^>]*)>#', '__rocket_lazyload_replace_callback', $html );
+	$html = preg_replace_callback( '#<img([^>]*) src=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))([^>]*)>#', 'rocket_lazyload_replace_callback', $html );
 
 	return $html;
 }
@@ -114,7 +114,7 @@ function rocket_lazyload_images( $html ) {
  * @since 1.1 Don't apply LazyLoad on images from WP Retina x2
  * @since 1.0.1
  */
-function __rocket_lazyload_replace_callback( $matches ) {
+function rocket_lazyload_replace_callback( $matches ) {
 
 	if ( function_exists( 'wr2x_picture_rewrite' ) ) {
 		if ( wr2x_get_retina( trailingslashit( ABSPATH ) . wr2x_get_pathinfo_from_image_src( trim( $matches[2], '"' ) ) ) ) {
@@ -263,8 +263,8 @@ function rocket_translate_smiley( $matches ) {
  * @since 1.1
  * @author Geoffrey Crofte (code from WP Rocket plugin)
  */
-add_filter( 'rocket_lazyload_html', '__rocket_lazyload_on_srcset' );
-function __rocket_lazyload_on_srcset( $html ) {
+add_filter( 'rocket_lazyload_html', 'rocket_lazyload_on_srcset' );
+function rocket_lazyload_on_srcset( $html ) {
 	if ( preg_match( '/srcset=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html ) ) {
 		$html = str_replace( 'srcset=', 'data-lazy-srcset=', $html );
 	}
