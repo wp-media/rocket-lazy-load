@@ -102,7 +102,7 @@ function rocket_lazyload_images( $html ) {
 		return $html;
 	}
 
-	$html = preg_replace_callback( '#<img([^>]*) src=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))([^>]*)>#', '__rocket_lazyload_replace_callback', $html );
+	$html = preg_replace_callback( '#<img([^>]*) src=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))([^>]*)>#', 'rocket_lazyload_replace_callback', $html );
 
 	return $html;
 }
@@ -114,7 +114,7 @@ function rocket_lazyload_images( $html ) {
  * @since 1.1 Don't apply LazyLoad on images from WP Retina x2
  * @since 1.0.1
  */
-function __rocket_lazyload_replace_callback( $matches ) {
+function rocket_lazyload_replace_callback( $matches ) {
 
 	if ( function_exists( 'wr2x_picture_rewrite' ) ) {
 		if ( wr2x_get_retina( trailingslashit( ABSPATH ) . wr2x_get_pathinfo_from_image_src( trim( $matches[2], '"' ) ) ) ) {
@@ -122,35 +122,73 @@ function __rocket_lazyload_replace_callback( $matches ) {
 		}
 	}
 
-	// TO DO - improve this code with a preg_match - it's ugly!!!!
-	if ( strpos( $matches[1] . $matches[3], 'data-no-lazy=' ) === false && strpos( $matches[1] . $matches[3], 'data-lazy-original=' ) === false && strpos( $matches[1] . $matches[3], 'data-lazy-src=' ) === false && strpos( $matches[1] . $matches[3], 'data-lazysrc=' ) === false && strpos( $matches[1] . $matches[3], 'data-src=' ) === false && strpos( $matches[1] . $matches[3], 'data-lazyload=' ) === false && strpos( $matches[1] . $matches[3], 'data-bgposition=' ) === false && strpos( $matches[2], '/wpcf7_captcha/' ) === false && strpos( $matches[2], 'timthumb.php?src' ) === false && strpos( $matches[1] . $matches[3], 'data-envira-src=' ) === false && strpos( $matches[1] . $matches[3], 'fullurl=' ) === false && strpos( $matches[1] . $matches[3], 'lazy-slider-img=' ) === false && strpos( $matches[1] . $matches[3], 'data-srcset=' ) === false && strpos( $matches[1] . $matches[3], 'class="ls-l' ) === false && strpos( $matches[1] . $matches[3], 'class="ls-bg' ) === false ) {
+	$excluded_attributes = apply_filters( 'rocket_lazyload_excluded_attributes', array(
+		'data-no-lazy=',
+		'data-lazy-original=',
+		'data-lazy-src=',
+		'data-lazysrc=',
+		'data-lazyload=',
+		'data-bgposition=',
+		'data-envira-src=',
+		'fullurl=',
+		'lazy-slider-img=',
+		'data-srcset=',
+		'class="ls-l',
+		'class="ls-bg',
+	) );
 
-		/**
-		 * Filter the LazyLoad placeholder on src attribute
-		 *
-		 * @since 1.1
-		 *
-		 * @param string Output that will be printed
-		*/
-		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
-		
-		$html = sprintf( '<img%1$s src="%4$s" data-lazy-src=%2$s%3$s>', $matches[1], $matches[2], $matches[3], $placeholder );
+	$excluded_src = apply_filters( 'rocket_lazyload_excluded_src', array(
+		'/wpcf7_captcha/',
+		'timthumb.php?src',
+	) );
 
-		$html_noscript = sprintf( '<noscript><img%1$s src=%2$s%3$s></noscript>', $matches[1], $matches[2], $matches[3] );
-
-		/**
-		 * Filter the LazyLoad HTML output
-		 *
-		 * @since 1.0.2
-		 *
-		 * @param array $html Output that will be printed
-		*/
-		$html = apply_filters( 'rocket_lazyload_html', $html, true );
-
-		return $html . $html_noscript;
-	} else {
+	if ( rocket_is_excluded_lazyload( $matches[1] . $matches[3], $excluded_attributes ) ||  rocket_is_excluded_lazyload( $matches[2], $excluded_src ) ) {
 		return $matches[0];
 	}
+
+	/**
+	 * Filter the LazyLoad placeholder on src attribute
+	 *
+	 * @since 1.1
+	 *
+	 * @param string Output that will be printed
+	*/
+	$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+	
+	$html = sprintf( '<img%1$s src="%4$s" data-lazy-src=%2$s%3$s>', $matches[1], $matches[2], $matches[3], $placeholder );
+
+	$html_noscript = sprintf( '<noscript><img%1$s src=%2$s%3$s></noscript>', $matches[1], $matches[2], $matches[3] );
+
+	/**
+	 * Filter the LazyLoad HTML output
+	 *
+	 * @since 1.0.2
+	 *
+	 * @param array $html Output that will be printed
+	*/
+	$html = apply_filters( 'rocket_lazyload_html', $html, true );
+
+	return $html . $html_noscript;
+}
+
+/**
+ * 
+ *
+ * @since 1.1
+ * @author Remy Perona
+ *
+ * @param string $string String to search.
+ * @param array  $excluded_values Array of excluded values to search in the string.
+ * @return bool True if one of the excluded values was found, false otherwise
+ */
+function rocket_is_excluded_lazyload( $string, $excluded_values ) {
+	foreach ( $excluded_values as $excluded_value ) {
+		if ( strpos( $string, $excluded_value ) !== false ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /**
@@ -263,8 +301,8 @@ function rocket_translate_smiley( $matches ) {
  * @since 1.1
  * @author Geoffrey Crofte (code from WP Rocket plugin)
  */
-add_filter( 'rocket_lazyload_html', '__rocket_lazyload_on_srcset' );
-function __rocket_lazyload_on_srcset( $html ) {
+add_filter( 'rocket_lazyload_html', 'rocket_lazyload_on_srcset' );
+function rocket_lazyload_on_srcset( $html ) {
 	if ( preg_match( '/srcset=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html ) ) {
 		$html = str_replace( 'srcset=', 'data-lazy-srcset=', $html );
 	}
