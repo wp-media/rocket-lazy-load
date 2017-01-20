@@ -2,8 +2,8 @@
 Contributors: juliobox, geekpress, wp_media
 Tags: lazyload, lazy load, images, thumbnail, thumbnails, smiley, smilies, avatar, gravatar
 Requires at least: 3.0
-Tested up to: 4.5
-Stable tag: 1.0.4
+Tested up to: 4.7.1
+Stable tag: 1.1
 
 The tiny Lazy Load script for WordPress without jQuery or others libraries.
 
@@ -11,9 +11,9 @@ The tiny Lazy Load script for WordPress without jQuery or others libraries.
 
 Lazy Load displays images on a page only when they are visible to the user. This reduces the number of HTTP requests mechanism and improves the loading time.
 
-This plugin works on thumbnails, all images in a post content or in a widget text, avatars and smilies. No JavaScript library such as jQuery is used and the script weighs less than 2kb.
+This plugin works on thumbnails, all images in a post content or in a widget text, avatars and smilies. No JavaScript library such as jQuery is used and the script weight is less than 6kb.
 
-Simply install the plugin to enjoy a faster website. No options are available : you install it and the plugin takes care of everything.
+Simply install the plugin to enjoy a faster website. No options are available: you install it and the plugin takes care of everything.
 
 = Related Plugins =
 * <a href="https://wordpress.org/plugins/imagify/">Imagify</a>: Best Image Optimizer to speed up your website with lighter images.
@@ -45,6 +45,13 @@ function deactivate_rocket_lazyload_on_single() {
 Simply add a 'data-no-lazy="1"' property in you IMG tag.
 
 == Changelog ==
+
+= 1.1 =
+* jan. 2017
+* *New*
+ * JS library updated
+ * Support for iFrame
+ * Support for srcset and sizes
 
 = 1.0.4 =
 * 28 apr. 2015
