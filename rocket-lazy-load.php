@@ -70,7 +70,7 @@ function rocket_lazyload_get_option( $option, $default = false ) {
  * @since 1.0
  */
 function rocket_lazyload_script() {
-	if ( ! get_rocket_lazyload_option( 'images' ) && ! get_rocket_lazyload_option( 'iframes' ) || ! apply_filters( 'do_rocket_lazyload', true ) ) {
+	if ( ! rocket_lazyload_get_option( 'images' ) && ! rocket_lazyload_get_option( 'iframes' ) || ! apply_filters( 'do_rocket_lazyload', true ) ) {
 		return;
 	}
 
@@ -123,7 +123,7 @@ add_action( 'wp_head', 'rocket_lazyload_script', PHP_INT_MAX );
  */
 function rocket_lazyload_images( $html ) {
 	// Don't LazyLoad if the thumbnail is in admin, a feed or a post preview.
-	if ( ! get_rocket_lazyload_option( 'images' ) || is_admin() || is_feed() || is_preview() || empty( $html ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) || wp_script_is( 'twentytwenty-twentytwenty', 'enqueued' ) ) {
+	if ( ! rocket_lazyload_get_option( 'images' ) || is_admin() || is_feed() || is_preview() || empty( $html ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) || wp_script_is( 'twentytwenty-twentytwenty', 'enqueued' ) ) {
 		return $html;
 	}
 
@@ -234,7 +234,7 @@ function rocket_is_excluded_lazyload( $string, $excluded_values ) {
  * @since 1.0
  */
 function rocket_lazyload_smilies() {
-	if ( ! get_rocket_lazyload_option( 'images' ) || ! apply_filters( 'do_rocket_lazyload', true ) ) {
+	if ( ! rocket_lazyload_get_option( 'images' ) || ! apply_filters( 'do_rocket_lazyload', true ) ) {
 		return;
 	}
 
@@ -379,7 +379,7 @@ add_filter( 'rocket_lazyload_html', 'rocket_lazyload_on_srcset' );
  */
 function rocket_lazyload_iframes( $html ) {
 	// Don't LazyLoad if process is stopped for these reasons.
-	if ( ! get_rocket_lazyload_option( 'iframes' ) || ! apply_filters( 'do_rocket_lazyload_iframes', true ) || is_feed() || is_preview() || empty( $html ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) ) {
+	if ( ! rocket_lazyload_get_option( 'iframes' ) || ! apply_filters( 'do_rocket_lazyload_iframes', true ) || is_feed() || is_preview() || empty( $html ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) ) {
 		return $html;
 	}
 
