@@ -1,0 +1,168 @@
+.rocket-lazyload-settings a {
+	color: #F7A933;
+}
+
+.rocket-lazyload-settings a:hover {
+	color: #FEE102;
+}
+
+.rocket-lazyload-header.rocket-lazyload-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	padding: 28px 25px 26px;
+	font-size: 23px;
+	background: #3A214B;
+	color: #FFF;
+}
+
+.rocket-lazyload-title {
+	margin: 0 0 18px;
+	color: #EAEAEA;
+	font-size: 23px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.rocket-lazyload-subtitle {
+	color: #F7A933;
+	font-weight: 600;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.rocket-lazyload-rate-us {
+	text-align: right;
+}
+
+.rocket-lazyload-rate-us .stars {
+	text-decoration: none;
+}
+
+.rocket-lazyload-body {
+	background-color: #FFFFFF;
+	border: 1px solid #D9D9D9;
+}
+
+.rocket-lazyload-form fieldset {
+	padding: 0 35px 35px 25px;
+}
+
+.rocket-lazyload-form legend {
+	display: block;
+	width: 100%;
+	padding: 19px 0 14px;
+	border-bottom: 1px solid #EEEEEE;
+	font-weight: 600;
+	color: #23282D;
+}
+
+.rocket-lazyload-option {
+	height: 32px;
+	margin: 0 0 12px 20px;
+}
+
+/* Custom checkboxes in CSS */
+.rocket-lazyload-form [type="checkbox"]:not(:checked),
+.rocket-lazyload-form [type="checkbox"]:checked {
+	opacity: 0.01;
+}
+.rocket-lazyload-form [type="checkbox"]:not(:checked):focus,
+.rocket-lazyload-form [type="checkbox"]:checked:focus {
+	box-shadow: none!important; /* system value to override */
+	outline: none!important;
+	border: 0 none!important;
+}
+
+.rocket-lazyload-form [type="checkbox"]:not(:checked) + label,
+.rocket-lazyload-form [type="checkbox"]:checked + label {
+	position: relative;
+	padding-left: 6px;
+	cursor: pointer;
+	vertical-align: top;
+}
+
+/* checkbox aspect */
+.rocket-lazyload-form [type="checkbox"]:not(:checked) + label:before,
+.rocket-lazyload-form [type="checkbox"]:checked + label:before {
+	content: '';
+	position: absolute;
+	left: 0; top: 0;
+	width: 28px; height: 28px;
+	margin: 0 0 0 -24px;
+	border: 2px solid #8BA6B4;
+	background: #FFFFFF;
+	border-radius: 4px;
+}
+/* checked mark aspect */
+.rocket-lazyload-form [type="checkbox"]:not(:checked) + label:after,
+.rocket-lazyload-form [type="checkbox"]:checked + label:after {
+	content: "✓";
+	position: absolute;
+	font-size: 1.6em;
+	color: #8BA6B4;
+	top: 6px; left: -16px;
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	-ms-transition: all .2s;
+	transition: all .2s;
+}
+/* checked mark aspect changes */
+.rocket-lazyload-form [type="checkbox"]:not(:checked) + label:after {
+	opacity: 0;
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	-ms-transform: scale(0);
+	transform: scale(0);
+}
+.rocket-lazyload-form [type="checkbox"]:checked + label:after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+}
+/* focus aspect */
+.rocket-lazyload-form [type="checkbox"]:not(:checked):focus + label:before,
+.rocket-lazyload-form [type="checkbox"]:checked:focus + label:before {
+	border-style: dotted;
+	border-color: #40b1d0;
+}
+
+.rocket-lazyload-label-description {
+	display: inline-block;
+	margin: 8px 0 0 20px;
+	color: #666666;
+	font-weight: 600;
+}
+
+.rocket-lazyload-form .submit {
+	padding: 28px 0 32px 24px;
+	background-color: #FCFBF0;
+}
+
+.rocket-lazyload-form .submit .button-primary {
+	height: 40px;
+	background-color: #F7A933;
+	box-shadow: 0 4px 0 0 #D69626;
+	border: none;
+	border-radius: 3px;
+	font-weight: bold;
+	text-shadow: none;
+}
+
+.rocket-lazyload-cross-sell {
+	padding: 35px 35px 35px 25px;
+}
+
+.rocket-lazyload-cross-sell-title {
+	margin-top: 0;
+	font-size: 23px;
+}
+
+.rocket-lazyload-ads {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
