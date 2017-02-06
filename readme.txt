@@ -52,6 +52,7 @@ Simply add a 'data-no-lazy="1"' property in you IMG tag.
  * JS library updated
  * Support for iFrame
  * Support for srcset and sizes
+ * New options page
 
 = 1.0.4 =
 * 28 apr. 2015
