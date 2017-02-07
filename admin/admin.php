@@ -99,8 +99,8 @@ function rocket_lazyload_options_output() {
 			<div class="rocket-lazyload-cross-sell">
 				<h2 class="rocket-lazyload-cross-sell-title"><?php _e( 'Need To Boost Your Speed Even More?', 'rocket-lazyload' ); ?></h2>
 				<div class="rocket-lazyload-ads">
-					<a href="https://wp-rocket.me"><img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/wp-rocket@2x.jpg" alt="WP Rocket" width="393" height="180"></a>
-					<a href="https://imagify.io"><img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/imagify@2x.jpg" alt="Imagify" width="393" height="180"></a>
+					<a href="https://wp-rocket.me?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/wp-rocket@2x.jpg" alt="WP Rocket" width="393" height="180"></a>
+					<a href="https://imagify.io?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/imagify@2x.jpg" alt="Imagify" width="393" height="180"></a>
 				</div>
 			</div>
 		</div>
