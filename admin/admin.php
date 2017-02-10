@@ -65,11 +65,11 @@ function rocket_lazyload_options_output() {
 				<p class="rocket-lazyload-title"><?php echo esc_html( get_admin_page_title() ); ?></p>
 				<p class="rocket-lazyload-subtitle"><?php _e( 'Settings', 'rocket-lazyload' ); ?></p>
 			</div>
-			<?php $imagify_rate_url = 'https://wordpress.org/support/plugin/rocket-lazy-load/reviews/?rate=5#postform'; ?>
+			<?php $rocket_lazyload_rate_url = 'https://wordpress.org/support/plugin/rocket-lazy-load/reviews/?rate=5#postform'; ?>
 			<p class="rocket-lazyload-rate-us">
-				<?php printf( __( '%1$sDo you like this plugin?%1$s Please take a few seconds to %1$srate it on WordPress.org%1$s!', 'rocket-lazyload' ), '<strong>', '</strong><br />', '<a href="' . $imagify_rate_url . '">', '</a>' ); ?>
+				<?php printf( __( '%1$sDo you like this plugin?%2$s Please take a few seconds to %3$srate it on WordPress.org%4$s!', 'rocket-lazyload' ), '<strong>', '</strong><br>', '<a href="' . $rocket_lazyload_rate_url . '">', '</a>' ); ?>
 				<br>
-				<a class="stars" href="<?php echo $imagify_rate_url; ?>"><?php echo str_repeat( '<span class="dashicons dashicons-star-filled"></span>', 5 ); ?></a>
+				<a class="stars" href="<?php echo $rocket_lazyload_rate_url; ?>"><?php echo str_repeat( '<span class="dashicons dashicons-star-filled"></span>', 5 ); ?></a>
 			</p>
 		</div>
 		<div class="rocket-lazyload-body">
@@ -93,14 +93,16 @@ function rocket_lazyload_options_output() {
 				</fieldset>
 			<?php
 			    settings_fields( 'rocket_lazyload' );
-			    submit_button();
+			    submit_button( __( '✓ Save changes', 'rocket-lazyload' ) );
 			?>
 			</form>
 			<div class="rocket-lazyload-cross-sell">
 				<h2 class="rocket-lazyload-cross-sell-title"><?php _e( 'Need To Boost Your Speed Even More?', 'rocket-lazyload' ); ?></h2>
 				<div class="rocket-lazyload-ads">
 					<a href="https://wp-rocket.me?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/wp-rocket@2x.jpg" alt="WP Rocket" width="393" height="180"></a>
+					<?php if ( ! is_plugin_active( 'imagify/imagify.php' ) ) : ?>
 					<a href="https://imagify.io?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/imagify@2x.jpg" alt="Imagify" width="393" height="180"></a>
+					<? endif; ?>
 				</div>
 			</div>
 		</div>
