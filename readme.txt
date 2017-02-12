@@ -47,7 +47,7 @@ Simply add a 'data-no-lazy="1"' property in you IMG tag.
 == Changelog ==
 
 = 1.1 =
-* jan. 2017
+* 12 feb. 2017
 * *New*
  * JS library updated
  * Support for iFrame
