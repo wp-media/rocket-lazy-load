@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or	die( 'Cheatin\' uh?' );
  * Plugin Name: Rocket Lazy Load
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.1
+ * Version: 1.1.1
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
