@@ -122,8 +122,8 @@ add_action( 'wp_head', 'rocket_lazyload_script', PHP_INT_MAX );
  * @return string Updated HTML code
  */
 function rocket_lazyload_images( $html ) {
-	// Don't LazyLoad if the thumbnail is in admin, a feed or a post preview.
-	if ( ! rocket_lazyload_get_option( 'images' ) || is_admin() || is_feed() || is_preview() || empty( $html ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) || wp_script_is( 'twentytwenty-twentytwenty', 'enqueued' ) ) {
+	// Don't LazyLoad if the thumbnail is in admin, a feed, REST API or a post preview.
+	if ( ! rocket_lazyload_get_option( 'images' ) || is_admin() || is_feed() || is_preview() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || empty( $html ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) || wp_script_is( 'twentytwenty-twentytwenty', 'enqueued' ) ) {
 		return $html;
 	}
 
