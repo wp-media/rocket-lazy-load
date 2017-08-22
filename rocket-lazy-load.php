@@ -85,8 +85,7 @@ function rocket_lazyload_script() {
 		class_loaded: "lazyloaded",
 		threshold: $threshold,
 		callback_load: function(element) {
-			//todo: check fitvids compatibility (class or data-attribute)
-			if ( element.tagName === "IFRAME" && element.classList.contains("fitvidscompatible") ) {
+			if ( element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible" ) {
 				if (element.classList.contains("lazyloaded") ) {
 					if (typeof window.jQuery != 'undefined') {
 						if (jQuery.fn.fitVids) {
@@ -94,7 +93,7 @@ function rocket_lazyload_script() {
 						}
 					}
 				}
-			} // if element is an iframe
+			}
 		}	
 	};
 	</script>
@@ -433,10 +432,10 @@ function rocket_lazyload_iframes( $html ) {
 	 	 *
 	 	 * @param string $placeholder placeholder that will be printed.
 	 	 */
-		$placeholder = apply_filters( 'rocket_lazyload_placeholder', ROCKET_LL_ASSETS_URL . 'blank.html' );
+		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
 
 		// todo: add "fitvids compatible" class or data-attribute to check in JS (see JS L.57).
-		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" class="fitvidscompatible" data-lazy-src=', $iframe );
+		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" data-rocket-lazyload="fitvidscompatible" data-lazy-src=', $iframe );
 
 		$html = str_replace( $matches[0][ $k ], $iframe, $html );
 
