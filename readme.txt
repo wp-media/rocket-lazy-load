@@ -1,5 +1,5 @@
 === Rocket Lazy Load ===
-Contributors: juliobox, geekpress, wp_media
+Contributors: creativejuiz, tabrisrp, wp_media
 Tags: lazyload, lazy load, images, thumbnail, thumbnails, smiley, smilies, avatar, gravatar
 Requires at least: 3.0
 Tested up to: 4.8.1
