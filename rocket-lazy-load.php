@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  * Plugin Name: Rocket Lazy Load
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.2
+ * Version: 1.2.1
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -118,7 +118,7 @@ add_action( 'wp_footer', 'rocket_lazyload_script', 9 );
  * @author Remy Perona
  */
 function rocket_lazyload_enqueue() {
-	if ( ( ! get_rocket_option( 'lazyload' ) && ! get_rocket_option( 'lazyload_iframes' ) ) || ( ! apply_filters( 'do_rocket_lazyload', true ) && ! apply_filters( 'do_rocket_lazyload_iframes', true ) ) ) {
+	if ( ! rocket_lazyload_get_option( 'images' ) && ! rocket_lazyload_get_option( 'iframes' ) || ! apply_filters( 'do_rocket_lazyload', true ) ) {
 		return;
 	}
 
