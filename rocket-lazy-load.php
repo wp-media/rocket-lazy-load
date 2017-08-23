@@ -209,6 +209,7 @@ function rocket_lazyload_replace_callback( $matches ) {
 		'data-srcset=',
 		'class="ls-l',
 		'class="ls-bg',
+		'class="iworks_upprev_thumb',
 	) );
 
 	$excluded_src = apply_filters( 'rocket_lazyload_excluded_src', array(
