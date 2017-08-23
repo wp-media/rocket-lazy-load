@@ -47,6 +47,7 @@ Simply add a 'data-no-lazy="1"' property in you IMG tag.
 == Changelog ==
 = 1.2.2 =
 * Make the lazyload compatible with fitVids for iFrames
+* Don't apply lazyload on upPrev thumbnail
 
 = 1.2.1 =
 * 22 aug. 2017
