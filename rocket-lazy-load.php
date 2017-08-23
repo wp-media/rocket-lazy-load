@@ -28,6 +28,7 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  */
 define( 'ROCKET_LL_VERSION', '1.2.2' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
+define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
 define( 'ROCKET_LL_JS_VERSION'  , '8.0.3' );
@@ -41,6 +42,8 @@ define( 'ROCKET_LL_JS_VERSION'  , '8.0.3' );
  */
 function rocket_lazyload_init() {
 	load_plugin_textdomain( 'rocket-lazy-load', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+
+	require ROCKET_LL_3RD_PARTY_PATH . '3rd-party.php';
 
 	if ( is_admin() ) {
 		require( ROCKET_LL_PATH . 'admin/admin.php' );
