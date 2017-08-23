@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
+defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 /**
  * Plugin Name: Rocket Lazy Load
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  *
  * Copyright 2015 WP Media
  *
- * 	This program is free software; you can redistribute it and/or modify
+ * This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  *     GNU General Public License for more details.
  *
  *     You should have received a copy of the GNU General Public License
- * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 define( 'ROCKET_LL_VERSION', '1.2.2' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
@@ -217,7 +217,7 @@ function rocket_lazyload_replace_callback( $matches ) {
 		'timthumb.php?src',
 	) );
 
-	if ( rocket_is_excluded_lazyload( $matches[1] . $matches[3], $excluded_attributes ) ||  rocket_is_excluded_lazyload( $matches[2], $excluded_src ) ) {
+	if ( rocket_is_excluded_lazyload( $matches[1] . $matches[3], $excluded_attributes ) || rocket_is_excluded_lazyload( $matches[2], $excluded_src ) ) {
 		return $matches[0];
 	}
 
@@ -437,12 +437,12 @@ function rocket_lazyload_iframes( $html ) {
 		}
 
 		/**
-	 	 * Filter the LazyLoad placeholder on src attribute
-	 	 *
-	 	 * @since 1.1
-	 	 *
-	 	 * @param string $placeholder placeholder that will be printed.
-	 	 */
+		 * Filter the LazyLoad placeholder on src attribute
+		 *
+		 * @since 1.1
+		 *
+		 * @param string $placeholder placeholder that will be printed.
+		 */
 		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
 
 		// todo: add "fitvids compatible" class or data-attribute to check in JS (see JS L.57).

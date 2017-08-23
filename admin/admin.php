@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or	die( 'Cheatin\' uh?' );
+defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 /**
  * Add Rocket LazyLoad settings page to Settings menu.
@@ -67,7 +67,10 @@ function rocket_lazyload_options_output() {
 			</div>
 			<?php $rocket_lazyload_rate_url = 'https://wordpress.org/support/plugin/rocket-lazy-load/reviews/?rate=5#postform'; ?>
 			<p class="rocket-lazyload-rate-us">
-				<?php printf( __( '%1$sDo you like this plugin?%2$s Please take a few seconds to %3$srate it on WordPress.org%4$s!', 'rocket-lazyload' ), '<strong>', '</strong><br>', '<a href="' . $rocket_lazyload_rate_url . '">', '</a>' ); ?>
+				<?php
+				// Translators: %1$s is a <strong> tag, %2$s is </strong><br>, %3$s is the complete link tag to Rocket Lazy Load review form, %4$s is the closing </a> tag.
+				printf( __( '%1$sDo you like this plugin?%2$s Please take a few seconds to %3$srate it on WordPress.org%4$s!', 'rocket-lazyload' ), '<strong>', '</strong><br>', '<a href="' . $rocket_lazyload_rate_url . '">', '</a>' );
+				?>
 				<br>
 				<a class="stars" href="<?php echo $rocket_lazyload_rate_url; ?>"><?php echo str_repeat( '<span class="dashicons dashicons-star-filled"></span>', 5 ); ?></a>
 			</p>
@@ -92,19 +95,21 @@ function rocket_lazyload_options_output() {
 					</ul>
 				</fieldset>
 			<?php
-			    settings_fields( 'rocket_lazyload' );
-			    submit_button( __( '✓ Save changes', 'rocket-lazyload' ) );
+				settings_fields( 'rocket_lazyload' );
+				submit_button( __( '✓ Save changes', 'rocket-lazyload' ) );
 			?>
 			</form>
 			<div class="rocket-lazyload-cross-sell">
 				<h2 class="rocket-lazyload-cross-sell-title"><?php _e( 'Need To Boost Your Speed Even More?', 'rocket-lazyload' ); ?></h2>
 				<div class="rocket-lazyload-ads">
-					<a href="https://wp-rocket.me?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/wp-rocket@2x.jpg" alt="WP Rocket" width="393" height="180"></a>
+					<a href="https://wp-rocket.me?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL; ?>img/wp-rocket@2x.jpg" alt="WP Rocket" width="393" height="180"></a>
 					<?php if ( ! is_plugin_active( 'imagify/imagify.php' ) ) : ?>
-					<a href="https://imagify.io?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/imagify@2x.jpg" alt="Imagify" width="393" height="180"></a>
+					<a href="https://imagify.io?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL; ?>img/imagify@2x.jpg" alt="Imagify" width="393" height="180"></a>
 					<?php endif; ?>
 				</div>
 			</div>
 		</div>
 	</div>
-<?php }
+<?php
+}
+

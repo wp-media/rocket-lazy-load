@@ -45,6 +45,10 @@ Simply add a `data-no-lazy="1"` property in you `img` or `iframe` tag.
 
 You can also use the filters `rocket_lazyload_excluded_attributes` or `rocket_lazyload_excluded_src` to exclude specific patterns.
 
+= I use plugin X and my images don't show anymore =
+
+Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
+
 == Changelog ==
 = 1.2.2 =
 * Make the lazyload compatible with fitVids for iframes
