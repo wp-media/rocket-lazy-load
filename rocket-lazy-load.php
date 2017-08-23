@@ -43,7 +43,7 @@ function rocket_lazyload_init() {
 	load_plugin_textdomain( 'rocket-lazy-load', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 	if ( is_admin() ) {
-		require( ROCKET_LL_PATH . 'admin/admin.php' );
+		require ROCKET_LL_PATH . 'admin/admin.php';
 	}
 }
 add_action( 'plugins_loaded', 'rocket_lazyload_init' );
