@@ -443,7 +443,7 @@ function rocket_lazyload_iframes( $html ) {
 	 	 *
 	 	 * @param string $placeholder placeholder that will be printed.
 	 	 */
-		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
 
 		// todo: add "fitvids compatible" class or data-attribute to check in JS (see JS L.57).
 		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" data-lazy-src=', $iframe );
