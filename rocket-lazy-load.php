@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  * Plugin Name: Rocket Lazy Load
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.2.1
+ * Version: 1.3
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  *     You should have received a copy of the GNU General Public License
  * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-define( 'ROCKET_LL_VERSION', '1.2' );
+define( 'ROCKET_LL_VERSION', '1.3' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
