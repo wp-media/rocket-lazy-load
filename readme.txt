@@ -3,7 +3,7 @@ Contributors: creativejuiz, tabrisrp, wp_media
 Tags: lazyload, lazy load, images, thumbnail, thumbnails, smiley, smilies, avatar, gravatar
 Requires at least: 3.0
 Tested up to: 4.8.1
-Stable tag: 1.2.1
+Stable tag: 1.3
 
 The tiny Lazy Load script for WordPress without jQuery or others libraries.
 
