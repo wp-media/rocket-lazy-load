@@ -1,0 +1,6 @@
+{
+    "require": {
+	    "name": "wp-media/rocket-lazy-load",
+        "paquettg/php-html-parser": "1.*"
+    }
+}
