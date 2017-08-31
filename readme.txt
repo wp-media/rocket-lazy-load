@@ -52,6 +52,7 @@ Some plugins are not compatible without lazy loading. Please open a support thre
 == Changelog ==
 = 1.2.2 =
 * Make the lazyload compatible with fitVids for iframes
+* Don't apply lazyload on AMP pages (compatible with AMP plugin from Automattic)
 * Use about:blank as default iframe placeholder to prevent warning in browser console
 * Don't apply lazyload on upPrev thumbnail
 
