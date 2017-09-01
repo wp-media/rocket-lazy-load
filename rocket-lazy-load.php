@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  * Plugin Name: Rocket Lazy Load
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -434,7 +434,6 @@ function rocket_lazyload_iframes( $html ) {
 	 	 */
 		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
 
-		// todo: add "fitvids compatible" class or data-attribute to check in JS (see JS L.57).
 		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" data-rocket-lazyload="fitvidscompatible" data-lazy-src=', $iframe );
 
 		$html = str_replace( $matches[0][ $k ], $iframe, $html );
