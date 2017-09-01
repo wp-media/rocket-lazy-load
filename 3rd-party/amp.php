@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
+defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 /**
  * Removes LazyLoad when on an AMP version of a post with the AMP for WordPress plugin from Auttomatic
