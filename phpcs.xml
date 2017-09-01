@@ -7,10 +7,11 @@
     <file>.</file>
 
     <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/assets/*</exclude-pattern>
 
     <rule ref="WordPress">
-        <!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/ -->
-        <exclude name="Generic.PHP.NoSilencedErrors.Discouraged"/>
+		<exclude name="Generic.PHP.NoSilencedErrors.Discouraged"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
         <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
         <exclude name="Squiz.Commenting.FileComment.Missing"/>
@@ -32,5 +33,5 @@
         <exclude name="WordPress.VIP.TimezoneChange"/>
         <exclude name="WordPress.VIP.ValidatedSanitizedInput"/>
         <exclude name="WordPress.XSS.EscapeOutput"/>
-    </rule>
+	</rule>
 </ruleset>
