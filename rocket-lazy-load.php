@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
  * Text Domain: rocket-lazy-load
  * Domain Path: /languages
  *
- * Copyright 2015 WP Media
+ * Copyright 2015-2017 WP Media
  *
  * This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
