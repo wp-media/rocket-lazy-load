@@ -43,15 +43,43 @@ define( 'ROCKET_LL_JS_VERSION'  , '8.0.3' );
  */
 function rocket_lazyload_init() {
 	load_plugin_textdomain( 'rocket-lazy-load', false, basename( dirname( __FILE__ ) ) . '/languages/' );
-
+	
 	require_once ROCKET_LL_PATH . 'vendor/autoload.php';
 	require ROCKET_LL_3RD_PARTY_PATH . '3rd-party.php';
-
+	
 	if ( is_admin() ) {
 		require ROCKET_LL_PATH . 'admin/admin.php';
 	}
 }
-add_action( 'plugins_loaded', 'rocket_lazyload_init' );
+
+if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
+	/**
+	 * Warning if PHP version is less than 5.4.
+	 *
+	 * @since 1.3
+	 */
+	function rocket_lazyload_php_warning() {
+		echo '<div class=\"error\"><p>' . __('Rocket LazyLoad requires PHP 5.4 to function properly. Please upgrade PHP. The Plugin has been auto-deactivated.', 'rocket-lazy-load') . '</p></div>'; 
+	    if ( isset( $_GET['activate'] ) ) {
+	        unset( $_GET['activate'] );
+	    }
+	}
+	add_action( 'admin_notices', 'rocket_lazyload_php_warning' );
+
+	/**
+	 * Deactivate plugin if needed.
+	 *
+	 * @since 1.3
+	 */
+	function rocket_lazyload_deactivate_self() {
+    	deactivate_plugins( plugin_basename( __FILE__ ) );
+	}
+	add_action( 'admin_init', 'rocket_lazyload_deactivate_self' );
+
+	return;
+} else {
+	add_action( 'plugins_loaded', 'rocket_lazyload_init' );
+}
 
 /**
  * A wrapper to easily get rocket lazyload option
