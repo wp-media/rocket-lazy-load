@@ -1,11 +1,11 @@
 <?php
-defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
+defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 /**
  * Plugin Name: Rocket Lazy Load
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.2.1
+ * Version: 1.2.2
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  *
  * Copyright 2015 WP Media
  *
- * 	This program is free software; you can redistribute it and/or modify
+ * This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
@@ -24,10 +24,11 @@ defined( 'ABSPATH' ) ||	die( 'Cheatin\' uh?' );
  *     GNU General Public License for more details.
  *
  *     You should have received a copy of the GNU General Public License
- * 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-define( 'ROCKET_LL_VERSION', '1.2' );
+define( 'ROCKET_LL_VERSION', '1.2.2' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
+define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
 define( 'ROCKET_LL_JS_VERSION'  , '8.0.3' );
@@ -42,8 +43,10 @@ define( 'ROCKET_LL_JS_VERSION'  , '8.0.3' );
 function rocket_lazyload_init() {
 	load_plugin_textdomain( 'rocket-lazy-load', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
+	require ROCKET_LL_3RD_PARTY_PATH . '3rd-party.php';
+
 	if ( is_admin() ) {
-		require( ROCKET_LL_PATH . 'admin/admin.php' );
+		require ROCKET_LL_PATH . 'admin/admin.php';
 	}
 }
 add_action( 'plugins_loaded', 'rocket_lazyload_init' );
@@ -84,26 +87,16 @@ function rocket_lazyload_script() {
 		class_loading: "lazyloading",
 		class_loaded: "lazyloaded",
 		threshold: $threshold,
-		callback_set: function(element) {
-			//todo: check fitvids compatibility (class or data-attribute)
-			if (  element.tagName === "IFRAME" && element.classList.contains("fitvidscompatible") ) {
-				if ( element.classList.contains("lazyloaded") ) {
-					//todo: check if $.fn.fitvids() is available
-					if ( typeof $ === "function" ) {
-						$( element ).parent().fitVids();
-					}
-				} else {
-					var temp = setInterval( function() {
-						//todo: check if $.fn.fitvids() is available
-						if ( element.classList.contains("lazyloaded") && typeof $ === "function" ) {
-							$( element ).parent().fitVids();
-							clearInterval( temp );
-						} else {
-							clearInterval( temp );
+		callback_load: function(element) {
+			if ( element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible" ) {
+				if (element.classList.contains("lazyloaded") ) {
+					if (typeof window.jQuery != 'undefined') {
+						if (jQuery.fn.fitVids) {
+							jQuery(element).parent().fitVids();
 						}
-					}, 50 );
+					}
 				}
-			} // if element is an iframe
+			}
 		}	
 	};
 	</script>
@@ -209,6 +202,7 @@ function rocket_lazyload_replace_callback( $matches ) {
 		'data-srcset=',
 		'class="ls-l',
 		'class="ls-bg',
+		'class="iworks_upprev_thumb',
 	) );
 
 	$excluded_src = apply_filters( 'rocket_lazyload_excluded_src', array(
@@ -216,7 +210,7 @@ function rocket_lazyload_replace_callback( $matches ) {
 		'timthumb.php?src',
 	) );
 
-	if ( rocket_is_excluded_lazyload( $matches[1] . $matches[3], $excluded_attributes ) ||  rocket_is_excluded_lazyload( $matches[2], $excluded_src ) ) {
+	if ( rocket_is_excluded_lazyload( $matches[1] . $matches[3], $excluded_attributes ) || rocket_is_excluded_lazyload( $matches[2], $excluded_src ) ) {
 		return $matches[0];
 	}
 
@@ -436,16 +430,15 @@ function rocket_lazyload_iframes( $html ) {
 		}
 
 		/**
-	 	 * Filter the LazyLoad placeholder on src attribute
-	 	 *
-	 	 * @since 1.1
-	 	 *
-	 	 * @param string $placeholder placeholder that will be printed.
-	 	 */
-		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+		 * Filter the LazyLoad placeholder on src attribute
+		 *
+		 * @since 1.1
+		 *
+		 * @param string $placeholder placeholder that will be printed.
+		 */
+		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
 
-		// todo: add "fitvids compatible" class or data-attribute to check in JS (see JS L.57).
-		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" data-lazy-src=', $iframe );
+		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" data-rocket-lazyload="fitvidscompatible" data-lazy-src=', $iframe );
 
 		$html = str_replace( $matches[0][ $k ], $iframe, $html );
 
