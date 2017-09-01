@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
  * Version: 1.3
+ * Requires PHP: 5.4
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -28,6 +29,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
  */
 define( 'ROCKET_LL_VERSION', '1.3' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
+define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
 define( 'ROCKET_LL_JS_VERSION'  , '8.0.3' );
@@ -43,9 +45,10 @@ function rocket_lazyload_init() {
 	load_plugin_textdomain( 'rocket-lazy-load', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 	require_once ROCKET_LL_PATH . 'vendor/autoload.php';
+	require ROCKET_LL_3RD_PARTY_PATH . '3rd-party.php';
 
 	if ( is_admin() ) {
-		require( ROCKET_LL_PATH . 'admin/admin.php' );
+		require ROCKET_LL_PATH . 'admin/admin.php';
 	}
 }
 add_action( 'plugins_loaded', 'rocket_lazyload_init' );
@@ -86,26 +89,16 @@ function rocket_lazyload_script() {
 		class_loading: "lazyloading",
 		class_loaded: "lazyloaded",
 		threshold: $threshold,
-		callback_set: function(element) {
-			//todo: check fitvids compatibility (class or data-attribute)
-			if (  element.tagName === "IFRAME" && element.classList.contains("fitvidscompatible") ) {
-				if ( element.classList.contains("lazyloaded") ) {
-					//todo: check if $.fn.fitvids() is available
-					if ( typeof $ === "function" ) {
-						$( element ).parent().fitVids();
-					}
-				} else {
-					var temp = setInterval( function() {
-						//todo: check if $.fn.fitvids() is available
-						if ( element.classList.contains("lazyloaded") && typeof $ === "function" ) {
-							$( element ).parent().fitVids();
-							clearInterval( temp );
-						} else {
-							clearInterval( temp );
+		callback_load: function(element) {
+			if ( element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible" ) {
+				if (element.classList.contains("lazyloaded") ) {
+					if (typeof window.jQuery != 'undefined') {
+						if (jQuery.fn.fitVids) {
+							jQuery(element).parent().fitVids();
 						}
-					}, 50 );
+					}
 				}
-			} // if element is an iframe
+			}
 		}	
 	};
 	</script>
@@ -454,6 +447,7 @@ function rocket_lazyload_iframes( $html ) {
 
 		$iframe->setAttribute( 'src', $placeholder );
 		$iframe->setAttribute( 'data-lazy-src', $iframe_attributes['src'] );
+		$iframe->setAttribute( 'data-rocket-lazyload', 'fitvidscompatible' );
 
 		$noscript->addChild( $original_iframe );
 
