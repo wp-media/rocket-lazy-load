@@ -46,7 +46,7 @@ function rocket_lazyload_init() {
 	require ROCKET_LL_3RD_PARTY_PATH . '3rd-party.php';
 
 	if ( is_admin() ) {
-		require( ROCKET_LL_PATH . 'admin/admin.php' );
+		require ROCKET_LL_PATH . 'admin/admin.php';
 	}
 }
 add_action( 'plugins_loaded', 'rocket_lazyload_init' );
@@ -87,26 +87,16 @@ function rocket_lazyload_script() {
 		class_loading: "lazyloading",
 		class_loaded: "lazyloaded",
 		threshold: $threshold,
-		callback_set: function(element) {
-			//todo: check fitvids compatibility (class or data-attribute)
-			if (  element.tagName === "IFRAME" && element.classList.contains("fitvidscompatible") ) {
-				if ( element.classList.contains("lazyloaded") ) {
-					//todo: check if $.fn.fitvids() is available
-					if ( typeof $ === "function" ) {
-						$( element ).parent().fitVids();
-					}
-				} else {
-					var temp = setInterval( function() {
-						//todo: check if $.fn.fitvids() is available
-						if ( element.classList.contains("lazyloaded") && typeof $ === "function" ) {
-							$( element ).parent().fitVids();
-							clearInterval( temp );
-						} else {
-							clearInterval( temp );
+		callback_load: function(element) {
+			if ( element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible" ) {
+				if (element.classList.contains("lazyloaded") ) {
+					if (typeof window.jQuery != 'undefined') {
+						if (jQuery.fn.fitVids) {
+							jQuery(element).parent().fitVids();
 						}
-					}, 50 );
+					}
 				}
-			} // if element is an iframe
+			}
 		}	
 	};
 	</script>
@@ -448,8 +438,7 @@ function rocket_lazyload_iframes( $html ) {
 		 */
 		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
 
-		// todo: add "fitvids compatible" class or data-attribute to check in JS (see JS L.57).
-		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" data-lazy-src=', $iframe );
+		$iframe = preg_replace( '/<iframe(.*?)src=/is', '<iframe$1src="' . $placeholder . '" data-rocket-lazyload="fitvidscompatible" data-lazy-src=', $iframe );
 
 		$html = str_replace( $matches[0][ $k ], $iframe, $html );
 
