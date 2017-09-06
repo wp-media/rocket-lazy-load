@@ -1,6 +1,6 @@
 {
+	"name": "wp-media/rocket-lazy-load",
     "require": {
-	    "name": "wp-media/rocket-lazy-load",
-        "paquettg/php-html-parser": "1.*"
-    }
+		"paquettg/php-html-parser": "dev-dev"
+	}
 }
