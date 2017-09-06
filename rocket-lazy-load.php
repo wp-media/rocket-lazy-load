@@ -207,6 +207,12 @@ function rocket_lazyload_images( $html ) {
 			continue;
 		}
 
+		$parent = $image->getParent();
+
+		if ( false !== strpos( $parent->getAttribute( 'class' ), 'et_pb_slide_image' ) ) {
+			continue;
+		}
+
 		$img = new PHPHtmlParser\Dom\Tag( 'img' );
 
 		foreach ( $image_attributes as $key => $value ) {
@@ -241,7 +247,6 @@ function rocket_lazyload_images( $html ) {
 
 		$noscript->addChild( $original_image );
 
-		$parent = $image->getParent();
 		$parent->insertAfter( $noscript, $image->id() );
 	}
 
