@@ -165,7 +165,7 @@ add_action( 'wp_enqueue_scripts', 'rocket_lazyload_enqueue', PHP_INT_MAX );
  */
 function rocket_lazyload_async_script( $tag, $handle ) {
 	if ( 'rocket-lazyload' === $handle ) {
-		return str_replace( '<script', '<script async data-cfasync="false" data-minify="1"', $tag );
+		return str_replace( '<script', '<script async data-minify="1"', $tag );
 	}
 
 	return $tag;
