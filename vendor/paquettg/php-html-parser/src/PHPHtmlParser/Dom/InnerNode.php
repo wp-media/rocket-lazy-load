@@ -235,6 +235,18 @@ abstract class InnerNode extends ArrayNode
     }
 
     /**
+     * Check if has next Child
+     *
+     * @param $id childId
+     * @return mixed
+     */
+    public function hasNextChild($id)
+    {
+        $child= $this->getChild($id);
+        return $this->children[$child->id()]['next'];
+    }
+
+    /**
      * Attempts to get the next child.
      *
      * @param int $id
@@ -294,13 +306,28 @@ abstract class InnerNode extends ArrayNode
      */
     public function replaceChild($childId, AbstractNode $newChild)
     {
-        $oldChild                        = $this->getChild($childId);
-        $keys                            = array_keys($this->children);
-        $index                           = array_search($childId, $keys, true);
-        $keys[$index]                    = $newChild->id();
-        $this->children                  = array_combine($keys, $this->children);
-        $this->children[$newChild->id()] = $newChild;
-        unset($oldChild);
+        $oldChild = $this->children[$childId];
+
+        $newChild->prev = $oldChild['prev'];
+        $newChild->next = $oldChild['next'];
+
+        $keys = array_keys($this->children);
+        $index = array_search($childId, $keys, true);
+        $keys[$index] = $newChild->id();
+        $this->children = array_combine($keys, $this->children);
+        $this->children[$newChild->id()] = array(
+            'prev' => $oldChild['prev'],
+            'node' => $newChild,
+            'next' => $oldChild['next']
+        );
+
+        if ($oldChild['prev'] && isset($this->children[$newChild->prev])) {
+            $this->children[$oldChild['prev']]['next'] = $newChild->id();
+        }
+
+        if ($oldChild['next'] && isset($this->children[$newChild->next])) {
+            $this->children[$oldChild['next']]['prev'] = $newChild->id();
+        }
     }
 
     /**
