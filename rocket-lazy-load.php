@@ -442,7 +442,7 @@ function rocket_lazyload_iframes( $html ) {
 	$dom->load( $html );
 	$iframes = $dom->getElementsByTag( 'iframe' );
 
-	if ( ! $iframes ) {
+	if ( empty( $iframes ) ) {
 		return $html;
 	}
 
