@@ -196,7 +196,7 @@ function rocket_lazyload_images( $html ) {
 	$dom->load( $html );
 	$images = $dom->getElementsByTag( 'img' );
 
-	if ( ! $images ) {
+	if ( empty( $images ) ) {
 		return $html;
 	}
 
