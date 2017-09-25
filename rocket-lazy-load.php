@@ -211,10 +211,10 @@ function rocket_lazyload_images( $html ) {
 
 	$dom = new Dom();
 	$dom->setOptions(
-		 [
-			 'cleanupInput' => false,
-		 ]
-		);
+		[
+			'cleanupInput' => false,
+		]
+	);
 	$dom->load( $html );
 	$images = $dom->getElementsByTag( 'img' );
 
@@ -298,33 +298,33 @@ function rocket_is_excluded_lazyload( $attributes ) {
 	}
 
 	$excluded_attributes = apply_filters(
-		 'rocket_lazyload_excluded_attributes', array(
-			 'data-no-lazy',
-			 'data-lazy-original',
-			 'data-lazy-src',
-			 'data-lazysrc',
-			 'data-lazyload',
-			 'data-bgposition',
-			 'data-envira-src',
-			 'fullurl',
-			 'lazy-slider-img',
-			 'data-srcset',
-		 )
-		);
+		'rocket_lazyload_excluded_attributes', array(
+		    'data-no-lazy',
+		    'data-lazy-original',
+		    'data-lazy-src',
+		    'data-lazysrc',
+		    'data-lazyload',
+		    'data-bgposition',
+		    'data-envira-src',
+		    'fullurl',
+		    'lazy-slider-img',
+		    'data-srcset',
+		)
+	);
 
 	$excluded_classes = apply_filters(
-		 'rocket_lazyload_excluded_classes', array(
-			 'ls-l',
-			 'ls-bg',
-		 )
-		);
+		'rocket_lazyload_excluded_classes', array(
+		    'ls-l',
+		    'ls-bg',
+		)
+	);
 
 	$excluded_src = apply_filters(
-		 'rocket_lazyload_excluded_src', array(
-			 '/wpcf7_captcha/',
-			 'timthumb.php?src',
-		 )
-		);
+		'rocket_lazyload_excluded_src', array(
+		    '/wpcf7_captcha/',
+		    'timthumb.php?src',
+		)
+	);
 
 	$attributes = array_flip( $attributes );
 
@@ -478,10 +478,10 @@ function rocket_lazyload_iframes( $html ) {
 
 	$dom = new Dom();
 	$dom->setOptions(
-		 [
-			 'cleanupInput' => false,
-		 ]
-		);
+		[
+			'cleanupInput' => false,
+		]
+	);
 	$dom->load( $html );
 	$iframes = $dom->getElementsByTag( 'iframe' );
 
