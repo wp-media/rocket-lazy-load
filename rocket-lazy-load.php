@@ -550,6 +550,9 @@ add_filter( 'widget_text', 'rocket_lazyload_iframes', PHP_INT_MAX );
 /**
  * Gets youtube video ID from URL
  *
+ * @author Remy Perona
+ * @since 1.4
+ *
  * @param string $url URL to parse.
  * @return string     Youtube video id or false if none found.
  */
