@@ -1,9 +1,9 @@
-=== Rocket Lazy Load ===
+=== Lazy Load by WP Rocket ===
 Contributors: creativejuiz, tabrisrp, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar
 Requires at least: 3.0
 Tested up to: 4.8.1
-Stable tag: 1.3.2
+Stable tag: 1.4
 
 The tiny Lazy Load script for WordPress without jQuery, works for images and iframes.
 
@@ -50,8 +50,16 @@ You can also use the filters `rocket_lazyload_excluded_attributes` or `rocket_la
 Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
 
 == Changelog ==
+
+= 1.4 =
+* New option: replace Youtube videos by thumbnail. This option can improve your loading time a lot, especially if you have multiple videos on the same page
+
+= 1.3.3 =
+* 2017-09-16
+* Prevent scripts and styles being removed during html parsing
+
 = 1.3.2 =
-*2017-09-12
+* 2017-09-12
 * Fix images not displaying in certain conditions because image attributes exclusion was not working correctly
 
 = 1.3.1 =

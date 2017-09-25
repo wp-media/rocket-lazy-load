@@ -8,10 +8,10 @@ use PHPHtmlParser\Dom\Tag;
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 /**
- * Plugin Name: Rocket Lazy Load
+ * Plugin Name: Lazy Load by WP Rocket
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.3.2
+ * Version: 1.4
  * Requires PHP: 5.4
  * Author: WP Media
  * Author URI: https://wp-rocket.me
@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-define( 'ROCKET_LL_VERSION', '1.3.2' );
+define( 'ROCKET_LL_VERSION', '1.4' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
@@ -209,7 +209,11 @@ function rocket_lazyload_images( $html ) {
 		return $html;
 	}
 
+
 	$dom = new Dom();
+	$dom->setOptions( [
+		'cleanupInput' => false,
+	] );
 	$dom->load( $html );
 	$images = $dom->getElementsByTag( 'img' );
 
@@ -466,6 +470,9 @@ function rocket_lazyload_iframes( $html ) {
 	}
 
 	$dom = new Dom();
+	$dom->setOptions( [
+		'cleanupInput' => false,
+	] );
 	$dom->load( $html );
 	$iframes = $dom->getElementsByTag( 'iframe' );
 
