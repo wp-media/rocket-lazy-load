@@ -65,7 +65,7 @@ if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
 	 */
 	function rocket_lazyload_php_warning() {
 		echo '<div class="error"><p>' . __( 'Rocket LazyLoad requires PHP 5.4 to function properly. Please upgrade PHP. The Plugin has been auto-deactivated.', 'rocket-lazy-load' ) . '</p></div>';
-		if ( isset( $_GET['activate'] ) ) {
+		if ( isset( $_GET['activate'] ) ) { // WPCS: CSRF ok.
 			unset( $_GET['activate'] );
 		}
 	}
@@ -209,11 +209,12 @@ function rocket_lazyload_images( $html ) {
 		return $html;
 	}
 
-
 	$dom = new Dom();
-	$dom->setOptions( [
-		'cleanupInput' => false,
-	] );
+	$dom->setOptions(
+		 [
+			 'cleanupInput' => false,
+		 ]
+		);
 	$dom->load( $html );
 	$images = $dom->getElementsByTag( 'img' );
 
@@ -296,28 +297,34 @@ function rocket_is_excluded_lazyload( $attributes ) {
 		}
 	}
 
-	$excluded_attributes = apply_filters( 'rocket_lazyload_excluded_attributes', array(
-		'data-no-lazy',
-		'data-lazy-original',
-		'data-lazy-src',
-		'data-lazysrc',
-		'data-lazyload',
-		'data-bgposition',
-		'data-envira-src',
-		'fullurl',
-		'lazy-slider-img',
-		'data-srcset',
-	) );
+	$excluded_attributes = apply_filters(
+		 'rocket_lazyload_excluded_attributes', array(
+			 'data-no-lazy',
+			 'data-lazy-original',
+			 'data-lazy-src',
+			 'data-lazysrc',
+			 'data-lazyload',
+			 'data-bgposition',
+			 'data-envira-src',
+			 'fullurl',
+			 'lazy-slider-img',
+			 'data-srcset',
+		 )
+		);
 
-	$excluded_classes = apply_filters( 'rocket_lazyload_excluded_classes', array(
-		'ls-l',
-		'ls-bg',
-	) );
+	$excluded_classes = apply_filters(
+		 'rocket_lazyload_excluded_classes', array(
+			 'ls-l',
+			 'ls-bg',
+		 )
+		);
 
-	$excluded_src = apply_filters( 'rocket_lazyload_excluded_src', array(
-		'/wpcf7_captcha/',
-		'timthumb.php?src',
-	) );
+	$excluded_src = apply_filters(
+		 'rocket_lazyload_excluded_src', array(
+			 '/wpcf7_captcha/',
+			 'timthumb.php?src',
+		 )
+		);
 
 	$attributes = array_flip( $attributes );
 
@@ -470,9 +477,11 @@ function rocket_lazyload_iframes( $html ) {
 	}
 
 	$dom = new Dom();
-	$dom->setOptions( [
-		'cleanupInput' => false,
-	] );
+	$dom->setOptions(
+		 [
+			 'cleanupInput' => false,
+		 ]
+		);
 	$dom->load( $html );
 	$iframes = $dom->getElementsByTag( 'iframe' );
 
@@ -525,7 +534,7 @@ function rocket_lazyload_iframes( $html ) {
 			 * @param string $placeholder placeholder that will be printed.
 			 */
 			$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
-			
+
 			$iframe->setAttribute( 'src', $placeholder );
 			$iframe->setAttribute( 'data-lazy-src', $iframe_attributes['src'] );
 			$iframe->setAttribute( 'data-rocket-lazyload', 'fitvidscompatible' );
@@ -542,14 +551,14 @@ add_filter( 'widget_text', 'rocket_lazyload_iframes', PHP_INT_MAX );
  * Gets youtube video ID from URL
  *
  * @param string $url URL to parse.
- * @return string     Youtube video id or false if none found. 
+ * @return string     Youtube video id or false if none found.
  */
- function rocket_lazyload_get_youtube_id_from_url( $url ) {
-    $pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=))([\w-]{11})#iU';
-    $result  = preg_match( $pattern, $url, $matches );
+function rocket_lazyload_get_youtube_id_from_url( $url ) {
+	$pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=))([\w-]{11})#iU';
+	$result  = preg_match( $pattern, $url, $matches );
 
-    if ( $result ) {
-        return $matches[1];
-    }
-    return false;
- }
+	if ( $result ) {
+		return $matches[1];
+	}
+	return false;
+}
