@@ -193,6 +193,10 @@ function rocket_lazyload_images( $html ) {
 	}
 
 	$dom = new PHPHtmlParser\Dom();
+	$dom->setOptions( [
+		'removeScripts' => false,
+		'removeStyles'  => false,
+	] );
 	$dom->load( $html );
 	$images = $dom->getElementsByTag( 'img' );
 
@@ -449,6 +453,10 @@ function rocket_lazyload_iframes( $html ) {
 	}
 
 	$dom = new PHPHtmlParser\Dom();
+	$dom->setOptions( [
+		'removeScripts' => false,
+		'removeStyles'  => false,
+	] );
 	$dom->load( $html );
 	$iframes = $dom->getElementsByTag( 'iframe' );
 
