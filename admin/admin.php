@@ -90,7 +90,12 @@ function rocket_lazyload_options_output() {
 						<li class="rocket-lazyload-option">
 							<input type="checkbox" value="1" id="lazyload-iframes" name="rocket_lazyload_options[iframes]" <?php checked( rocket_lazyload_get_option( 'iframes', 0 ), 1 ); ?> aria-describedby="describe-lazyload-iframes">
 							<label for="lazyload-iframes"><span class="screen-reader-text"><?php _e( 'Iframes & Videos', 'rocket-lazyload' ); ?></span></label>
-							<span id="describe-lazyload-images" class="rocket-lazyload-label-description"><?php _e( 'Iframes & Videos', 'rocket-lazyload' ); ?></span>
+							<span id="describe-lazyload-iframes" class="rocket-lazyload-label-description"><?php _e( 'Iframes & Videos', 'rocket-lazyload' ); ?></span>
+						</li>
+						<li class="rocket-lazyload-option">
+							<input type="checkbox" value="1" id="lazyload-youtube" name="rocket_lazyload_options[youtube]" <?php checked( rocket_lazyload_get_option( 'youtube', 0 ), 1 ); ?> aria-describedby="describe-lazyload-youtube">
+							<label for="lazyload-youtube"><span class="screen-reader-text"><?php _e( 'Replace Youtube videos by thumbnail', 'rocket-lazyload' ); ?></span></label>
+							<span id="describe-lazyload-youtube" class="rocket-lazyload-label-description"><?php _e( 'Replace Youtube videos by thumbnail', 'rocket-lazyload' ); ?></span>
 						</li>
 					</ul>
 				</fieldset>
