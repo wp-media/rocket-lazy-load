@@ -1,4 +1,10 @@
 <?php
+require_once realpath( plugin_dir_path( __FILE__ ) ) . '/vendor/autoload.php';
+
+use PHPHtmlParser\Dom;
+use PHPHtmlParser\Dom\HtmlNode;
+use PHPHtmlParser\Dom\Tag;
+
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 /**
@@ -44,7 +50,6 @@ define( 'ROCKET_LL_JS_VERSION'  , '8.0.3' );
 function rocket_lazyload_init() {
 	load_plugin_textdomain( 'rocket-lazy-load', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
-	require_once ROCKET_LL_PATH . 'vendor/autoload.php';
 	require ROCKET_LL_3RD_PARTY_PATH . '3rd-party.php';
 
 	if ( is_admin() ) {
@@ -109,8 +114,7 @@ function rocket_lazyload_script() {
 	$threshold = apply_filters( 'rocket_lazyload_threshold', 300 );
 
 	echo <<<HTML
-	<script>
-	window.lazyLoadOptions = {
+	<script>window.lazyLoadOptions = {
 		elements_selector: "img, iframe",
 		data_src: "lazySrc",
 		data_srcset: "lazySrcset",
@@ -128,9 +132,14 @@ function rocket_lazyload_script() {
 				}
 			}
 		}	
-	};
-	</script>
+	};</script>
 HTML;
+
+	if ( rocket_lazyload_get_option( 'youtube' ) ) {
+		echo <<<HTML
+		<script>function lazyLoadThumb(e){var t='<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg">',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="https://www.youtube.com/embed/ID?autoplay=1";e.setAttribute("src",t.replace("ID",this.dataset.id)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>
+HTML;
+	}
 }
 add_action( 'wp_footer', 'rocket_lazyload_script', 9 );
 
@@ -149,6 +158,14 @@ function rocket_lazyload_enqueue() {
 	$ll_url = ROCKET_LL_FRONT_JS_URL . 'lazyload-' . ROCKET_LL_JS_VERSION . $suffix . '.js';
 
 	wp_enqueue_script( 'rocket-lazyload', $ll_url, null, null, true );
+
+	if ( rocket_lazyload_get_option( 'youtube' ) ) {
+		$css = '.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;background:#000;margin:5px}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(' . ROCKET_LL_ASSETS_URL . 'img/play.png) no-repeat;cursor:pointer}';
+
+		wp_register_style( 'rocket-lazyload', false );
+		wp_enqueue_style( 'rocket-lazyload' );
+		wp_add_inline_style( 'rocket-lazyload', $css );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'rocket_lazyload_enqueue', PHP_INT_MAX );
 
@@ -192,7 +209,7 @@ function rocket_lazyload_images( $html ) {
 		return $html;
 	}
 
-	$dom = new PHPHtmlParser\Dom();
+	$dom = new Dom();
 	$dom->load( $html );
 	$images = $dom->getElementsByTag( 'img' );
 
@@ -213,15 +230,15 @@ function rocket_lazyload_images( $html ) {
 			continue;
 		}
 
-		$img = new PHPHtmlParser\Dom\Tag( 'img' );
+		$img = new Tag( 'img' );
 
 		foreach ( $image_attributes as $key => $value ) {
 			$img->setAttribute( $key, $value );
 		}
 
-		$original_image = new PHPHtmlParser\Dom\HtmlNode( $img );
-		$noscript_tag   = new PHPHtmlParser\Dom\Tag( 'noscript' );
-		$noscript       = new PHPHtmlParser\Dom\HtmlNode( $noscript_tag );
+		$original_image = new HtmlNode( $img );
+		$noscript_tag   = new Tag( 'noscript' );
+		$noscript       = new HtmlNode( $noscript_tag );
 
 		/**
 		 * Filter the LazyLoad placeholder on src attribute
@@ -448,7 +465,7 @@ function rocket_lazyload_iframes( $html ) {
 		return $html;
 	}
 
-	$dom = new PHPHtmlParser\Dom();
+	$dom = new Dom();
 	$dom->load( $html );
 	$iframes = $dom->getElementsByTag( 'iframe' );
 
@@ -469,36 +486,63 @@ function rocket_lazyload_iframes( $html ) {
 			continue;
 		}
 
-		$iframe_tag = new PHPHtmlParser\Dom\Tag( 'iframe' );
+		$iframe_tag = new Tag( 'iframe' );
+		$parent     = $iframe->getParent();
 
 		foreach ( $iframe_attributes as $key => $value ) {
 			$iframe_tag->setAttribute( $key, $value );
 		}
 
-		$original_iframe = new PHPHtmlParser\Dom\HtmlNode( $iframe_tag );
-		$noscript_tag    = new PHPHtmlParser\Dom\Tag( 'noscript' );
-		$noscript        = new PHPHtmlParser\Dom\HtmlNode( $noscript_tag );
-
-		/**
-		 * Filter the LazyLoad placeholder on src attribute
-		 *
-		 * @since 1.1
-		 *
-		 * @param string $placeholder placeholder that will be printed.
-		 */
-		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
-
-		$iframe->setAttribute( 'src', $placeholder );
-		$iframe->setAttribute( 'data-lazy-src', $iframe_attributes['src'] );
-		$iframe->setAttribute( 'data-rocket-lazyload', 'fitvidscompatible' );
-
+		$original_iframe = new HtmlNode( $iframe_tag );
+		$noscript_tag    = new Tag( 'noscript' );
+		$noscript        = new HtmlNode( $noscript_tag );
 		$noscript->addChild( $original_iframe );
 
-		$parent = $iframe->getParent();
-		$parent->insertAfter( $noscript, $iframe->id() );
+		if ( rocket_lazyload_get_option( 'youtube' ) && false !== strpos( $iframe_attributes['src'], 'youtube' ) ) {
+			$youtube_id = rocket_lazyload_get_youtube_id_from_url( $iframe_attributes['src'] );
+
+			$youtube_lazyload_container = new Tag( 'div' );
+			$youtube_lazyload_container->setAttribute( 'class', 'rll-youtube-player' );
+			$youtube_lazyload_container->setAttribute( 'data-id', $youtube_id );
+
+			$youtube_lazyload_container = new HtmlNode( $youtube_lazyload_container );
+
+			$parent->replaceChild( $iframe->id(), $youtube_lazyload_container );
+			$parent->insertAfter( $noscript, $youtube_lazyload_container->id() );
+		} else {
+			/**
+			 * Filter the LazyLoad placeholder on src attribute
+			 *
+			 * @since 1.1
+			 *
+			 * @param string $placeholder placeholder that will be printed.
+			 */
+			$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
+			
+			$iframe->setAttribute( 'src', $placeholder );
+			$iframe->setAttribute( 'data-lazy-src', $iframe_attributes['src'] );
+			$iframe->setAttribute( 'data-rocket-lazyload', 'fitvidscompatible' );
+			$parent->insertAfter( $noscript, $iframe->id() );
+		}
 	}
 
 	return $dom;
 }
 add_filter( 'the_content', 'rocket_lazyload_iframes', PHP_INT_MAX );
 add_filter( 'widget_text', 'rocket_lazyload_iframes', PHP_INT_MAX );
+
+/**
+ * Gets youtube video ID from URL
+ *
+ * @param string $url URL to parse.
+ * @return string     Youtube video id or false if none found. 
+ */
+ function rocket_lazyload_get_youtube_id_from_url( $url ) {
+    $pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=))([\w-]{11})#iU';
+    $result  = preg_match( $pattern, $url, $matches );
+
+    if ( $result ) {
+        return $matches[1];
+    }
+    return false;
+ }
