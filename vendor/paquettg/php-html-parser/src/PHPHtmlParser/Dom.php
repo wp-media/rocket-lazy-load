@@ -509,7 +509,7 @@ class Dom
         }
 
         // strip smarty scripts
-        $str = mb_eregi_replace("(\{\w)(.*?)(\})", '', $str);
+        //$str = mb_eregi_replace("(\{\w)(.*?)(\})", '', $str);
 
         return $str;
     }
