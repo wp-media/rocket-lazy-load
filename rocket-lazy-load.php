@@ -212,7 +212,10 @@ function rocket_lazyload_images( $html ) {
 	$dom = new Dom();
 	$dom->setOptions(
 		[
-			'cleanupInput' => false,
+			'removeScripts'      => false,
+			'removeStyles'       => false,
+			'preserveLineBreaks' => true,
+			'removeDoubleSpace'  => false,
 		]
 	);
 	$dom->load( $html );
@@ -479,7 +482,10 @@ function rocket_lazyload_iframes( $html ) {
 	$dom = new Dom();
 	$dom->setOptions(
 		[
-			'cleanupInput' => false,
+			'removeScripts'      => false,
+			'removeStyles'       => false,
+			'preserveLineBreaks' => true,
+			'removeDoubleSpace'  => false,
 		]
 	);
 	$dom->load( $html );
