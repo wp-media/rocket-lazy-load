@@ -117,8 +117,8 @@ function rocket_lazyload_script() {
 	echo <<<HTML
 	<script>window.lazyLoadOptions = {
 		elements_selector: "img, iframe",
-		data_src: "lazySrc",
-		data_srcset: "lazySrcset",
+		data_src: "lazy-src",
+		data_srcset: "lazy-srcset",
 		class_loading: "lazyloading",
 		class_loaded: "lazyloaded",
 		threshold: $threshold,
