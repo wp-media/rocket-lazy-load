@@ -2,8 +2,8 @@
 Contributors: creativejuiz, tabrisrp, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar
 Requires at least: 3.0
-Tested up to: 4.8.1
-Stable tag: 1.4.1
+Tested up to: 4.8
+Stable tag: 1.4.2
 
 The tiny Lazy Load script for WordPress without jQuery, works for images and iframes.
 
@@ -50,6 +50,9 @@ You can also use the filters `rocket_lazyload_excluded_attributes` or `rocket_la
 Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
 
 == Changelog ==
+
+= 1.4.2 =
+* Update lazyload script to bring back compatibility with IE9/10
 
 = 1.4.1 =
 * Fix bug caused by a too aggressive cleanup
