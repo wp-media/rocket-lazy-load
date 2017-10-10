@@ -3,8 +3,7 @@
  * Plugin Name: Lazy Load by WP Rocket
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.4.2
- * Requires PHP: 5.4
+ * Version: 1.4.3
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -25,16 +24,9 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-require_once realpath( plugin_dir_path( __FILE__ ) ) . '/vendor/autoload.php';
-
-use PHPHtmlParser\Dom;
-use PHPHtmlParser\Dom\HtmlNode;
-use PHPHtmlParser\Dom\Tag;
-
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
-define( 'ROCKET_LL_VERSION', '1.4.2' );
+define( 'ROCKET_LL_VERSION', '1.4.3' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
@@ -58,14 +50,14 @@ function rocket_lazyload_init() {
 	}
 }
 
-if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
+if ( version_compare( PHP_VERSION, '5.3', '<' ) ) {
 	/**
-	 * Warning if PHP version is less than 5.4.
+	 * Warning if PHP version is less than 5.3.
 	 *
 	 * @since 1.3
 	 */
 	function rocket_lazyload_php_warning() {
-		echo '<div class="error"><p>' . __( 'Rocket LazyLoad requires PHP 5.4 to function properly. Please upgrade PHP. The Plugin has been auto-deactivated.', 'rocket-lazy-load' ) . '</p></div>';
+		echo '<div class="error"><p>' . __( 'Rocket LazyLoad requires PHP 5.3 to function properly. Please upgrade PHP. The Plugin has been auto-deactivated.', 'rocket-lazy-load' ) . '</p></div>';
 		if ( isset( $_GET['activate'] ) ) { // WPCS: CSRF ok.
 			unset( $_GET['activate'] );
 		}
@@ -210,73 +202,7 @@ function rocket_lazyload_images( $html ) {
 		return $html;
 	}
 
-	$dom = new Dom();
-	$dom->setOptions(
-		[
-			'removeScripts'      => false,
-			'removeStyles'       => false,
-			'preserveLineBreaks' => true,
-			'removeDoubleSpace'  => false,
-		]
-	);
-	$dom->load( $html );
-	$images = $dom->getElementsByTag( 'img' );
-
-	if ( empty( $images ) ) {
-		return $html;
-	}
-
-	foreach ( $images as $image ) {
-		$image_attributes = $image->getAttributes();
-
-		if ( rocket_is_excluded_lazyload( $image_attributes ) ) {
-			continue;
-		}
-
-		$parent = $image->getParent();
-
-		if ( false !== strpos( $parent->getAttribute( 'class' ), 'et_pb_slide_image' ) ) {
-			continue;
-		}
-
-		$img = new Tag( 'img' );
-
-		foreach ( $image_attributes as $key => $value ) {
-			$img->setAttribute( $key, $value );
-		}
-
-		$original_image = new HtmlNode( $img );
-		$noscript_tag   = new Tag( 'noscript' );
-		$noscript       = new HtmlNode( $noscript_tag );
-
-		/**
-		 * Filter the LazyLoad placeholder on src attribute
-		 *
-		 * @since 1.1
-		 *
-		 * @param string $placeholder Placeholder that will be printed.
-		 */
-		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
-
-		$image->setAttribute( 'src', $placeholder );
-		$image->setAttribute( 'data-lazy-src', $image_attributes['src'] );
-
-		if ( isset( $image_attributes['srcset'] ) ) {
-			$image->removeAttribute( 'srcset' );
-			$image->setAttribute( 'data-lazy-srcset', $image_attributes['srcset'] );
-		}
-
-		if ( isset( $image_attributes['sizes'] ) ) {
-			$image->removeAttribute( 'sizes' );
-			$image->setAttribute( 'data-lazy-sizes', $image_attributes['sizes'] );
-		}
-
-		$noscript->addChild( $original_image );
-
-		$parent->insertAfter( $noscript, $image->id() );
-	}
-
-	return $dom;
+	return preg_replace_callback( '#<img([^>]*) src=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))([^>]*)>#', 'rocket_lazyload_replace_callback', $html );
 }
 add_filter( 'get_avatar'         , 'rocket_lazyload_images', PHP_INT_MAX );
 add_filter( 'the_content'        , 'rocket_lazyload_images', PHP_INT_MAX );
@@ -285,67 +211,109 @@ add_filter( 'get_image_tag'      , 'rocket_lazyload_images', PHP_INT_MAX );
 add_filter( 'post_thumbnail_html', 'rocket_lazyload_images', PHP_INT_MAX );
 
 /**
+ * Used to check if we have to LazyLoad this or not
+ *
+ * @since 1.1 Don't apply LazyLoad on images from WP Retina x2
+ * @since 1.0.1
+ *
+ * @param string $matches a string matching the pattern to find images in HTML code.
+ * @return string Updated string with lazyload data
+ */
+function rocket_lazyload_replace_callback( $matches ) {
+	if ( function_exists( 'wr2x_picture_rewrite' ) ) {
+		if ( wr2x_get_retina( trailingslashit( ABSPATH ) . wr2x_get_pathinfo_from_image_src( trim( $matches[2], '"' ) ) ) ) {
+			return $matches[0];
+		}
+	}
+	$excluded_attributes = apply_filters( 'rocket_lazyload_excluded_attributes', array(
+		'data-no-lazy=',
+		'data-lazy-original=',
+		'data-lazy-src=',
+		'data-lazysrc=',
+		'data-lazyload=',
+		'data-bgposition=',
+		'data-envira-src=',
+		'fullurl=',
+		'lazy-slider-img=',
+		'data-srcset=',
+		'class="ls-l',
+		'class="ls-bg',
+	) );
+
+	$excluded_src = apply_filters( 'rocket_lazyload_excluded_src', array(
+		'/wpcf7_captcha/',
+		'timthumb.php?src',
+	) );
+
+	if ( rocket_is_excluded_lazyload( $matches[1] . $matches[3], $excluded_attributes ) ||  rocket_is_excluded_lazyload( $matches[2], $excluded_src ) ) {
+		return $matches[0];
+	}
+
+	/**
+	 * Filter the LazyLoad placeholder on src attribute
+	 *
+	 * @since 1.1
+	 *
+	 * @param string $placeholder Placeholder that will be printed.
+	 */
+	$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+
+	$img = sprintf( '<img%1$s src="%4$s" data-lazy-src=%2$s%3$s>', $matches[1], $matches[2], $matches[3], $placeholder );
+
+	$img_noscript = sprintf( '<noscript><img%1$s src=%2$s%3$s></noscript>', $matches[1], $matches[2], $matches[3] );
+
+	/**
+	 * Filter the LazyLoad HTML output
+	 *
+	 * @since 1.0.2
+	 *
+	 * @param array $img Output that will be printed
+	 */
+	$img = apply_filters( 'rocket_lazyload_html', $img, true );
+
+	return $img . $img_noscript;
+}
+
+/**
  * Determine if the current image should be excluded from lazyload
  *
- * @since 1.3 Moved check logic in the function directly
  * @since 1.1
  * @author Remy Perona
  *
- * @param array $attributes Array containing image attributes.
+ * @param string $string String to search.
+ * @param array  $excluded_values Array of excluded values to search in the string.
  * @return bool True if one of the excluded values was found, false otherwise
  */
-function rocket_is_excluded_lazyload( $attributes ) {
-	if ( function_exists( 'wr2x_picture_rewrite' ) ) {
-		if ( wr2x_get_retina( trailingslashit( ABSPATH ) . wr2x_get_pathinfo_from_image_src( trim( $attributes['src'], '"' ) ) ) ) {
+function rocket_is_excluded_lazyload( $string, $excluded_values ) {
+	foreach ( $excluded_values as $excluded_value ) {
+		if ( strpos( $string, $excluded_value ) !== false ) {
 			return true;
 		}
 	}
-
-	$excluded_attributes = apply_filters(
-		'rocket_lazyload_excluded_attributes', array(
-		    'data-no-lazy',
-		    'data-lazy-original',
-		    'data-lazy-src',
-		    'data-lazysrc',
-		    'data-lazyload',
-		    'data-bgposition',
-		    'data-envira-src',
-		    'fullurl',
-		    'lazy-slider-img',
-		    'data-srcset',
-		)
-	);
-
-	$excluded_classes = apply_filters(
-		'rocket_lazyload_excluded_classes', array(
-		    'ls-l',
-		    'ls-bg',
-		)
-	);
-
-	$excluded_src = apply_filters(
-		'rocket_lazyload_excluded_src', array(
-		    '/wpcf7_captcha/',
-		    'timthumb.php?src',
-		)
-	);
-
-	$attributes = array_flip( $attributes );
-
-	if ( array_intersect( $attributes, $excluded_attributes ) ) {
-		return true;
-	}
-
-	if ( array_intersect( $attributes, $excluded_classes ) ) {
-		return true;
-	}
-
-	if ( array_intersect( $attributes, $excluded_src ) ) {
-		return true;
-	}
-
 	return false;
 }
+
+/**
+ * Compatibility with images with srcset attribute
+ *
+ * @since 1.1
+ * @author Geoffrey Crofte (code from WP Rocket plugin)
+ *
+ * @param string $html the HTML code to parse.
+ * @return string the updated HTML code
+ */
+function rocket_lazyload_on_srcset( $html ) {
+	if ( preg_match( '/srcset=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html ) ) {
+		$html = str_replace( 'srcset=', 'data-lazy-srcset=', $html );
+	}
+
+	if ( preg_match( '/sizes=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html ) ) {
+		$html = str_replace( 'sizes=', 'data-lazy-sizes=', $html );
+	}
+
+	return $html;
+}
+add_filter( 'rocket_lazyload_html', 'rocket_lazyload_on_srcset' );
 
 /**
  * Replace WordPress smilies by Lazy Load
@@ -480,76 +448,69 @@ function rocket_lazyload_iframes( $html ) {
 		return $html;
 	}
 
-	$dom = new Dom();
-	$dom->setOptions(
-		[
-			'removeScripts'      => false,
-			'removeStyles'       => false,
-			'preserveLineBreaks' => true,
-			'removeDoubleSpace'  => false,
-		]
-	);
-	$dom->load( $html );
-	$iframes = $dom->getElementsByTag( 'iframe' );
+	$matches = array();
+	preg_match_all( '/<iframe(?:.*)?src=["|\'](.*)["|\'](?:.*)?><\/iframe>/iU', $html, $matches, PREG_SET_ORDER );
 
-	if ( empty( $iframes ) ) {
+	if ( empty( $matches ) ) {
 		return $html;
 	}
 
-	foreach ( $iframes as $iframe ) {
-		$iframe_attributes = $iframe->getAttributes();
-
+	foreach ( $matches as $iframe ) {
 		// Don't mess with the Gravity Forms ajax iframe.
-		if ( isset( $iframe_attributes['id'] ) && false !== strpos( $iframe_attributes['id'], 'gform_ajax_frame' ) || isset( $iframe_attributes['name'] ) && false !== strpos( $iframe_attributes['name'], 'gform_ajax_frame' ) ) {
+		if ( strpos( $iframe[0], 'gform_ajax_frame' ) ) {
 			continue;
 		}
 
 		// Don't lazyload if iframe has data-no-lazy attribute.
-		if ( isset( $iframe_attributes['data-no-lazy'] ) ) {
+		if ( strpos( $iframe[0], 'data-no-lazy=' ) ) {
 			continue;
 		}
 
-		$iframe_tag = new Tag( 'iframe' );
-		$parent     = $iframe->getParent();
+		if ( rocket_lazyload_get_option( 'youtube' ) && false !== strpos( $iframe[1], 'youtube' ) ) {
+			$youtube_id = rocket_lazyload_get_youtube_id_from_url( $iframe[1] );
 
-		foreach ( $iframe_attributes as $key => $value ) {
-			$iframe_tag->setAttribute( $key, $value );
-		}
+			if ( ! $youtube_id ) {
+				continue;
+			}
 
-		$original_iframe = new HtmlNode( $iframe_tag );
-		$noscript_tag    = new Tag( 'noscript' );
-		$noscript        = new HtmlNode( $noscript_tag );
-		$noscript->addChild( $original_iframe );
+			/**
+			 * Filter the LazyLoad HTML output on Youtube iframes
+			 *
+			 * @since 1.4.3
+			 *
+			 * @param array $html Output that will be printed.
+			 */
+			$youtube_lazyload = apply_filters( 'rocket_lazyload_youtube_html', '<div class="rll-youtube-player" data-id="' . $youtube_id . '"></div>');
+			$youtube_lazyload .= '<noscript>' . $iframe[0] . '</noscript>';
 
-		if ( rocket_lazyload_get_option( 'youtube' ) && false !== strpos( $iframe_attributes['src'], 'youtube' ) ) {
-			$youtube_id = rocket_lazyload_get_youtube_id_from_url( $iframe_attributes['src'] );
-
-			$youtube_lazyload_container = new Tag( 'div' );
-			$youtube_lazyload_container->setAttribute( 'class', 'rll-youtube-player' );
-			$youtube_lazyload_container->setAttribute( 'data-id', $youtube_id );
-
-			$youtube_lazyload_container = new HtmlNode( $youtube_lazyload_container );
-
-			$parent->replaceChild( $iframe->id(), $youtube_lazyload_container );
-			$parent->insertAfter( $noscript, $youtube_lazyload_container->id() );
+			$html = str_replace( $iframe[0], $youtube_lazyload, $html );
 		} else {
 			/**
 			 * Filter the LazyLoad placeholder on src attribute
+	    	 *
+	    	 * @since 1.1
+	    	 *
+	    	 * @param string $placeholder placeholder that will be printed.
+	    	 */
+			$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
+			
+			$iframe_noscript = '<noscript>' . $iframe[0] . '</noscript>';
+
+			/**
+			 * Filter the LazyLoad HTML output on iframes
 			 *
 			 * @since 1.1
 			 *
-			 * @param string $placeholder placeholder that will be printed.
+			 * @param array $html Output that will be printed.
 			 */
-			$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
-
-			$iframe->setAttribute( 'src', $placeholder );
-			$iframe->setAttribute( 'data-lazy-src', $iframe_attributes['src'] );
-			$iframe->setAttribute( 'data-rocket-lazyload', 'fitvidscompatible' );
-			$parent->insertAfter( $noscript, $iframe->id() );
+			$iframe_lazyload = apply_filters( 'rocket_lazyload_iframe_html', str_replace( $iframe[1], $placeholder . '" data-fitvidscompatible="1" data-lazy-src="' . $iframe[1], $iframe[0] ) );
+			$iframe_lazyload .= $iframe_noscript;
+			
+			$html = str_replace( $iframe[0], $iframe_lazyload, $html );
 		}
 	}
 
-	return $dom;
+	return $html;
 }
 add_filter( 'the_content', 'rocket_lazyload_iframes', PHP_INT_MAX );
 add_filter( 'widget_text', 'rocket_lazyload_iframes', PHP_INT_MAX );
