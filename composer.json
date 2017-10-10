@@ -1,6 +1,22 @@
 {
 	"name": "wp-media/rocket-lazy-load",
-    "require": {
-		"paquettg/php-html-parser": "dev-dev"
+	"description": "Lazy Load images and iframes without jQuery",
+	"keywords": [
+		"wordpress",
+		"lazyload"
+	],
+	"homepage": "https://github.com/wp-media/rocket-lazy-load",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "WP Media",
+			"email": "contact@wp-media.me",
+			"homepage": "https://wp-media.me"
+		}
+	],
+	"type": "wordpress-plugin",
+	"support": {
+		"issues": "https://github.com/wp-media/rocket-lazy-load/issues",
+		"source": "https://github.com/wp-media/rocket-lazy-load"
 	}
 }

@@ -6,27 +6,9 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit6b11730bf9ca7991cb734e6839a3d592
 {
-    public static $prefixesPsr0 = array (
-        's' => 
-        array (
-            'stringEncode' => 
-            array (
-                0 => __DIR__ . '/..' . '/paquettg/string-encode/src',
-            ),
-        ),
-        'P' => 
-        array (
-            'PHPHtmlParser' => 
-            array (
-                0 => __DIR__ . '/..' . '/paquettg/php-html-parser/src',
-            ),
-        ),
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit6b11730bf9ca7991cb734e6839a3d592::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
