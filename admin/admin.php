@@ -51,6 +51,18 @@ add_action( 'admin_init', 'rocket_lazyload_settings_init' );
 function rocket_lazyload_options_output() {
 	global $wp_version;
 
+	$options = array(
+		'images' => array(
+			'label' => __( 'Images', 'rocket-lazyload' ),
+		),
+		'iframes' => array(
+			'label' => __( 'Iframes &amp; Videos', 'rocket-lazyload' ),
+		),
+		'youtube' => array(
+			'label' => __( 'Replace Youtube videos by thumbnail', 'rocket-lazyload' ),
+		),
+	);
+
 	// check user capabilities.
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
@@ -82,25 +94,17 @@ function rocket_lazyload_options_output() {
 					<p><?php _e( 'LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazyload' ); ?></p>
 					<p><?php _e( 'This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazyload' ); ?></p>
 					<ul>
+						<?php foreach ( $options as $slug => $infos ) { ?>
+
 						<li class="rocket-lazyload-option">
-							<input type="checkbox" value="1" id="lazyload-images" name="rocket_lazyload_options[images]" <?php checked( rocket_lazyload_get_option( 'images', 0 ), 1 ); ?> aria-describedby="describe-lazyload-images">
-							<label for="lazyload-images">
-								<span id="describe-lazyload-images" class="rocket-lazyload-label-description"><?php _e( 'Images', 'rocket-lazyload' ); ?></span>
+							<input type="checkbox" value="1" id="lazyload-<?php echo $slug; ?>" name="rocket_lazyload_options[<?php echo $slug; ?>]" <?php checked( rocket_lazyload_get_option( $slug, 0 ), 1 ); ?> aria-labelledby="describe-lazyload-<?php echo $slug; ?>">
+							<label for="lazyload-<?php echo $slug; ?>">
+								<span id="describe-lazyload-<?php echo $slug; ?>" class="rocket-lazyload-label-description"><?php echo $infos['label']; ?></span>
 							</label>
 						</li>
-						<li class="rocket-lazyload-option">
-							<input type="checkbox" value="1" id="lazyload-iframes" name="rocket_lazyload_options[iframes]" <?php checked( rocket_lazyload_get_option( 'iframes', 0 ), 1 ); ?> aria-describedby="describe-lazyload-iframes">
-							<label for="lazyload-iframes">
-								<span id="describe-lazyload-iframes" class="rocket-lazyload-label-description"><?php _e( 'Iframes & Videos', 'rocket-lazyload' ); ?></span>
-							</label>
-						</li>
-						<li class="rocket-lazyload-option">
-							<input type="checkbox" value="1" id="lazyload-youtube" name="rocket_lazyload_options[youtube]" <?php checked( rocket_lazyload_get_option( 'youtube', 0 ), 1 ); ?> aria-describedby="describe-lazyload-youtube">
-							<label for="lazyload-youtube">
-								<span id="describe-lazyload-youtube" class="rocket-lazyload-label-description"><?php _e( 'Replace Youtube videos by thumbnail', 'rocket-lazyload' ); ?></span>
-							</label>
-							
-						</li>
+
+						<?php } ?>
+
 					</ul>
 				</fieldset>
 			<?php
