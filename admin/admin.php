@@ -93,7 +93,7 @@ function rocket_lazyload_options_output() {
 					<legend class="screen-reader-text"><?php _e( 'Lazyload', 'rocket-lazyload' ); ?></legend>
 					<p><?php _e( 'LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazyload' ); ?></p>
 					<p><?php _e( 'This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazyload' ); ?></p>
-					<ul>
+					<ul class="rocket-lazyload-options">
 						<?php foreach ( $options as $slug => $infos ) { ?>
 
 						<li class="rocket-lazyload-option">
@@ -107,20 +107,15 @@ function rocket_lazyload_options_output() {
 
 					</ul>
 				</fieldset>
-			<?php
-				settings_fields( 'rocket_lazyload' );
-				submit_button( __( '✓ Save changes', 'rocket-lazyload' ) );
-			?>
+			<?php settings_fields( 'rocket_lazyload' ); ?>
+
+			<p class="submit">
+				<button type="submit" class="button button-primary">
+					<span class="text"><?php _e( 'Save changes', 'rocket-lazyload' ); ?></span>
+					<span class="icon">✓</span>
+				</button>
+			</p>
 			</form>
-			<div class="rocket-lazyload-cross-sell">
-				<h2 class="rocket-lazyload-cross-sell-title"><?php _e( 'Need To Boost Your Speed Even More?', 'rocket-lazyload' ); ?></h2>
-				<div class="rocket-lazyload-ads">
-					<a href="https://wp-rocket.me?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL; ?>img/wp-rocket@2x.jpg" alt="WP Rocket" width="393" height="180"></a>
-					<?php if ( ! is_plugin_active( 'imagify/imagify.php' ) ) : ?>
-					<a href="https://imagify.io?utm_source=wp_plugin&utm_medium=rocket_lazyload"><img src="<?php echo ROCKET_LL_ASSETS_URL; ?>img/imagify@2x.jpg" alt="Imagify" width="393" height="180"></a>
-					<?php endif; ?>
-				</div>
-			</div>
 		</div>
 	</div>
 <?php

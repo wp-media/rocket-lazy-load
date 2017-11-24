@@ -1,6 +1,7 @@
 /**
  * Colors Palette:
  * orange: #F56640; (link, subtitle, button primary)
+ * orange: #FC8665; (hover)
  */
 .rocket-lazyload-settings {
 	max-width: 880px;
@@ -17,7 +18,7 @@
 
 .rocket-lazyload-settings a:hover,
 .rocket-lazyload-settings a:focus {
-	color: #FEE102;
+	color: #FC8665;
 }
 
 .rocket-lazyload-header.rocket-lazyload-header {
@@ -103,8 +104,12 @@
 	color: #23282D;
 }
 
+.rocket-lazyload-options {
+	margin-top: 22px;
+}
+
 .rocket-lazyload-option {
-	height: 32px;
+	min-height: 32px;
 	margin: 0 0 12px 20px;
 }
 
@@ -187,27 +192,32 @@
 	padding: 28px 0 32px 24px;
 }
 
-.rocket-lazyload-form .submit .button-primary {
-	height: 40px;
+.rocket-lazyload-form .submit {
+	margin: 0;
+	padding: 34px 45px;
+	background: #F6F6F6;
+}
+
+.rocket-lazyload-form .button-primary {
+	padding: 11px 20px;
+	height: auto;
 	background-color: #F56640;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
 	border: none;
+	font-size: 15px;
+	text-transform: uppercase;
+	letter-spacing: .04em;
 	border-radius: 3px;
 	font-weight: bold;
 	text-shadow: none;
 }
-
-.rocket-lazyload-cross-sell {
-	padding: 35px 35px 35px 25px;
+.rocket-lazyload-form .button-primary:hover,
+.rocket-lazyload-form .button-primary:focus {
+	text-shadow: none;
+	background: #FC8665;
+	transform: translateY(-3px);
 }
 
-.rocket-lazyload-cross-sell-title {
-	margin-top: 0;
-	font-size: 23px;
-}
-
-.rocket-lazyload-ads {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+.rocket-lazyload-form .button-primary .icon {
+	margin-left: 8px;
 }
