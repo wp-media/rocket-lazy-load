@@ -62,7 +62,7 @@ function rocket_lazyload_options_output() {
 		<<?php echo $heading_tag; ?> class="screen-reader-text"><?php echo esc_html( get_admin_page_title() ); ?></<?php echo $heading_tag; ?>>
 		<div class="rocket-lazyload-header">
 			<div>
-				<p class="rocket-lazyload-title"><?php echo esc_html( get_admin_page_title() ); ?></p>
+				<p class="rocket-lazyload-title"><img src="<?php echo ROCKET_LL_ASSETS_URL; ?>img/logo.png" srcset="<?php echo ROCKET_LL_ASSETS_URL; ?>img/logo@2x.png 2x" alt="<?php echo esc_attr( get_admin_page_title() ); ?>" width="216" height="59"></p>
 				<p class="rocket-lazyload-subtitle"><?php _e( 'Settings', 'rocket-lazyload' ); ?></p>
 			</div>
 			<?php $rocket_lazyload_rate_url = 'https://wordpress.org/support/plugin/rocket-lazy-load/reviews/?rate=5#postform'; ?>
@@ -78,7 +78,7 @@ function rocket_lazyload_options_output() {
 		<div class="rocket-lazyload-body">
 			<form action="options.php" class="rocket-lazyload-form" method="post">
 				<fieldset>
-					<legend><?php _e( 'Lazyload', 'rocket-lazyload' ); ?></legend>
+					<legend class="screen-reader-text"><?php _e( 'Lazyload', 'rocket-lazyload' ); ?></legend>
 					<p><?php _e( 'LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazyload' ); ?></p>
 					<p><?php _e( 'This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazyload' ); ?></p>
 					<ul>
