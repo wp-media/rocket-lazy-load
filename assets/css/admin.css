@@ -177,7 +177,8 @@
 
 .rocket-lazyload-label-description {
 	display: inline-block;
-	margin: 8px 0 0 20px;
+	margin: 0 0 0 20px;
+	vertical-align: -7px;
 	color: #666666;
 	font-weight: 600;
 }
