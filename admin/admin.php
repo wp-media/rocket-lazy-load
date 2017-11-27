@@ -109,6 +109,34 @@ function rocket_lazyload_options_output() {
 				</fieldset>
 			<?php settings_fields( 'rocket_lazyload' ); ?>
 
+			<div class="rocket-lazyload-upgrade">
+				<div class="rocket-lazyload-upgrade-cta">
+					<p class="rocket-lazyload-subtitle"><?php _e( 'We recommend for you', 'rocket-lazyload' ); ?></p>
+					<p class="rocket-lazyload-bigtext">
+						<?php _e( 'Go Premium with', 'rocket-lazyload' ); ?>
+						<img class="rocket-lazyload-rocket-logo" src="<?php echo ROCKET_LL_ASSETS_URL; ?>img/wprocket.png" srcset="<?php echo ROCKET_LL_ASSETS_URL; ?>img/wprocket@2x.png" width="232" height="63" alt="WP Rocket">
+					</p>
+					
+					<div class="rocket-lazyload-cta-block">
+						<span class="rocket-lazyload-cta-promo">
+							<?php printf( __( 'Get %s OFF%s Now', 'rocket-lazyload' ), '<strong>20%', '</strong>' ); ?>
+						</span>
+						<a class="button button-primary" href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_lazyload"><?php _e( 'Get WP&nbsp;Rocket Now!', 'rocket-lazyload' ); ?></a>
+					</div>
+				</div>
+				<div class="rocket-lazyload-upgrade-arguments">
+					<ul>
+						<li class="rll-upgrade-item"><?php printf( __( '%sMultiple new features%s to further improve your load time', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( 'All you need to %simprove your Google PageSpeed%s score', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( '%sBoost your SEO%s by preloading your cache page for Google’s bots', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( 'Watch your conversion rise with the %s100%% WooCommerce compatibility%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( 'Minimal configuration, %sImmediate results%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( 'Set up takes %s5 minutes flat%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( '%s24/7 support%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
+					</ul>
+				</div>
+			</div>
+
 			<p class="submit">
 				<button type="submit" class="button button-primary">
 					<span class="text"><?php _e( 'Save changes', 'rocket-lazyload' ); ?></span>
