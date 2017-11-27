@@ -108,8 +108,10 @@ function rocket_lazyload_options_output() {
 					</ul>
 				</fieldset>
 			<?php settings_fields( 'rocket_lazyload' ); ?>
-
+			
+			<?php if ( ! is_plugin_active( 'wp-rocket/wp-rocket.php' ) ) { ?>
 			<div class="rocket-lazyload-upgrade">
+
 				<div class="rocket-lazyload-upgrade-cta">
 					<p class="rocket-lazyload-subtitle"><?php _e( 'We recommend for you', 'rocket-lazyload' ); ?></p>
 					<p class="rocket-lazyload-bigtext">
@@ -124,7 +126,8 @@ function rocket_lazyload_options_output() {
 						</span>*/ ?>
 						<a class="button button-primary" href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_lazyload"><?php _e( 'Get WP&nbsp;Rocket Now!', 'rocket-lazyload' ); ?></a>
 					</div>
-				</div>
+				</div><!-- .rocket-lazyload-upgrade-cta -->
+
 				<div class="rocket-lazyload-upgrade-arguments">
 					<ul>
 						<li class="rll-upgrade-item"><?php printf( __( '%sMultiple new features%s to further improve your load time', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
@@ -135,8 +138,10 @@ function rocket_lazyload_options_output() {
 						<li class="rll-upgrade-item"><?php printf( __( 'Set up takes %s5 minutes flat%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
 						<li class="rll-upgrade-item"><?php printf( __( '%s24/7 support%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
 					</ul>
-				</div>
-			</div>
+				</div><!-- .rocket-lazyload-upgrade-arguments -->
+				
+			</div><!-- .rocket-lazyload-upgrade -->
+			<?php } ?>
 
 			<p class="submit">
 				<button type="submit" class="button button-primary">
