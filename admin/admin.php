@@ -118,9 +118,10 @@ function rocket_lazyload_options_output() {
 					</p>
 					
 					<div class="rocket-lazyload-cta-block">
-						<span class="rocket-lazyload-cta-promo">
-							<?php printf( __( 'Get %s OFF%s Now', 'rocket-lazyload' ), '<strong>20%', '</strong>' ); ?>
-						</span>
+						<?php $promo = __( 'Get %s OFF%s Now', 'rocket-lazyload' ); ?>
+						<?php /*<span class="rocket-lazyload-cta-promo">
+							<?php printf( $promo, '<strong>20%', '</strong>' ); ?>
+						</span>*/ ?>
 						<a class="button button-primary" href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_lazyload"><?php _e( 'Get WP&nbsp;Rocket Now!', 'rocket-lazyload' ); ?></a>
 					</div>
 				</div>
