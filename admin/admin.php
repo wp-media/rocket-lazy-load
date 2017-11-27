@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
  * @return void
  */
 function rocket_lazyload_add_menu() {
-	add_options_page( __( 'Rocket LazyLoad', 'rocket-lazy-load' ), __( 'Rocket LazyLoad', 'rocket-lazy-load' ), 'manage_options', 'rocket-lazyload', 'rocket_lazyload_options_output' );
+	add_options_page( __( 'LazyLoad by WP Rocket', 'rocket-lazy-load' ), __( 'LazyLoad', 'rocket-lazy-load' ), 'manage_options', 'rocket-lazyload', 'rocket_lazyload_options_output' );
 }
 add_action( 'admin_menu', 'rocket_lazyload_add_menu' );
 
