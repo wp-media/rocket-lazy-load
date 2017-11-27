@@ -70,6 +70,7 @@ function rocket_lazyload_options_output() {
 
 	?>
 	<div class="wrap rocket-lazyload-settings">
+
 		<?php $heading_tag = version_compare( $wp_version, '4.3' ) >= 0 ? 'h1' : 'h2'; ?>
 		<<?php echo $heading_tag; ?> class="screen-reader-text"><?php echo esc_html( get_admin_page_title() ); ?></<?php echo $heading_tag; ?>>
 		<div class="rocket-lazyload-header">
