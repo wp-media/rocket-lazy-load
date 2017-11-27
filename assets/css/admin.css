@@ -197,8 +197,12 @@
 
 /* Upgrade Block */
 .rocket-lazyload-upgrade {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	align-items: center;
+	-webkit-box-align: center;
+	   -ms-flex-align: center;
+	      align-items: center;
 	margin: -10px 20px 20px 20px;
 	padding: 26px;
 	background: #F6F6F6;
@@ -206,6 +210,7 @@
 }
 
 .rocket-lazyload-upgrade-cta {
+	-ms-flex-preferred-size: 250px;
 	flex-basis: 250px;
 	padding-right: 38px;
 }
@@ -313,6 +318,7 @@
 
 @media (max-width: 650px) {
 	.rocket-lazyload-upgrade {
+		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;
 	}
 	.rocket-lazyload-option {
