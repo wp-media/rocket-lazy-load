@@ -142,7 +142,7 @@ function rocket_lazyload_script() {
 				}
 			}
 		}
-	}; // Your options here. See "recipes" for more information about async.
+	};
 	b.appendChild(s);
 }(window, document));</script>';
 
