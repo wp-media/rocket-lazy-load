@@ -3,7 +3,7 @@
  * Plugin Name: Lazy Load by WP Rocket
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.4.4
+ * Version: 1.4.5
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -26,7 +26,7 @@
  */
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
-define( 'ROCKET_LL_VERSION', '1.4.4' );
+define( 'ROCKET_LL_VERSION', '1.4.5' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
@@ -46,6 +46,8 @@ function rocket_lazyload_init() {
 	require ROCKET_LL_3RD_PARTY_PATH . '3rd-party.php';
 
 	if ( is_admin() ) {
+		require ROCKET_LL_PATH . 'admin/actions.php';
+		require ROCKET_LL_PATH . 'admin/notices.php';
 		require ROCKET_LL_PATH . 'admin/admin.php';
 	}
 }
@@ -503,7 +505,7 @@ function rocket_lazyload_iframes( $html ) {
 			 *
 			 * @param array $html Output that will be printed.
 			 */
-			$iframe_lazyload = apply_filters( 'rocket_lazyload_iframe_html', str_replace( $iframe[1], $placeholder . '" data-fitvidscompatible="1" data-lazy-src="' . $iframe[1], $iframe[0] ) );
+			$iframe_lazyload = apply_filters( 'rocket_lazyload_iframe_html', str_replace( $iframe[1], $placeholder . '" data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . $iframe[1], $iframe[0] ) );
 			$iframe_lazyload .= $iframe_noscript;
 			
 			$html = str_replace( $iframe[0], $iframe_lazyload, $html );
