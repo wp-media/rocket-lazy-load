@@ -3,6 +3,7 @@ Contributors: creativejuiz, tabrisrp, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar
 Requires at least: 3.0
 Tested up to: 4.8
+Requires PHP: 5.3
 Stable tag: 1.4.5
 
 The tiny Lazy Load script for WordPress without jQuery, works for images and iframes.
@@ -67,6 +68,8 @@ Some plugins are not compatible without lazy loading. Please open a support thre
 = 1.4.5 =
 * Rename Setting Page Name in WP Menu
 * New Product Banner in Settings Page
+* Conditionally load a different version of the script depending on browser support of IntersectionObserver
+* Fix a bug where images initially hidden are not correctly displayed when coming into view (slider, tabs, accordion)
 
 = 1.4.4 =
 * Admin Redesign
