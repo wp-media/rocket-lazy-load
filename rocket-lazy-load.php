@@ -117,7 +117,8 @@ function rocket_lazyload_script() {
 	 */
 	$threshold = apply_filters( 'rocket_lazyload_threshold', 300 );
 
-	echo '<script>(function(w, d){
+	echo '<script>
+	(function(w, d){
 	var b = d.getElementsByTagName("body")[0];
 	var s = d.createElement("script"); s.async = true;
 	var v = !("IntersectionObserver" in w) ? "8.5.2" : "10.3.5";
@@ -143,7 +144,26 @@ function rocket_lazyload_script() {
 		}
 	};
 	b.appendChild(s);
-}(window, document));</script>';
+}(window, document));
+
+// Listen to the Initialized event
+window.addEventListener(\'LazyLoad::Initialized\', function (e) {
+    // Get the instance and puts it in the lazyLoadInstance variable
+	lazyLoadInstance = e.detail.instance;
+
+	var observer = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutation) {
+			console.log( "test" );
+			lazyLoadInstance.update();
+		} );
+	} );
+	
+	var b      = document.getElementsByTagName("body")[0];
+	var config = { childList: true, subtree: true };
+	
+	observer.observe(b, config);
+}, false);
+</script>';
 
 	if ( rocket_lazyload_get_option( 'youtube' ) ) {
 		echo <<<HTML
