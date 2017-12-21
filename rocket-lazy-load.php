@@ -241,6 +241,7 @@ function rocket_lazyload_replace_callback( $matches ) {
 		'data-no-lazy=',
 		'data-lazy-original=',
 		'data-lazy-src=',
+		'data-src=',
 		'data-lazysrc=',
 		'data-lazyload=',
 		'data-bgposition=',
