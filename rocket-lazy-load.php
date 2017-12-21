@@ -121,8 +121,7 @@ function rocket_lazyload_script() {
 	var b = d.getElementsByTagName("body")[0];
 	var s = d.createElement("script"); s.async = true;
 	var v = !("IntersectionObserver" in w) ? "8.5.2" : "10.3.5";
-	s.src = "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-v' . $suffix . '.js";
-	s.src = s.src.replace( "lazyload-v", "lazyload-" + v );
+	s.src = "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-" + v + "' . $suffix . '.js";
 	w.lazyLoadOptions = {
 		elements_selector: "img, iframe",
 		data_src: "lazy-src",
