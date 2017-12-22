@@ -117,8 +117,7 @@ function rocket_lazyload_script() {
 	 */
 	$threshold = apply_filters( 'rocket_lazyload_threshold', 300 );
 
-	echo '<script>
-	(function(w, d){
+	echo '<script>(function(w, d){
 	var b = d.getElementsByTagName("body")[0];
 	var s = d.createElement("script"); s.async = true;
 	var v = !("IntersectionObserver" in w) ? "8.5.2" : "10.3.5";
