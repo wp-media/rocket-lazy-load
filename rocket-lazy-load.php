@@ -3,7 +3,7 @@
  * Plugin Name: Lazy Load by WP Rocket
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.4.6
+ * Version: 1.4.7
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -26,7 +26,7 @@
  */
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
-define( 'ROCKET_LL_VERSION', '1.4.6' );
+define( 'ROCKET_LL_VERSION', '1.4.7' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
@@ -121,8 +121,7 @@ function rocket_lazyload_script() {
 	var b = d.getElementsByTagName("body")[0];
 	var s = d.createElement("script"); s.async = true;
 	var v = !("IntersectionObserver" in w) ? "8.5.2" : "10.3.5";
-	s.src = "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-v' . $suffix . '.js";
-	s.src = s.src.replace( "lazyload-v", "lazyload-" + v );
+	s.src = "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-" + v + "' . $suffix . '.js";
 	w.lazyLoadOptions = {
 		elements_selector: "img, iframe",
 		data_src: "lazy-src",
@@ -144,7 +143,25 @@ function rocket_lazyload_script() {
 		}
 	};
 	b.appendChild(s);
-}(window, document));</script>';
+}(window, document));
+
+// Listen to the Initialized event
+window.addEventListener(\'LazyLoad::Initialized\', function (e) {
+    // Get the instance and puts it in the lazyLoadInstance variable
+	var lazyLoadInstance = e.detail.instance;
+
+	var observer = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutation) {
+			lazyLoadInstance.update();
+		} );
+	} );
+	
+	var b      = document.getElementsByTagName("body")[0];
+	var config = { childList: true, subtree: true };
+	
+	observer.observe(b, config);
+}, false);
+</script>';
 
 	if ( rocket_lazyload_get_option( 'youtube' ) ) {
 		echo <<<HTML
@@ -222,6 +239,7 @@ function rocket_lazyload_replace_callback( $matches ) {
 		'data-no-lazy=',
 		'data-lazy-original=',
 		'data-lazy-src=',
+		'data-src=',
 		'data-lazysrc=',
 		'data-lazyload=',
 		'data-bgposition=',
