@@ -148,7 +148,7 @@ function rocket_lazyload_script() {
 // Listen to the Initialized event
 window.addEventListener(\'LazyLoad::Initialized\', function (e) {
     // Get the instance and puts it in the lazyLoadInstance variable
-	lazyLoadInstance = e.detail.instance;
+	var lazyLoadInstance = e.detail.instance;
 
 	var observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(mutation) {
