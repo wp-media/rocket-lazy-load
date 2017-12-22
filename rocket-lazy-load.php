@@ -152,7 +152,6 @@ window.addEventListener(\'LazyLoad::Initialized\', function (e) {
 
 	var observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(mutation) {
-			console.log( "test" );
 			lazyLoadInstance.update();
 		} );
 	} );
