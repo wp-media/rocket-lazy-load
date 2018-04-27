@@ -120,7 +120,7 @@ function rocket_lazyload_script() {
 	echo '<script>(function(w, d){
 	var b = d.getElementsByTagName("body")[0];
 	var s = d.createElement("script"); s.async = true;
-	var v = !("IntersectionObserver" in w) ? "8.5.2" : "10.3.5";
+	var v = !("IntersectionObserver" in w) ? "8.7.1" : "10.6";
 	s.src = "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-" + v + "' . $suffix . '.js";
 	w.lazyLoadOptions = {
 		elements_selector: "img, iframe",
