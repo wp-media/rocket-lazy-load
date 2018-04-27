@@ -147,7 +147,7 @@ function rocket_lazyload_script() {
 
 // Listen to the Initialized event
 window.addEventListener(\'LazyLoad::Initialized\', function (e) {
-    // Get the instance and puts it in the lazyLoadInstance variable
+	// Get the instance and puts it in the lazyLoadInstance variable
 	var lazyLoadInstance = e.detail.instance;
 
 	var observer = new MutationObserver(function(mutations) {
@@ -164,8 +164,18 @@ window.addEventListener(\'LazyLoad::Initialized\', function (e) {
 </script>';
 
 	if ( rocket_lazyload_get_option( 'youtube' ) ) {
+		/**
+		 * Filters the resolution of the YouTube thumbnail
+		 *
+		 * @since 1.4.8
+		 * @author Arun Basil Lal
+		 *
+		 * @param string $thumbnail_resolution The resolution of the thumbnail. Accepted values: default, mqdefault, sddefault, hqdefault, maxresdefault
+		 */
+		$thumbnail_resolution = apply_filters( 'rocket_youtube_thumbnail_resolution', 'hqdefault' );
+
 		echo <<<HTML
-		<script>function lazyLoadThumb(e){var t='<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg">',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="https://www.youtube.com/embed/ID?autoplay=1";e.setAttribute("src",t.replace("ID",this.dataset.id)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>
+		<script>function lazyLoadThumb(e){var t='<img src="https://i.ytimg.com/vi/ID/$thumbnail_resolution.jpg">',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="https://www.youtube.com/embed/ID?autoplay=1";e.setAttribute("src",t.replace("ID",this.dataset.id)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>
 HTML;
 	}
 }
@@ -352,47 +362,46 @@ add_action( 'init', 'rocket_lazyload_smilies' );
  * @source convert_smilies() in /wp-includes/formattings.php
  * @since 1.0
  *
- * @param string $text text content to parse.
- * @return string Updated text content
+ * @param string $text Text to process.
+ * @return string Modified text
  */
 function rocket_convert_smilies( $text ) {
-
 	global $wp_smiliessearch;
-	$output = '';
 
-	if ( get_option( 'use_smilies' ) && ! empty( $wp_smiliessearch ) ) {
-		// HTML loop taken from texturize function, could possible be consolidated.
-		$textarr = preg_split( '/(<.*>)/U', $text, -1, PREG_SPLIT_DELIM_CAPTURE ); // capture the tags as well as in between.
-		$stop = count( $textarr );// loop stuff.
-
-		// Ignore proessing of specific tags.
-		$tags_to_ignore = 'code|pre|style|script|textarea';
-		$ignore_block_element = '';
-
-		for ( $i = 0; $i < $stop; $i++ ) {
-			$content = $textarr[ $i ];
-
-			// If we're in an ignore block, wait until we find its closing tag.
-			if ( '' === $ignore_block_element && preg_match( '/^<(' . $tags_to_ignore . ')>/', $content, $matches ) ) {
-				$ignore_block_element = $matches[1];
-			}
-
-			// If it's not a tag and not in ignore block.
-			if ( '' === $ignore_block_element && strlen( $content ) > 0 && '<' !== $content[0] ) {
-				$content = preg_replace_callback( $wp_smiliessearch, 'rocket_translate_smiley', $content );
-			}
-
-			// did we exit ignore block.
-			if ( '' !== $ignore_block_element && '</' . $ignore_block_element . '>' === $content ) {
-				$ignore_block_element = '';
-			}
-
-			$output .= $content;
-		}
-	} else {
-		// return default text.
-		$output = $text;
+	if ( ! get_option( 'use_smilies' ) || empty( $wp_smiliessearch ) ) {
+		return $text;
 	}
+
+	$output = '';
+	// HTML loop taken from texturize function, could possible be consolidated.
+	$textarr = preg_split( '/(<.*>)/U', $text, -1, PREG_SPLIT_DELIM_CAPTURE ); // capture the tags as well as in between.
+	$stop    = count( $textarr );// loop stuff.
+
+	// Ignore proessing of specific tags.
+	$tags_to_ignore       = 'code|pre|style|script|textarea';
+	$ignore_block_element = '';
+
+	for ( $i = 0; $i < $stop; $i++ ) {
+		$content = $textarr[ $i ];
+
+		// If we're in an ignore block, wait until we find its closing tag.
+		if ( '' === $ignore_block_element && preg_match( '/^<(' . $tags_to_ignore . ')>/', $content, $matches ) ) {
+			$ignore_block_element = $matches[1];
+		}
+
+		// If it's not a tag and not in ignore block.
+		if ( '' === $ignore_block_element && strlen( $content ) > 0 && '<' !== $content[0] ) {
+			$content = preg_replace_callback( $wp_smiliessearch, 'rocket_translate_smiley', $content );
+		}
+
+		// did we exit ignore block.
+		if ( '' !== $ignore_block_element && '</' . $ignore_block_element . '>' === $content ) {
+			$ignore_block_element = '';
+		}
+
+		$output .= $content;
+	}
+
 	return $output;
 }
 
@@ -402,8 +411,8 @@ function rocket_convert_smilies( $text ) {
  * @source translate_smiley() in /wp-includes/formattings.php
  * @since 1.0
  *
- * @param string $matches a string matching the pattern for smilies.
- * @return string The updated HTML code to display smilies
+ * @param array $matches An array of matching content.
+ * @return string HTML code for smiley
  */
 function rocket_translate_smiley( $matches ) {
 	global $wpsmiliestrans;
@@ -413,10 +422,10 @@ function rocket_translate_smiley( $matches ) {
 	}
 
 	$smiley = trim( reset( $matches ) );
-	$img = $wpsmiliestrans[ $smiley ];
+	$img    = $wpsmiliestrans[ $smiley ];
 
-	$matches = array();
-	$ext = preg_match( '/\.([^.]+)$/', $img, $matches ) ? strtolower( $matches[1] ) : false;
+	$matches    = array();
+	$ext        = preg_match( '/\.([^.]+)$/', $img, $matches ) ? strtolower( $matches[1] ) : false;
 	$image_exts = array( 'jpg', 'jpeg', 'jpe', 'gif', 'png' );
 
 	// Don't convert smilies that aren't images - they're probably emoji.
@@ -427,7 +436,7 @@ function rocket_translate_smiley( $matches ) {
 	/**
 	 * Filter the Smiley image URL before it's used in the image element.
 	 *
-	 * @since WP 2.9.0
+	 * @since 2.9.0
 	 *
 	 * @param string $smiley_url URL for the smiley image.
 	 * @param string $img        Filename for the smiley image.
@@ -435,13 +444,15 @@ function rocket_translate_smiley( $matches ) {
 	 */
 	$src_url = apply_filters( 'smilies_src', includes_url( "images/smilies/$img" ), $img, site_url() );
 
-	// Don't lazy-load if process is stopped with a hook.
-	if ( apply_filters( 'do_rocket_lazyload', true ) ) {
-		return sprintf( ' <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-lazy-original="%s" alt="%s" class="wp-smiley" /> ', esc_url( $src_url ), esc_attr( $smiley ) );
-	} else {
+	// Don't LazyLoad if process is stopped for these reasons.
+	if ( ! apply_filters( 'do_rocket_lazyload', true ) || is_feed() || is_preview() ) {
 		return sprintf( ' <img src="%s" alt="%s" class="wp-smiley" /> ', esc_url( $src_url ), esc_attr( $smiley ) );
 	}
 
+	/** This filter is documented in inc/front/lazyload.php */
+	$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+
+	return sprintf( ' <img src="%s" data-lazy-src="%s" alt="%s" class="wp-smiley" /> ', $placeholder, esc_url( $src_url ), esc_attr( $smiley ) );
 }
 
 /**
@@ -460,7 +471,7 @@ function rocket_lazyload_iframes( $html ) {
 	}
 
 	$matches = array();
-	preg_match_all( '/<iframe(?:.*)?src=["|\'](.*)["|\'](?:.*)?><\/iframe>/iU', $html, $matches, PREG_SET_ORDER );
+	preg_match_all( '/<iframe(?:.*)?src=["|\'](.*)["|\'](.*)?><\/iframe>/iU', $html, $matches, PREG_SET_ORDER );
 
 	if ( empty( $matches ) ) {
 		return $html;
@@ -491,34 +502,37 @@ function rocket_lazyload_iframes( $html ) {
 			 *
 			 * @param array $html Output that will be printed.
 			 */
-			$youtube_lazyload = apply_filters( 'rocket_lazyload_youtube_html', '<div class="rll-youtube-player" data-id="' . $youtube_id . '"></div>');
+			$youtube_lazyload  = apply_filters( 'rocket_lazyload_youtube_html', '<div class="rll-youtube-player" data-id="' . $youtube_id . '"></div>' );
 			$youtube_lazyload .= '<noscript>' . $iframe[0] . '</noscript>';
 
 			$html = str_replace( $iframe[0], $youtube_lazyload, $html );
-		} else {
-			/**
-			 * Filter the LazyLoad placeholder on src attribute
-	    	 *
-	    	 * @since 1.1
-	    	 *
-	    	 * @param string $placeholder placeholder that will be printed.
-	    	 */
-			$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
-			
-			$iframe_noscript = '<noscript>' . $iframe[0] . '</noscript>';
 
-			/**
-			 * Filter the LazyLoad HTML output on iframes
-			 *
-			 * @since 1.1
-			 *
-			 * @param array $html Output that will be printed.
-			 */
-			$iframe_lazyload = apply_filters( 'rocket_lazyload_iframe_html', str_replace( $iframe[1], $placeholder . '" data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . $iframe[1], $iframe[0] ) );
-			$iframe_lazyload .= $iframe_noscript;
-			
-			$html = str_replace( $iframe[0], $iframe_lazyload, $html );
+			continue;
 		}
+
+		/**
+		 * Filter the LazyLoad placeholder on src attribute
+		 *
+		 * @since 1.1
+		 *
+		 * @param string $placeholder placeholder that will be printed.
+		 */
+		$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'about:blank' );
+
+		$iframe_noscript = '<noscript>' . $iframe[0] . '</noscript>';
+
+		$iframe_lazyload = str_replace( $iframe[1], $placeholder, $iframe[0] );
+		/**
+		 * Filter the LazyLoad HTML output on iframes
+		 *
+		 * @since 1.1
+		 *
+		 * @param array $html Output that will be printed.
+		 */
+		$iframe_lazyload  = apply_filters( 'rocket_lazyload_iframe_html', str_replace( $iframe[2], $iframe[2] . ' data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . $iframe[1] . '"', $iframe[0] ) );
+		$iframe_lazyload .= $iframe_noscript;
+
+		$html = str_replace( $iframe[0], $iframe_lazyload, $html );
 	}
 
 	return $html;
