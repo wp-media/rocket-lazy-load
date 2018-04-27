@@ -24,6 +24,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 define( 'ROCKET_LL_VERSION', '1.4.7' );
@@ -193,7 +194,7 @@ function rocket_lazyload_enqueue() {
 	}
 
 	if ( rocket_lazyload_get_option( 'youtube' ) ) {
-		$css = '.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;background:#000;margin:5px}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(' . ROCKET_LL_ASSETS_URL . 'img/play.png) no-repeat;cursor:pointer}';
+		$css = '.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;background:#000;margin:5px}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(' . ROCKET_LL_ASSETS_URL . 'img/youtube.png) no-repeat;cursor:pointer}';
 
 		wp_register_style( 'rocket-lazyload', false );
 		wp_enqueue_style( 'rocket-lazyload' );
@@ -224,10 +225,10 @@ function rocket_lazyload_images( $html ) {
 
 	return preg_replace_callback( '#<img([^>]*) src=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))([^>]*)>#', 'rocket_lazyload_replace_callback', $html );
 }
-add_filter( 'get_avatar'         , 'rocket_lazyload_images', PHP_INT_MAX );
-add_filter( 'the_content'        , 'rocket_lazyload_images', PHP_INT_MAX );
-add_filter( 'widget_text'        , 'rocket_lazyload_images', PHP_INT_MAX );
-add_filter( 'get_image_tag'      , 'rocket_lazyload_images', PHP_INT_MAX );
+add_filter( 'get_avatar', 'rocket_lazyload_images', PHP_INT_MAX );
+add_filter( 'the_content', 'rocket_lazyload_images', PHP_INT_MAX );
+add_filter( 'widget_text', 'rocket_lazyload_images', PHP_INT_MAX );
+add_filter( 'get_image_tag', 'rocket_lazyload_images', PHP_INT_MAX );
 add_filter( 'post_thumbnail_html', 'rocket_lazyload_images', PHP_INT_MAX );
 
 /**
@@ -266,7 +267,7 @@ function rocket_lazyload_replace_callback( $matches ) {
 		'timthumb.php?src',
 	) );
 
-	if ( rocket_is_excluded_lazyload( $matches[1] . $matches[3], $excluded_attributes ) ||  rocket_is_excluded_lazyload( $matches[2], $excluded_src ) ) {
+	if ( rocket_is_excluded_lazyload( $matches[1] . $matches[3], $excluded_attributes ) || rocket_is_excluded_lazyload( $matches[2], $excluded_src ) ) {
 		return $matches[0];
 	}
 
@@ -550,11 +551,12 @@ add_filter( 'widget_text', 'rocket_lazyload_iframes', PHP_INT_MAX );
  * @return string     Youtube video id or false if none found.
  */
 function rocket_lazyload_get_youtube_id_from_url( $url ) {
-	$pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com|youtube-nocookie\.com(?:/embed/|/v/|/watch\?v=))([\w-]{11})#iU';
+	$pattern = '#^(?:https?://)?(?:www\.)?(?:(?:youtu\.be/|youtube\.com|youtube-nocookie\.com)(?:/embed/|/v/|/watch\?v=))([\w-]{11})#iU';
 	$result  = preg_match( $pattern, $url, $matches );
 
 	if ( $result ) {
 		return $matches[1];
 	}
+
 	return false;
 }
