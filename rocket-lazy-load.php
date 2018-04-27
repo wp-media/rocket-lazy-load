@@ -550,7 +550,7 @@ add_filter( 'widget_text', 'rocket_lazyload_iframes', PHP_INT_MAX );
  * @return string     Youtube video id or false if none found.
  */
 function rocket_lazyload_get_youtube_id_from_url( $url ) {
-	$pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=))([\w-]{11})#iU';
+	$pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com|youtube-nocookie\.com(?:/embed/|/v/|/watch\?v=))([\w-]{11})#iU';
 	$result  = preg_match( $pattern, $url, $matches );
 
 	if ( $result ) {
