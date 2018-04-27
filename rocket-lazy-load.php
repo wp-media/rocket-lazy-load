@@ -338,6 +338,35 @@ function rocket_lazyload_on_srcset( $html ) {
 add_filter( 'rocket_lazyload_html', 'rocket_lazyload_on_srcset' );
 
 /**
+ * Applies lazyload on images displayed using wp_get_attachment_image()
+ *
+ * @since 1.4.8
+ * @author Remy Perona
+ *
+ * @param array $attr Attributes for the image markup.
+ * @return array
+ */
+function rocket_lazyload_get_attachment_image( $attr ) {
+	// Don't LazyLoad if the thumbnail is in admin, a feed, REST API or a post preview.
+	if ( ! rocket_lazyload_get_option( 'images' ) || is_admin() || is_feed() || is_preview() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || empty( $attr ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) || wp_script_is( 'twentytwenty-twentytwenty', 'enqueued' ) ) {
+		return $attr;
+	}
+
+	// You can stop the LalyLoad process with a hook.
+	if ( ! apply_filters( 'do_rocket_lazyload', true ) ) {
+		return $attr;
+	}
+
+	$attr['data-lazy-src']    = $attr['src'];
+	$attr['data-lazy-srcset'] = $attr['srcset'];
+	$attr['src']              = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+	unset( $attr['srcset'] );
+
+	return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'rocket_lazyload_get_attachment_image' );
+
+/**
  * Replace WordPress smilies by Lazy Load
  *
  * @since 1.0
