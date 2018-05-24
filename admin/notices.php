@@ -31,7 +31,7 @@ function rocket_lazyload_imagify_notice() {
 	), 'install-plugin_imagify' );
 
 	$classes = ' install-now';
-	$cta_txt = esc_html__( 'Install Imagify for Free', 'rocket-lazyload' );
+	$cta_txt = esc_html__( 'Install Imagify for Free', 'rocket-lazy-load' );
 
 	$dismiss_url = wp_nonce_url(
 		admin_url( 'admin-post.php?action=rocket_lazyload_ignore&box=' . __FUNCTION__ ),
@@ -46,7 +46,7 @@ function rocket_lazyload_imagify_notice() {
 			<img src="<?php echo ROCKET_LL_ASSETS_URL ?>img/logo-imagify.png" srcset="<?php echo ROCKET_LL_ASSETS_URL ?>img/logo-imagify.svg 2x" alt="Imagify" width="150" height="18">
 		</p>
 		<p class="rktll-imagify-msg">
-			<?php _e( 'Speed up your website and boost your SEO by reducing image file sizes without losing quality with Imagify.', 'rocket-lazyload' ); ?>
+			<?php _e( 'Speed up your website and boost your SEO by reducing image file sizes without losing quality with Imagify.', 'rocket-lazy-load' ); ?>
 		</p>
 		<p class="rktll-imagify-cta">
 			<a data-slug="imagify" href="<?php echo $action_url; ?>" class="button button-primary<?php echo $classes; ?>"><?php echo $cta_txt; ?></a>
