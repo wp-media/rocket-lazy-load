@@ -53,13 +53,13 @@ function rocket_lazyload_options_output() {
 
 	$options = array(
 		'images' => array(
-			'label' => __( 'Images', 'rocket-lazyload' ),
+			'label' => __( 'Images', 'rocket-lazy-load' ),
 		),
 		'iframes' => array(
-			'label' => __( 'Iframes &amp; Videos', 'rocket-lazyload' ),
+			'label' => __( 'Iframes &amp; Videos', 'rocket-lazy-load' ),
 		),
 		'youtube' => array(
-			'label' => __( 'Replace Youtube videos by thumbnail', 'rocket-lazyload' ),
+			'label' => __( 'Replace Youtube videos by thumbnail', 'rocket-lazy-load' ),
 		),
 	);
 
@@ -76,13 +76,13 @@ function rocket_lazyload_options_output() {
 		<div class="rocket-lazyload-header">
 			<div>
 				<p class="rocket-lazyload-title"><img src="<?php echo ROCKET_LL_ASSETS_URL; ?>img/logo.png" srcset="<?php echo ROCKET_LL_ASSETS_URL; ?>img/logo@2x.png 2x" alt="<?php echo esc_attr( get_admin_page_title() ); ?>" width="216" height="59"></p>
-				<p class="rocket-lazyload-subtitle"><?php _e( 'Settings', 'rocket-lazyload' ); ?></p>
+				<p class="rocket-lazyload-subtitle"><?php _e( 'Settings', 'rocket-lazy-load' ); ?></p>
 			</div>
 			<?php $rocket_lazyload_rate_url = 'https://wordpress.org/support/plugin/rocket-lazy-load/reviews/?rate=5#postform'; ?>
 			<p class="rocket-lazyload-rate-us">
 				<?php
 				// Translators: %1$s is a <strong> tag, %2$s is </strong><br>, %3$s is the complete link tag to Rocket Lazy Load review form, %4$s is the closing </a> tag.
-				printf( __( '%1$sDo you like this plugin?%2$s Please take a few seconds to %3$srate it on WordPress.org%4$s!', 'rocket-lazyload' ), '<strong>', '</strong><br>', '<a href="' . $rocket_lazyload_rate_url . '">', '</a>' );
+				printf( __( '%1$sDo you like this plugin?%2$s Please take a few seconds to %3$srate it on WordPress.org%4$s!', 'rocket-lazy-load' ), '<strong>', '</strong><br>', '<a href="' . $rocket_lazyload_rate_url . '">', '</a>' );
 				?>
 				<br>
 				<a class="stars" href="<?php echo $rocket_lazyload_rate_url; ?>"><?php echo str_repeat( '<span class="dashicons dashicons-star-filled"></span>', 5 ); ?></a>
@@ -91,9 +91,9 @@ function rocket_lazyload_options_output() {
 		<div class="rocket-lazyload-body">
 			<form action="options.php" class="rocket-lazyload-form" method="post">
 				<fieldset>
-					<legend class="screen-reader-text"><?php _e( 'Lazyload', 'rocket-lazyload' ); ?></legend>
-					<p><?php _e( 'LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazyload' ); ?></p>
-					<p><?php _e( 'This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazyload' ); ?></p>
+					<legend class="screen-reader-text"><?php _e( 'Lazyload', 'rocket-lazy-load' ); ?></legend>
+					<p><?php _e( 'LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazy-load' ); ?></p>
+					<p><?php _e( 'This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazy-load' ); ?></p>
 					<ul class="rocket-lazyload-options">
 						<?php foreach ( $options as $slug => $infos ) { ?>
 
@@ -114,30 +114,30 @@ function rocket_lazyload_options_output() {
 			<div class="rocket-lazyload-upgrade">
 
 				<div class="rocket-lazyload-upgrade-cta">
-					<p class="rocket-lazyload-subtitle"><?php _e( 'We recommend for you', 'rocket-lazyload' ); ?></p>
+					<p class="rocket-lazyload-subtitle"><?php _e( 'We recommend for you', 'rocket-lazy-load' ); ?></p>
 					<p class="rocket-lazyload-bigtext">
-						<?php _e( 'Go Premium with', 'rocket-lazyload' ); ?>
+						<?php _e( 'Go Premium with', 'rocket-lazy-load' ); ?>
 						<img class="rocket-lazyload-rocket-logo" src="<?php echo ROCKET_LL_ASSETS_URL; ?>img/wprocket.png" srcset="<?php echo ROCKET_LL_ASSETS_URL; ?>img/wprocket@2x.png" width="232" height="63" alt="WP Rocket">
 					</p>
 					
 					<div class="rocket-lazyload-cta-block">
-						<?php $promo = __( 'Get %s OFF%s Now', 'rocket-lazyload' ); ?>
+						<?php $promo = __( 'Get %s OFF%s Now', 'rocket-lazy-load' ); ?>
 						<?php /*<span class="rocket-lazyload-cta-promo">
 							<?php printf( $promo, '<strong>20%', '</strong>' ); ?>
 						</span>*/ ?>
-						<a class="button button-primary" href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_lazyload"><?php _e( 'Get WP&nbsp;Rocket Now!', 'rocket-lazyload' ); ?></a>
+						<a class="button button-primary" href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_lazyload"><?php _e( 'Get WP&nbsp;Rocket Now!', 'rocket-lazy-load' ); ?></a>
 					</div>
 				</div><!-- .rocket-lazyload-upgrade-cta -->
 
 				<div class="rocket-lazyload-upgrade-arguments">
 					<ul>
-						<li class="rll-upgrade-item"><?php printf( __( '%sMultiple new features%s to further improve your load time', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
-						<li class="rll-upgrade-item"><?php printf( __( 'All you need to %simprove your Google PageSpeed%s score', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
-						<li class="rll-upgrade-item"><?php printf( __( '%sBoost your SEO%s by preloading your cache page for Google’s bots', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
-						<li class="rll-upgrade-item"><?php printf( __( 'Watch your conversion rise with the %s100%% WooCommerce compatibility%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
-						<li class="rll-upgrade-item"><?php printf( __( 'Minimal configuration, %sImmediate results%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
-						<li class="rll-upgrade-item"><?php printf( __( 'Set up takes %s5 minutes flat%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
-						<li class="rll-upgrade-item"><?php printf( __( '%s24/7 support%s', 'rocket-lazyload' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( '%sMultiple new features%s to further improve your load time', 'rocket-lazy-load' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( 'All you need to %simprove your Google PageSpeed%s score', 'rocket-lazy-load' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( '%sBoost your SEO%s by preloading your cache page for Google’s bots', 'rocket-lazy-load' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( 'Watch your conversion rise with the %s100%% WooCommerce compatibility%s', 'rocket-lazy-load' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( 'Minimal configuration, %sImmediate results%s', 'rocket-lazy-load' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( 'Set up takes %s5 minutes flat%s', 'rocket-lazy-load' ), '<strong>', '</strong>' ) ?></li>
+						<li class="rll-upgrade-item"><?php printf( __( '%s24/7 support%s', 'rocket-lazy-load' ), '<strong>', '</strong>' ) ?></li>
 					</ul>
 				</div><!-- .rocket-lazyload-upgrade-arguments -->
 				
@@ -146,7 +146,7 @@ function rocket_lazyload_options_output() {
 
 			<p class="submit">
 				<button type="submit" class="button button-primary">
-					<span class="text"><?php _e( 'Save changes', 'rocket-lazyload' ); ?></span>
+					<span class="text"><?php _e( 'Save changes', 'rocket-lazy-load' ); ?></span>
 					<span class="icon">✓</span>
 				</button>
 			</p>
