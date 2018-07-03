@@ -360,7 +360,7 @@ function rocket_lazyload_get_attachment_image( $attr ) {
 	$attr['data-lazy-src']    = $attr['src'];
 	$attr['src']              = apply_filters( 'rocket_lazyload_placeholder', '' );
 
-	if ( isset( $attr['srcset'] ) {
+	if ( isset( $attr['srcset'] ) ) {
 		$attr['data-lazy-srcset'] = $attr['srcset'];
 		unset( $attr['srcset'] );
 	}
