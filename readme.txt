@@ -67,6 +67,7 @@ Some plugins are not compatible without lazy loading. Please open a support thre
 = 1.4.8 =
 * Notice: Minimum WordPress version required is now 4.7
 * Enhancement: Update lazyload script version
+* Enhancement: Remove placeholder image to improve perceived loading time
 * Enhancement: Compatibility with Youtube privacy URL
 * Enhancement: Update play image to match Youtube logo
 * Enhancement: Support Youtube URL parameters
@@ -74,6 +75,7 @@ Some plugins are not compatible without lazy loading. Please open a support thre
 * Fix: Use the correct size set in srcset for the lazyloaded image
 * Fix: Prevent Youtube thumbnail replacement on playlists
 * Fix: Prevent iframe lazyload on AMP pages
+* Fix: Correct text domain for translations (thanks @ Chantal Coolsma)
 
 = 1.4.7 =
 * Fix compatibility with infinite scroll
