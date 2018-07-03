@@ -503,8 +503,7 @@ function rocket_lazyload_iframes( $html ) {
 		return $html;
 	}
 
-	$matches = array();
-	preg_match_all( '/<iframe(?:.*)?src=["|\'](.*)["|\'](.*)?><\/iframe>/iU', $html, $matches, PREG_SET_ORDER );
+	preg_match_all( '/<iframe.*\ssrc=["|\'](.+)["|\'].*(>\s*<\/iframe>)/iU', $html, $matches, PREG_SET_ORDER );
 
 	if ( empty( $matches ) ) {
 		return $html;
@@ -557,6 +556,8 @@ function rocket_lazyload_iframes( $html ) {
 		$iframe_noscript = '<noscript>' . $iframe[0] . '</noscript>';
 
 		$iframe_lazyload = str_replace( $iframe[1], $placeholder, $iframe[0] );
+
+		$iframe_lazyload  = str_replace( $iframe[2], ' data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . esc_url( $iframe[1] ) . '"' . $iframe[2], $iframe[0] );
 		/**
 		 * Filter the LazyLoad HTML output on iframes
 		 *
@@ -564,7 +565,7 @@ function rocket_lazyload_iframes( $html ) {
 		 *
 		 * @param array $html Output that will be printed.
 		 */
-		$iframe_lazyload  = apply_filters( 'rocket_lazyload_iframe_html', str_replace( $iframe[2], $iframe[2] . ' data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . $iframe[1] . '"', $iframe[0] ) );
+		$iframe_lazyload  = apply_filters( 'rocket_lazyload_iframe_html', $iframe_lazyload );
 		$iframe_lazyload .= $iframe_noscript;
 
 		$html = str_replace( $iframe[0], $iframe_lazyload, $html );
@@ -585,7 +586,7 @@ add_filter( 'widget_text', 'rocket_lazyload_iframes', PHP_INT_MAX );
  * @return string     Youtube video id or false if none found.
  */
 function rocket_lazyload_get_youtube_id_from_url( $url ) {
-	$pattern = '#^(?:https?://)?(?:www\.)?(?:(?:youtu\.be/|youtube\.com|youtube-nocookie\.com)(?:/embed/|/v/|/watch\?v=))([\w-]{11})#iU';
+	$pattern = '#^(?:https?://)?(?:www\.)?(?:youtu\.be|youtube\.com|youtube-nocookie\.com)/(?:embed/|v/|watch/?\?v=)([\w-]{11})#iU';
 	$result  = preg_match( $pattern, $url, $matches );
 
 	if ( ! $result ) {
