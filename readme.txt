@@ -1,10 +1,10 @@
 === Lazy Load by WP Rocket ===
 Contributors: creativejuiz, tabrisrp, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar
-Requires at least: 3.0
-Tested up to: 4.8
+Requires at least: 4.7
+Tested up to: 4.9
 Requires PHP: 5.3
-Stable tag: 1.4.7
+Stable tag: 1.4.8
 
 The tiny Lazy Load script for WordPress without jQuery, works for images and iframes.
 
@@ -64,6 +64,19 @@ add_filter( 'rocket_lazyload_threshold', 'rocket_lazyload_custom_threshold' );
 Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
 
 == Changelog ==
+= 1.4.8 =
+* Notice: Minimum WordPress version required is now 4.7
+* Enhancement: Update lazyload script version
+* Enhancement: Remove placeholder image to improve perceived loading time
+* Enhancement: Compatibility with Youtube privacy URL
+* Enhancement: Update play image to match Youtube logo
+* Enhancement: Support Youtube URL parameters
+* Enhancement: Lazyload images displayed with wp_get_attachment_image(). /!\ no fallback if JavaScript is disabled
+* Fix: Use the correct size set in srcset for the lazyloaded image
+* Fix: Prevent Youtube thumbnail replacement on playlists
+* Fix: Prevent iframe lazyload on AMP pages
+* Fix: Correct text domain for translations (thanks @ Chantal Coolsma)
+
 = 1.4.7 =
 * Fix compatibility with infinite scroll
 * Prevent lazyload on masterSlider images
