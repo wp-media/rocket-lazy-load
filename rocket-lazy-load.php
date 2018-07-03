@@ -27,7 +27,7 @@
 
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
-define( 'ROCKET_LL_VERSION', '1.4.7' );
+define( 'ROCKET_LL_VERSION', '1.4.8' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
