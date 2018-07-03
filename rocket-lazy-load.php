@@ -121,7 +121,7 @@ function rocket_lazyload_script() {
 	echo '<script>(function(w, d){
 	var b = d.getElementsByTagName("body")[0];
 	var s = d.createElement("script"); s.async = true;
-	var v = !("IntersectionObserver" in w) ? "8.7.1" : "10.6";
+	var v = !("IntersectionObserver" in w) ? "8.9" : "10.8";
 	s.src = "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-" + v + "' . $suffix . '.js";
 	w.lazyLoadOptions = {
 		elements_selector: "img, iframe",
@@ -278,7 +278,7 @@ function rocket_lazyload_replace_callback( $matches ) {
 	 *
 	 * @param string $placeholder Placeholder that will be printed.
 	 */
-	$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+	$placeholder = apply_filters( 'rocket_lazyload_placeholder', '' );
 
 	$img = sprintf( '<img%1$s src="%4$s" data-lazy-src=%2$s%3$s>', $matches[1], $matches[2], $matches[3], $placeholder );
 
@@ -359,7 +359,7 @@ function rocket_lazyload_get_attachment_image( $attr ) {
 
 	$attr['data-lazy-src']    = $attr['src'];
 	$attr['data-lazy-srcset'] = $attr['srcset'];
-	$attr['src']              = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+	$attr['src']              = apply_filters( 'rocket_lazyload_placeholder', '' );
 	unset( $attr['srcset'] );
 
 	return $attr;
@@ -480,7 +480,7 @@ function rocket_translate_smiley( $matches ) {
 	}
 
 	/** This filter is documented in inc/front/lazyload.php */
-	$placeholder = apply_filters( 'rocket_lazyload_placeholder', 'data:image/gif;base64,R0lGODdhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=' );
+	$placeholder = apply_filters( 'rocket_lazyload_placeholder', '' );
 
 	return sprintf( ' <img src="%s" data-lazy-src="%s" alt="%s" class="wp-smiley" /> ', $placeholder, esc_url( $src_url ), esc_attr( $smiley ) );
 }
