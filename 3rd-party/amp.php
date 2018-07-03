@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
  * @author Remy Perona
  */
 function rocket_lazyload_disable_on_amp() {
-	if ( defined( 'AMP_QUERY_VAR' ) && function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
+	if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
 		add_filter( 'do_rocket_lazyload', '__return_false' );
 		add_filter( 'do_rocket_lazyload_iframes', '__return_false' );
 	}
