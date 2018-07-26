@@ -15,8 +15,20 @@
 		}
 	],
 	"type": "wordpress-plugin",
+	"config": {
+		"sort-packages": true
+	},
 	"support": {
 		"issues": "https://github.com/wp-media/rocket-lazy-load/issues",
 		"source": "https://github.com/wp-media/rocket-lazy-load"
+	},
+	"require": {
+		"php": ">=5.4.0"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+		"phpcompatibility/phpcompatibility-wp": "*",
+		"squizlabs/php_codesniffer": "^3.2",
+		"wp-coding-standards/wpcs": "^1.0.0"
 	}
 }
