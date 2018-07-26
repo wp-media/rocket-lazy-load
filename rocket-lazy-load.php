@@ -3,7 +3,7 @@
  * Plugin Name: Lazy Load by WP Rocket
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 1.4.8
+ * Version: 1.4.9
  * Author: WP Media
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -27,7 +27,7 @@
 
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
-define( 'ROCKET_LL_VERSION', '1.4.8' );
+define( 'ROCKET_LL_VERSION', '1.4.9' );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_3RD_PARTY_PATH', ROCKET_LL_PATH . '3rd-party/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
@@ -59,7 +59,7 @@ if ( version_compare( PHP_VERSION, '5.3', '<' ) ) {
 	 * @since 1.3
 	 */
 	function rocket_lazyload_php_warning() {
-		echo '<div class="error"><p>' . __( 'Rocket LazyLoad requires PHP 5.3 to function properly. Please upgrade PHP. The Plugin has been auto-deactivated.', 'rocket-lazy-load' ) . '</p></div>';
+		echo '<div class="error"><p>' . esc_html( __( 'Rocket LazyLoad requires PHP 5.3 to function properly. Please upgrade PHP. The Plugin has been auto-deactivated.', 'rocket-lazy-load' ) ) . '</p></div>';
 		if ( isset( $_GET['activate'] ) ) { // WPCS: CSRF ok.
 			unset( $_GET['activate'] );
 		}
@@ -118,19 +118,29 @@ function rocket_lazyload_script() {
 	 */
 	$threshold = apply_filters( 'rocket_lazyload_threshold', 300 );
 
+	$elements = [];
+
+	if ( rocket_lazyload_get_option( 'images' ) ) {
+		$elements[] = 'img';
+	}
+
+	if ( rocket_lazyload_get_option( 'iframes' ) ) {
+		$elements[] = 'iframe';
+	}
+
 	echo '<script>(function(w, d){
 	var b = d.getElementsByTagName("body")[0];
 	var s = d.createElement("script"); s.async = true;
-	var v = !("IntersectionObserver" in w) ? "8.9" : "10.8";
-	s.src = "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-" + v + "' . $suffix . '.js";
+	s.src = !("IntersectionObserver" in w) ? "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-8.11' . $suffix . '.js" : "' . ROCKET_LL_FRONT_JS_URL . 'lazyload-10.11.1' . $suffix . '.js";
 	w.lazyLoadOptions = {
-		elements_selector: "img, iframe",
+		elements_selector: "' . esc_attr( implode( ',', $elements ) ) . '",
 		data_src: "lazy-src",
 		data_srcset: "lazy-srcset",
+		data_sizes: "lazy-sizes",
 		skip_invisible: false,
 		class_loading: "lazyloading",
 		class_loaded: "lazyloaded",
-		threshold: ' . $threshold . ',
+		threshold: ' . esc_attr( $threshold ) . ',
 		callback_load: function(element) {
 			if ( element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible" ) {
 				if (element.classList.contains("lazyloaded") ) {
@@ -173,7 +183,7 @@ window.addEventListener(\'LazyLoad::Initialized\', function (e) {
 		 *
 		 * @param string $thumbnail_resolution The resolution of the thumbnail. Accepted values: default, mqdefault, sddefault, hqdefault, maxresdefault
 		 */
-		$thumbnail_resolution = apply_filters( 'rocket_youtube_thumbnail_resolution', 'hqdefault' );
+		$thumbnail_resolution = apply_filters( 'rocket_lazyload_youtube_thumbnail_resolution', 'hqdefault' );
 
 		echo <<<HTML
 		<script>function lazyLoadThumb(e){var t='<img src="https://i.ytimg.com/vi/ID/$thumbnail_resolution.jpg">',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="https://www.youtube.com/embed/ID?autoplay=1";t+=0===this.dataset.query.length?'':'&'+this.dataset.query;e.setAttribute("src",t.replace("ID",this.dataset.id)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>
@@ -329,9 +339,9 @@ function rocket_lazyload_on_srcset( $html ) {
 		$html = str_replace( 'srcset=', 'data-lazy-srcset=', $html );
 	}
 
-	/**if ( preg_match( '/sizes=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html ) ) {
+	if ( preg_match( '/sizes=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html ) ) {
 		$html = str_replace( 'sizes=', 'data-lazy-sizes=', $html );
-	}*/
+	}
 
 	return $html;
 }
@@ -357,17 +367,22 @@ function rocket_lazyload_get_attachment_image( $attr ) {
 		return $attr;
 	}
 
-	$attr['data-lazy-src']    = $attr['src'];
-	$attr['src']              = apply_filters( 'rocket_lazyload_placeholder', '' );
+	$attr['data-lazy-src'] = $attr['src'];
+	$attr['src']           = apply_filters( 'rocket_lazyload_placeholder', '' );
 
 	if ( isset( $attr['srcset'] ) ) {
 		$attr['data-lazy-srcset'] = $attr['srcset'];
 		unset( $attr['srcset'] );
 	}
 
+	if ( isset( $attr['sizes'] ) ) {
+		$attr['data-lazy-sizes'] = $attr['sizes'];
+		unset( $attr['sizes'] );
+	}
+
 	return $attr;
 }
-add_filter( 'wp_get_attachment_image_attributes', 'rocket_lazyload_get_attachment_image' );
+add_filter( 'wp_get_attachment_image_attributes', 'rocket_lazyload_get_attachment_image', 11 );
 
 /**
  * Replace WordPress smilies by Lazy Load
@@ -557,7 +572,7 @@ function rocket_lazyload_iframes( $html ) {
 
 		$iframe_lazyload = str_replace( $iframe[1], $placeholder, $iframe[0] );
 
-		$iframe_lazyload  = str_replace( $iframe[2], ' data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . esc_url( $iframe[1] ) . '"' . $iframe[2], $iframe[0] );
+		$iframe_lazyload = str_replace( $iframe[2], ' data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . esc_url( $iframe[1] ) . '"' . $iframe[2], $iframe[0] );
 		/**
 		 * Filter the LazyLoad HTML output on iframes
 		 *
