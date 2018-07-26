@@ -1,18 +1,24 @@
 === Lazy Load by WP Rocket ===
 Contributors: creativejuiz, tabrisrp, wp_media
-Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar
+Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
 Tested up to: 4.9
-Requires PHP: 5.3
-Stable tag: 1.4.8
+Requires PHP: 5.4
+Stable tag: 1.4.9
 
-The tiny Lazy Load script for WordPress without jQuery, works for images and iframes.
+Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
 == Description ==
 
-Lazy Load displays images and/or iframes on a page only when they are visible to the user. This reduces the number of HTTP requests mechanism and improves the loading time.
+Lazy Load by WP Rocket displays images and/or iframes on a page only when they are visible to the user. This reduces the number of HTTP requests mechanism and improves the loading time.
 
-This plugin works on thumbnails, all images in a post content or in a widget text, avatars, smilies and iFrames. No JavaScript library such as jQuery is used and the script weight is less than 10KB.
+This plugin works on thumbnails, all images in a post content or in a widget text, avatars, smilies and iframes. No JavaScript library such as jQuery is used and the script weight is less than 10KB.
+
+You can also replace Youtube iframes by a preview thumbnail to further speed up the loading time of your website.
+
+= Dependencies =
+
+Lazyload script: https://github.com/verlok/lazyload
 
 = Related Plugins =
 * <a href="https://wordpress.org/plugins/imagify/">Imagify</a>: Best Image Optimizer to speed up your website with lighter images.
@@ -64,6 +70,13 @@ add_filter( 'rocket_lazyload_threshold', 'rocket_lazyload_custom_threshold' );
 Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
 
 == Changelog ==
+= 1.4.9 =
+* Enhancement: Update lazyload script to the latest available version
+* Enhancement: Use lazy-sizes to prevent W3C validation error when sizes is defined but srcset is not
+* Enhancement: Parse images or iframes only if the element is selected to be lazyloaded in the options
+* Fix: Prevent warning for lazyload+v in Google Search Console
+* Fix: Prevent PHP Notice with WooCommerce for product images
+
 = 1.4.8 =
 * Notice: Minimum WordPress version required is now 4.7
 * Enhancement: Update lazyload script version
