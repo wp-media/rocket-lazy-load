@@ -572,7 +572,7 @@ function rocket_lazyload_iframes( $html ) {
 
 		$iframe_lazyload = str_replace( $iframe[1], $placeholder, $iframe[0] );
 
-		$iframe_lazyload = str_replace( $iframe[2], ' data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . esc_url( $iframe[1] ) . '"' . $iframe[2], $iframe[0] );
+		$iframe_lazyload = str_replace( $iframe[2], ' data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . esc_url( $iframe[1] ) . '"' . $iframe[2], $iframe_lazyload );
 		/**
 		 * Filter the LazyLoad HTML output on iframes
 		 *
