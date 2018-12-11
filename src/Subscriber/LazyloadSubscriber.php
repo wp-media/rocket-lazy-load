@@ -1,0 +1,307 @@
+<?php
+namespace RocketLazyLoadPlugin\Subscriber;
+
+defined('ABSPATH') || die('Cheatin\' uh?');
+
+use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
+use RocketLazyLoadPlugin\Options\OptionArray;
+use RocketLazyload\Assets;
+use RocketLazyload\Image;
+use RocketLazyload\Iframe;
+
+/**
+ * Lazyload Subscriber
+ *
+ * @since 2.0
+ * @author Remy Perona
+ */
+class LazyloadSubscriber implements SubscriberInterface
+{
+    /**
+     * OptionArray instance
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @var OptionArray
+     */
+    private $option_array;
+
+    /**
+     * Assets instance
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @var Assets
+     */
+    private $assets;
+
+    /**
+     * Image instance
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @var Image
+     */
+    private $image;
+
+    /**
+     * Iframe instance
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @var Iframe
+     */
+    private $iframe;
+
+    /**
+     * Constructor
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @param OptionArray $option_array OptionArray instance.
+     * @param Assets $assets Assets instance.
+     * @param Image $image Image instance.
+     * @param Iframe $iframe Iframe instance.
+     */
+    public function __construct(OptionArray $option_array, Assets $assets, Image $image, Iframe $iframe)
+    {
+        $this->option_array = $option_array;
+        $this->assets       = $assets;
+        $this->image        = $image;
+        $this->iframe       = $iframe;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSubscribedEvents()
+    {
+        return [
+            'wp_footer' => [
+                [ 'insertLazyloadScript', PHP_INT_MAX ],
+                ['insertYoutubeThumbnailScript', PHP_INT_MAX ],
+            ],
+            'wp_enqueue_scripts' => ['insertYoutubeThumbnailStyle', PHP_INT_MAX],
+            'template_redirect'  => ['lazyload', PHP_INT_MAX],
+            'rocket_lazyload_html' => 'lazyloadResponsive',
+            'init'        => 'lazyloadSmilies',
+        ];
+    }
+
+    /**
+     * Inserts the lazyload script in the footer
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @return void
+     */
+    public function insertLazyloadScript()
+    {
+        if (! $this->option_array->get('images') && ! $this->option_array->get('iframes')) {
+            return;
+        }
+
+        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+            return;
+        }
+
+        /**
+         * Filters the threshold at which lazyload is triggered
+         *
+         * @since 1.2
+         * @author Remy Perona
+         *
+         * @param int $threshold Threshold value.
+         */
+        $threshold = apply_filters('rocket_lazyload_threshold', 300);
+
+        $args = [
+            'base_url' => ROCKET_LL_FRONT_JS_URL,
+            'suffix'   => defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min',
+            'threshold' => $threshold,
+            'version' => '10.11.1',
+            'fallback' => '8.11',
+        ];
+
+        if ($this->option_array->get('images')) {
+            $args['elements'][] = 'img';
+        }
+
+        if ($this->option_array->get('iframes')) {
+            $args['elements'][] = 'iframe';
+        }
+
+        $this->assets->insertLazyloadScript($args);
+    }
+
+    /**
+     * Inserts the Youtube thumbnail script in the footer
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @return void
+     */
+    public function insertYoutubeThumbnailScript()
+    {
+        if (! $this->option_array->get('youtube')) {
+            return;
+        }
+
+        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+            return;
+        }
+
+        /**
+         * Filters the resolution of the YouTube thumbnail
+         *
+         * @since 1.4.8
+         * @author Arun Basil Lal
+         *
+         * @param string $thumbnail_resolution The resolution of the thumbnail. Accepted values: default, mqdefault, sddefault, hqdefault, maxresdefault
+         */
+        $thumbnail_resolution = apply_filters('rocket_lazyload_youtube_thumbnail_resolution', 'hqdefault');
+
+        $this->assets->insertYoutubeThumbnailScript(
+            [
+                'resolution' => $thumbnail_resolution,
+            ]
+        );
+    }
+
+    /**
+     * Inserts the Youtube thumbnail CSS in the header
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @return void
+     */
+    public function insertYoutubeThumbnailStyle()
+    {
+        if (! $this->option_array->get('youtube')) {
+            return;
+        }
+
+        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+            return;
+        }
+
+        $this->assets->insertYoutubeThumbnailCSS(
+            [
+                'base_url' => ROCKET_LL_ASSETS_URL,
+            ]
+        );
+    }
+
+    /**
+     * Checks if lazyload should be applied
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @return bool
+     */
+    private function shouldLazyload()
+    {
+        if (is_admin() || is_feed() || is_preview() || (defined('REST_REQUEST') && REST_REQUEST) || (defined('DONOTLAZYLOAD') && DONOTLAZYLOAD)) {
+            return false;
+        }
+
+        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Gets the content to lazyload
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @return void
+     */
+    public function lazyload()
+    {
+        if (! $this->shouldLazyload()) {
+            return;
+        }
+
+        ob_start([$this, 'lazyloadBuffer']);
+    }
+
+    /**
+     * Applies lazyload on the provided content
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @param string $html HTML content
+     * @return string
+     */
+    public function lazyloadBuffer($html)
+    {
+        if ($this->option_array->get('images')) {
+            $html = $this->image->lazyloadImages($html);
+        }
+
+        if ($this->option_array->get('iframes')) {
+            $args = [
+                'youtube' => $this->option_array->get('youtube'),
+            ];
+
+            $html = $this->iframe->lazyloadIframes($html, $args);
+        }
+
+        return $html;
+    }
+
+    /**
+     * Applies lazyload on responsive images attributes srcset and sizes
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @param string $html Image HTML.
+     * @return string
+     */
+    public function lazyloadResponsive($html)
+    {
+        return $this->image->lazyloadResponsiveAttributes($html);
+    }
+
+    /**
+     * Applies lazyload on WordPress smilies
+     *
+     * @since 2.0
+     * @author Remy Perona
+     *
+     * @return void
+     */
+    public function lazyloadSmilies()
+    {
+        if (! $this->shouldLazyload()) {
+            return;
+        }
+
+        if (! $this->option_array->get('images')) {
+            return;
+        }
+
+        remove_filter('the_content', 'convert_smilies');
+        remove_filter('the_excerpt', 'convert_smilies');
+        remove_filter('comment_text', 'convert_smilies', 20);
+
+        add_filter('the_content', [$this->image, 'convertSmilies']);
+        add_filter('the_excerpt', [$this->image, 'convertSmilies']);
+        add_filter('comment_text', [$this->image, 'convertSmilies'], 20);
+    }
+}
