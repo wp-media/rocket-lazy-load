@@ -18,12 +18,25 @@
 	"config": {
 		"sort-packages": true
 	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/wp-media/rocket-lazyload-common"
+		}
+	],
 	"support": {
 		"issues": "https://github.com/wp-media/rocket-lazy-load/issues",
 		"source": "https://github.com/wp-media/rocket-lazy-load"
 	},
+	"autoload": {
+		"psr-4": {
+			"RocketLazyLoadPlugin\\": "src/"
+		}
+	},
 	"require": {
-		"php": ">=5.4.0"
+		"php": ">=5.4.0",
+		"league/container": "^2.4",
+		"wp-media/rocket-lazyload-common": "^1.0.0"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
