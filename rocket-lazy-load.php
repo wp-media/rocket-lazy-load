@@ -34,6 +34,7 @@ define('ROCKET_LL_BASENAME', plugin_basename(__FILE__));
 define('ROCKET_LL_PATH', realpath(plugin_dir_path(__FILE__)) . '/');
 define('ROCKET_LL_ASSETS_URL', plugin_dir_url(__FILE__) . 'assets/');
 define('ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/');
+define('ROCKET_LL_INT_MAX', PHP_INT_MAX - 15);
 
 require ROCKET_LL_PATH . 'src/rocket-lazyload-requirements-check.php';
 
