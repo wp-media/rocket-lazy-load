@@ -296,12 +296,19 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        remove_filter('the_content', 'convert_smilies');
-        remove_filter('the_excerpt', 'convert_smilies');
-        remove_filter('comment_text', 'convert_smilies', 20);
+        $filters = [
+            'the_content'  => 10,
+            'the_excerpt'  => 10,
+            'comment_text' => 20,
+        ];
+        
+        foreach ($filters as $filter => $prio) {
+            if (! has_filter($filter)) {
+                continue;
+            }
 
-        add_filter('the_content', [$this->image, 'convertSmilies']);
-        add_filter('the_excerpt', [$this->image, 'convertSmilies']);
-        add_filter('comment_text', [$this->image, 'convertSmilies'], 20);
+            remove_filter($filter, 'convert_smilies', $prio);
+            add_filter($filter, [$this->image, 'convertSmilies'], $prio);
+        }
     }
 }
