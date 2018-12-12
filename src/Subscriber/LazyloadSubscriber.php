@@ -130,12 +130,22 @@ class LazyloadSubscriber implements SubscriberInterface
         ];
 
         if ($this->option_array->get('images')) {
-            $args['elements'][] = 'img';
+            $args['elements']['image'] = 'img[data-lazy-src]';
         }
 
         if ($this->option_array->get('iframes')) {
-            $args['elements'][] = 'iframe';
+            $args['elements']['iframe'] = 'iframe[data-lazy-src]';
         }
+
+        /**
+         * Filters the arguments array for the lazyload script options
+         *
+         * @since 2.0
+         * @author Remy Perona
+         *
+         * @param array $args Arguments used for the lazyload script options.
+         */
+        $args = apply_filters('rocket_lazyload_script_args', $args);
 
         $this->assets->insertLazyloadScript($args);
     }
