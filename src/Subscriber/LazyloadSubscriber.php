@@ -83,11 +83,11 @@ class LazyloadSubscriber implements SubscriberInterface
     {
         return [
             'wp_footer' => [
-                [ 'insertLazyloadScript', PHP_INT_MAX ],
-                ['insertYoutubeThumbnailScript', PHP_INT_MAX ],
+                [ 'insertLazyloadScript', ROCKET_LL_INT_MAX ],
+                ['insertYoutubeThumbnailScript', ROCKET_LL_INT_MAX ],
             ],
-            'wp_enqueue_scripts' => ['insertYoutubeThumbnailStyle', PHP_INT_MAX],
-            'template_redirect'  => ['lazyload', PHP_INT_MAX],
+            'wp_enqueue_scripts' => ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
+            'template_redirect'  => ['lazyload', ROCKET_LL_INT_MAX],
             'rocket_lazyload_html' => 'lazyloadResponsive',
             'init'        => 'lazyloadSmilies',
         ];
@@ -107,7 +107,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+        if (! $this->shouldlazyload()) { // WPCS: prefix ok.
             return;
         }
 
@@ -154,7 +154,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+        if (! $this->shouldlazyload()) { // WPCS: prefix ok.
             return;
         }
 
@@ -189,7 +189,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+        if (! $this->shouldlazyload()) {
             return;
         }
 
@@ -214,6 +214,14 @@ class LazyloadSubscriber implements SubscriberInterface
             return false;
         }
 
+        /**
+         * Filters the lazyload application
+         *
+         * @since 2.0
+         * @author Remy Perona
+         *
+         * @param bool $do_rocket_lazyload True to apply lazyload, false otherwise.
+         */
         if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
             return false;
         }
