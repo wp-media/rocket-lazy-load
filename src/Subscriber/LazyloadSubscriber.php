@@ -125,12 +125,13 @@ class LazyloadSubscriber implements SubscriberInterface
             'base_url' => ROCKET_LL_FRONT_JS_URL,
             'suffix'   => defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min',
             'threshold' => $threshold,
-            'version' => '10.11.1',
-            'fallback' => '8.11',
+            'version' => '10.19',
+            'fallback' => '8.17',
         ];
 
         if ($this->option_array->get('images')) {
             $args['elements']['image'] = 'img[data-lazy-src]';
+            $args['elements']['background_image'] = '.rocket-lazyload-bg';
         }
 
         if ($this->option_array->get('iframes')) {
