@@ -106,37 +106,39 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
      */
     public function dismissBoxes()
     {
-        $args = empty($args) ? $_GET : $args;
+        if (! isset($_GET['box'], $_GET['action'], $_GET['_wpnonce'])) {
+            return;
+        }
 
-        if (isset($args['box'], $args['_wpnonce'])) {
-            if (! wp_verify_nonce($args['_wpnonce'], $args['action'] . '_' . $args['box'])) {
-                if (defined('DOING_AJAX')) {
-                    wp_send_json(array('error' => 1));
-                } else {
-                    wp_nonce_ays('');
-                }
+        if (! wp_verify_nonce($_GET['_wpnonce'], $_GET['action'] . '_' . $_GET['box'])) {
+            if (defined('DOING_AJAX')) {
+                wp_send_json(array('error' => 1));
+            } else {
+                wp_nonce_ays('');
             }
+        }
 
-            if ('rocket_lazyload_imagify_notice' === $args['box']) {
-                update_option('rocket_lazyload_dismiss_imagify_notice', 0);
-            }
+        if ('rocket_lazyload_imagify_notice' === $_GET['box']) {
+            update_option('rocket_lazyload_dismiss_imagify_notice', 0);
+        }
 
-            $actual = get_user_meta(get_current_user_id(), 'rocket_lazyload_boxes', true);
-            $actual = array_merge((array) $actual, array( $args['box'] ));
-            $actual = array_filter($actual);
-            $actual = array_unique($actual);
+        $actual = get_user_meta(get_current_user_id(), 'rocket_lazyload_boxes', true);
+        $actual = array_merge((array) $actual, array( $_GET['box'] ));
+        $actual = array_filter($actual);
+        $actual = array_unique($actual);
 
-            update_user_meta(get_current_user_id(), 'rocket_lazyload_boxes', $actual);
-            delete_transient($args['box']);
+        update_user_meta(get_current_user_id(), 'rocket_lazyload_boxes', $actual);
+        delete_transient($_GET['box']);
 
-            if ('admin-post.php' === $GLOBALS['pagenow']) {
-                if (defined('DOING_AJAX')) {
-                    wp_send_json(array('error' => 0));
-                } else {
-                    wp_safe_redirect(wp_get_referer());
-                    die();
-                }
-            }
+        if (empty($GLOBALS['pagenow']) || 'admin-post.php' !== $GLOBALS['pagenow']) {
+            return;
+        }
+
+        if (defined('DOING_AJAX')) {
+            wp_send_json(array('error' => 0));
+        } else {
+            wp_safe_redirect(esc_url_raw(wp_get_referer()));
+            die();
         }
     }
 }
