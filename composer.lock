@@ -153,16 +153,16 @@
         },
         {
             "name": "wp-media/rocket-lazyload-common",
-            "version": "v1.2",
+            "version": "v1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-                "reference": "db45190dd9fb3dddcdc335e180fa522d6789d0bc"
+                "reference": "d2492d2e874a8e9fdeaf1c9e8117d5c211fad3cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/db45190dd9fb3dddcdc335e180fa522d6789d0bc",
-                "reference": "db45190dd9fb3dddcdc335e180fa522d6789d0bc",
+                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/d2492d2e874a8e9fdeaf1c9e8117d5c211fad3cb",
+                "reference": "d2492d2e874a8e9fdeaf1c9e8117d5c211fad3cb",
                 "shasum": ""
             },
             "require": {
@@ -188,10 +188,10 @@
             ],
             "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
             "support": {
-                "source": "https://github.com/wp-media/rocket-lazyload-common/tree/v1.2",
+                "source": "https://github.com/wp-media/rocket-lazyload-common/tree/v1.3",
                 "issues": "https://github.com/wp-media/rocket-lazyload-common/issues"
             },
-            "time": "2019-01-08T22:32:27+00:00"
+            "time": "2019-01-09T17:31:57+00:00"
         }
     ],
     "packages-dev": [
