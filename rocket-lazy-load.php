@@ -57,6 +57,7 @@ function rocket_lazyload_textdomain()
 
     load_plugin_textdomain('rocket-lazy-load', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 }
+
 add_action('plugins_loaded', 'rocket_lazyload_textdomain');
 
 $rocket_lazyload_requirement_checks = new Rocket_Lazyload_Requirements_Check(
