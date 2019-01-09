@@ -1,7 +1,8 @@
 <?php
 namespace RocketLazyLoadPlugin\Subscriber\ThirdParty;
 
-use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
+use RocketLazyLoadPlugin\EventManagement\EventManager;
+use RocketLazyLoadPlugin\EventManagement\EventManagerAwareSubscriberInterface;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
 
@@ -11,21 +12,40 @@ defined('ABSPATH') || die('Cheatin\' uh?');
  * @since 2.0
  * @author Remy Perona
  */
-class AMPSubscriber implements SubscriberInterface
+class AMPSubscriber implements EventManagerAwareSubscriberInterface
 {
     /**
      * @inheritDoc
      */
     public function getSubscribedEvents()
     {
-        $events = [];
+        return [
+            'wp' => 'disableIfAMP'
+        ];
+    }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function setEventManager(EventManager $event_manager)
+    {
+        $this->event_manager = $event_manager;
+    }
+
+    /**
+     * Disable if on AMP page
+     *
+     * @since 2.0.2
+     * @author Remy Perona
+     *
+     * @return void
+     */
+    public function disableIfAMP()
+    {
         if ($this->isAmpEndpoint()) {
-            $events['do_rocket_lazyload']         = 'returnFalse';
-            $events['do_rocket_lazyload_iframes'] = 'returnFalse';
+            $this->event_manager->addCallback('do_rocket_lazyload', '__return_false');
+            $this->event_manager->addCallback('do_rocket_lazyload_iframes', '__return_false');
         }
-
-        return $events;
     }
 
     /**
@@ -43,18 +63,5 @@ class AMPSubscriber implements SubscriberInterface
         }
 
         return false;
-    }
-
-    /**
-     * Returns false
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function returnFalse()
-    {
-        \__return_false();
     }
 }
