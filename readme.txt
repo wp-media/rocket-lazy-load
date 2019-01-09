@@ -2,9 +2,9 @@
 Contributors: creativejuiz, tabrisrp, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
-Tested up to: 4.9
+Tested up to: 5.0.2
 Requires PHP: 5.4
-Stable tag: 1.4.9
+Stable tag: 2.0
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -69,7 +69,26 @@ add_filter( 'rocket_lazyload_threshold', 'rocket_lazyload_custom_threshold' );
 
 Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
 
+= How can I lazyload a background-image? =
+
+The element you want to apply lazyload on must have this specific markup:
+
+`<div class="rocket-lazyload-bg" data-bg="url(../img/image.jpg)"></div>`
+
+The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
+
 == Changelog ==
+= 2.0 =
+* Enhancement: Lazyload is now applied on the template_redirect hook, which should allow the plugin to apply the optimization on more images and encountering less conflicts at the same time
+* Enhancement: Specifically target with the lazyload script images/iframes elements with a data-lazy-src attribute
+* Enhancement: Update lazyload script to the latest version
+* Enhancement: Possibility to apply lazyload on background-images with a specific markup, see FAQ
+* Enhancement: Use a svg image as placeholder instead of a base64 gif
+* Bugfix: Only use MutationObserver if available in the browser
+* Bugfix: When using the Youtube thumbnail option, correctly format the Youtube query if the video URL is encoded 
+* Bugfix: Improve iframe matching to prevent unexpected results
+* Bugfix: Update CSS for the Youtube thumbnail option to prevent issue with the Gutenberg embeds block
+
 = 1.4.9 =
 * Enhancement: Update lazyload script to the latest available version
 * Enhancement: Use lazy-sizes to prevent W3C validation error when sizes is defined but srcset is not
