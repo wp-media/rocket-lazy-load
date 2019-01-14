@@ -86,7 +86,10 @@ class LazyloadSubscriber implements SubscriberInterface
                 [ 'insertLazyloadScript', ROCKET_LL_INT_MAX ],
                 ['insertYoutubeThumbnailScript', ROCKET_LL_INT_MAX ],
             ],
-            'wp_enqueue_scripts' => ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
+            'wp_enqueue_scripts' => [
+                ['insertNoJSStyle', ROCKET_LL_INT_MAX - 1],
+                ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
+            ],
             'template_redirect'  => ['lazyload', ROCKET_LL_INT_MAX],
             'rocket_lazyload_html' => 'lazyloadResponsive',
             'init'        => 'lazyloadSmilies',
@@ -107,7 +110,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! $this->shouldlazyload()) { // WPCS: prefix ok.
+        if (! $this->shouldLazyload()) { // WPCS: prefix ok.
             return;
         }
 
@@ -165,7 +168,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! $this->shouldlazyload()) { // WPCS: prefix ok.
+        if (! $this->shouldLazyload()) { // WPCS: prefix ok.
             return;
         }
 
@@ -187,6 +190,23 @@ class LazyloadSubscriber implements SubscriberInterface
     }
 
     /**
+     * Inserts the no JS CSS compatibility in the header
+     *
+     * @since 2.0.3
+     * @author Remy Perona
+     *
+     * @return void
+     */
+    public function insertNoJSStyle()
+    {
+        if (! $this->shouldLazyload()) {
+            return;
+        }
+
+        $this->assets->insertNoJSCSS();
+    }
+
+    /**
      * Inserts the Youtube thumbnail CSS in the header
      *
      * @since 2.0
@@ -200,7 +220,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! $this->shouldlazyload()) {
+        if (! $this->shouldLazyload()) {
             return;
         }
 
