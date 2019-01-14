@@ -225,6 +225,16 @@ class LazyloadSubscriber implements SubscriberInterface
             return false;
         }
 
+        // Don't lazyload on Beaver Builder editor
+        if (isset($_GET['fl_builder'])) {
+            return false;
+        }
+
+        // Don't lazyload on Divi editor
+        if (isset($_GET['et_fb'])) {
+            return false;
+        }
+
         /**
          * Filters the lazyload application
          *
