@@ -110,7 +110,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! $this->shouldLazyload()) { // WPCS: prefix ok.
+        if (! $this->shouldLazyload()) {
             return;
         }
 
@@ -168,7 +168,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! $this->shouldLazyload()) { // WPCS: prefix ok.
+        if (! $this->shouldLazyload()) {
             return;
         }
 
