@@ -298,8 +298,10 @@ class LazyloadSubscriber implements SubscriberInterface
      */
     public function lazyloadBuffer($html)
     {
+        $buffer = $this->ignoreScripts($html);
+
         if ($this->option_array->get('images')) {
-            $html = $this->image->lazyloadImages($html);
+            $html = $this->image->lazyloadImages($html, $buffer);
         }
 
         if ($this->option_array->get('iframes')) {
@@ -307,7 +309,7 @@ class LazyloadSubscriber implements SubscriberInterface
                 'youtube' => $this->option_array->get('youtube'),
             ];
 
-            $html = $this->iframe->lazyloadIframes($html, $args);
+            $html = $this->iframe->lazyloadIframes($html, $buffer, $args);
         }
 
         return $html;
@@ -359,5 +361,16 @@ class LazyloadSubscriber implements SubscriberInterface
             remove_filter($filter, 'convert_smilies', $prio);
             add_filter($filter, [$this->image, 'convertSmilies'], $prio);
         }
+    }
+
+    /**
+     * Remove inline scripts from the HTML to parse
+     *
+     * @param string $html
+     * @return string
+     */
+    private function ignoreScripts($html)
+    {
+        return preg_replace('/<script\b(?:[^>]*)>(?:.+)?<\/script>/msi', '', $html);
     }
 }
