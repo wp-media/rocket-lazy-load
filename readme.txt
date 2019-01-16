@@ -4,7 +4,7 @@ Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smili
 Requires at least: 4.7
 Tested up to: 5.0.2
 Requires PHP: 5.4
-Stable tag: 2.0.3
+Stable tag: 2.0.3.1
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -78,6 +78,9 @@ The element you want to apply lazyload on must have this specific markup:
 The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.0.3.1 =
+* Bugfix: Correct an issue preventing lazyload from working
+
 = 2.0.3 =
 * Bugfix: Prevent incorrect display if JavaScript is disabled
 * Bugfix: Don't apply lazyload on Divi/Extra/Beaver Builder Editor pages
