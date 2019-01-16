@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f29400f3ee27894ea8fb972d21229ce3",
+    "content-hash": "7b8ffd2baafae72a52f8be8573399b8e",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -153,16 +153,16 @@
         },
         {
             "name": "wp-media/rocket-lazyload-common",
-            "version": "v1.3",
+            "version": "v2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-                "reference": "d2492d2e874a8e9fdeaf1c9e8117d5c211fad3cb"
+                "reference": "0c834ce26ae8ed41f6f13eb284b5f4c06c18b499"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/d2492d2e874a8e9fdeaf1c9e8117d5c211fad3cb",
-                "reference": "d2492d2e874a8e9fdeaf1c9e8117d5c211fad3cb",
+                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/0c834ce26ae8ed41f6f13eb284b5f4c06c18b499",
+                "reference": "0c834ce26ae8ed41f6f13eb284b5f4c06c18b499",
                 "shasum": ""
             },
             "require": {
@@ -188,10 +188,10 @@
             ],
             "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
             "support": {
-                "source": "https://github.com/wp-media/rocket-lazyload-common/tree/v1.3",
+                "source": "https://github.com/wp-media/rocket-lazyload-common/tree/v2.0",
                 "issues": "https://github.com/wp-media/rocket-lazyload-common/issues"
             },
-            "time": "2019-01-09T17:31:57+00:00"
+            "time": "2019-01-15T21:38:51+00:00"
         }
     ],
     "packages-dev": [

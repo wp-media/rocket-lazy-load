@@ -86,7 +86,10 @@ class LazyloadSubscriber implements SubscriberInterface
                 [ 'insertLazyloadScript', ROCKET_LL_INT_MAX ],
                 ['insertYoutubeThumbnailScript', ROCKET_LL_INT_MAX ],
             ],
-            'wp_enqueue_scripts' => ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
+            'wp_enqueue_scripts' => [
+                ['insertNoJSStyle', ROCKET_LL_INT_MAX - 1],
+                ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
+            ],
             'template_redirect'  => ['lazyload', ROCKET_LL_INT_MAX],
             'rocket_lazyload_html' => 'lazyloadResponsive',
             'init'        => 'lazyloadSmilies',
@@ -107,7 +110,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! $this->shouldlazyload()) { // WPCS: prefix ok.
+        if (! $this->shouldLazyload()) {
             return;
         }
 
@@ -165,7 +168,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! $this->shouldlazyload()) { // WPCS: prefix ok.
+        if (! $this->shouldLazyload()) {
             return;
         }
 
@@ -187,6 +190,23 @@ class LazyloadSubscriber implements SubscriberInterface
     }
 
     /**
+     * Inserts the no JS CSS compatibility in the header
+     *
+     * @since 2.0.3
+     * @author Remy Perona
+     *
+     * @return void
+     */
+    public function insertNoJSStyle()
+    {
+        if (! $this->shouldLazyload()) {
+            return;
+        }
+
+        $this->assets->insertNoJSCSS();
+    }
+
+    /**
      * Inserts the Youtube thumbnail CSS in the header
      *
      * @since 2.0
@@ -200,7 +220,7 @@ class LazyloadSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! $this->shouldlazyload()) {
+        if (! $this->shouldLazyload()) {
             return;
         }
 
@@ -222,6 +242,16 @@ class LazyloadSubscriber implements SubscriberInterface
     private function shouldLazyload()
     {
         if (is_admin() || is_feed() || is_preview() || (defined('REST_REQUEST') && REST_REQUEST) || (defined('DONOTLAZYLOAD') && DONOTLAZYLOAD)) {
+            return false;
+        }
+
+        // Don't lazyload on Beaver Builder editor
+        if (isset($_GET['fl_builder'])) {
+            return false;
+        }
+
+        // Don't lazyload on Divi editor
+        if (isset($_GET['et_fb'])) {
             return false;
         }
 
@@ -268,8 +298,10 @@ class LazyloadSubscriber implements SubscriberInterface
      */
     public function lazyloadBuffer($html)
     {
+        $buffer = $this->ignoreScripts($html);
+
         if ($this->option_array->get('images')) {
-            $html = $this->image->lazyloadImages($html);
+            $html = $this->image->lazyloadImages($html, $buffer);
         }
 
         if ($this->option_array->get('iframes')) {
@@ -277,7 +309,7 @@ class LazyloadSubscriber implements SubscriberInterface
                 'youtube' => $this->option_array->get('youtube'),
             ];
 
-            $html = $this->iframe->lazyloadIframes($html, $args);
+            $html = $this->iframe->lazyloadIframes($html, $buffer, $args);
         }
 
         return $html;
@@ -329,5 +361,16 @@ class LazyloadSubscriber implements SubscriberInterface
             remove_filter($filter, 'convert_smilies', $prio);
             add_filter($filter, [$this->image, 'convertSmilies'], $prio);
         }
+    }
+
+    /**
+     * Remove inline scripts from the HTML to parse
+     *
+     * @param string $html
+     * @return string
+     */
+    private function ignoreScripts($html)
+    {
+        return preg_replace('/<script\b(?:[^>]*)>(?:.+)?<\/script>/msi', '', $html);
     }
 }
