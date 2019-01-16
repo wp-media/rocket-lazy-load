@@ -371,6 +371,6 @@ class LazyloadSubscriber implements SubscriberInterface
      */
     private function ignoreScripts($html)
     {
-        return preg_replace('/<script\b(?:[^>]*)>(?:.+)?<\/script>/mi', '', $html);
+        return preg_replace('/<script\b(?:[^>]*)>(?:.+)?<\/script>/Umsi', '', $html);
     }
 }
