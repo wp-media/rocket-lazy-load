@@ -4,7 +4,7 @@
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
  * Version: 2.0.3.2
- * Author: WP Media
+ * Author: WP Rocket
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
  * Domain Path: /languages
