@@ -1,5 +1,5 @@
 === Lazy Load by WP Rocket ===
-Contributors: creativejuiz, tabrisrp, wp_media
+Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
 Tested up to: 5.0.2
@@ -18,11 +18,12 @@ You can also replace Youtube iframes by a preview thumbnail to further speed up 
 
 = Dependencies =
 
-Lazyload script: https://github.com/verlok/lazyload
+Lazyload script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
 
 = Related Plugins =
-* <a href="https://wordpress.org/plugins/imagify/">Imagify</a>: Best Image Optimizer to speed up your website with lighter images.
-* <a href="https://wp-rocket.me">WP Rocket</a>: Best caching plugin to speed-up your WordPress website.
+* [Imagify](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=HeartBeatPlugin): Best Image Optimizer to speed up your website with lighter images.
+* [WP Rocket](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=HeartBeatPlugin): Best caching plugin to speed-up your WordPress website.
+* [Heartbeat Control by WP Rocket](https://wordpress.org/plugins/heartbeat-control/): Heartbeat Control by WP Rocket: Best plugin to control the WordPress Heartbeat API and reduce CPU usage.
 
 == Installation ==
 
