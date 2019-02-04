@@ -21,8 +21,8 @@ You can also replace Youtube iframes by a preview thumbnail to further speed up 
 Lazyload script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
 
 = Related Plugins =
-* [Imagify](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=HeartBeatPlugin): Best Image Optimizer to speed up your website with lighter images.
-* [WP Rocket](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=HeartBeatPlugin): Best caching plugin to speed-up your WordPress website.
+* [Imagify](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best Image Optimizer to speed up your website with lighter images.
+* [WP Rocket](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best caching plugin to speed-up your WordPress website.
 * [Heartbeat Control by WP Rocket](https://wordpress.org/plugins/heartbeat-control/): Heartbeat Control by WP Rocket: Best plugin to control the WordPress Heartbeat API and reduce CPU usage.
 
 == Installation ==
