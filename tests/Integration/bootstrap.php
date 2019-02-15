@@ -40,6 +40,18 @@ function rllPluginGetWPTestsDir()
 
 $rocket_ll_tests_dir = rllPluginGetWPTestsDir();
 
+// Give access to tests_add_filter() function.
+require_once $_tests_dir . '/includes/functions.php';
+
+/**
+ * Manually load the plugin being tested.
+ */
+function rocket_lazyload_manually_load_plugin()
+{
+    require RLL_PLUGIN_ROOT . '/rocket-lazy-load.php';
+}
+tests_add_filter('muplugins_loaded', 'rocket_lazyload_manually_load_plugin');
+
 require_once $rocket_ll_tests_dir . '/includes/bootstrap.php';
 
 unset($rocket_ll_tests_dir);
