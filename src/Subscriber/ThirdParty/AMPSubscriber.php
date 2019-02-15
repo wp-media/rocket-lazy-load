@@ -1,4 +1,10 @@
 <?php
+/**
+ * AMP plugin compatibility subscrber
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\Subscriber\ThirdParty;
 
 use RocketLazyLoadPlugin\EventManagement\EventManager;
@@ -20,7 +26,7 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface
     public function getSubscribedEvents()
     {
         return [
-            'wp' => 'disableIfAMP'
+            'wp' => 'disableIfAMP',
         ];
     }
 

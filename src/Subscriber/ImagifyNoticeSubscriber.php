@@ -1,4 +1,10 @@
 <?php
+/**
+ * Imagify Notice subscriber
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\Subscriber;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
@@ -62,7 +68,7 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
     {
         $current_screen = get_current_screen();
 
-        if ('admin_notices' === current_filter() && (isset($current_screen) && 'settings_page_rocket_lazyload' !== $current_screen->base)) {
+        if ('admin_notices' === current_filter() && ( isset($current_screen) && 'settings_page_rocket_lazyload' !== $current_screen->base )) {
             return;
         }
     
@@ -110,32 +116,34 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
             return;
         }
 
-        if (! wp_verify_nonce($_GET['_wpnonce'], $_GET['action'] . '_' . $_GET['box'])) {
+        if (! wp_verify_nonce(sanitize_key($_GET['_wpnonce']), 'rocket_lazyload_ignore_rocket_lazyload_imagify_notice')) {
             if (defined('DOING_AJAX')) {
-                wp_send_json(array('error' => 1));
+                wp_send_json(['error' => 1]);
             } else {
                 wp_nonce_ays('');
             }
         }
 
-        if ('rocket_lazyload_imagify_notice' === $_GET['box']) {
+        $box = sanitize_key(wp_unslash($_GET['box']));
+
+        if ('rocket_lazyload_imagify_notice' === $box) {
             update_option('rocket_lazyload_dismiss_imagify_notice', 0);
         }
 
-        $actual = get_user_meta(get_current_user_id(), 'rocket_lazyload_boxes', true);
-        $actual = array_merge((array) $actual, array( $_GET['box'] ));
+        $actual = (array) get_user_meta(get_current_user_id(), 'rocket_lazyload_boxes', true);
+        $actual = array_merge($actual, [ $box ]);
         $actual = array_filter($actual);
         $actual = array_unique($actual);
 
         update_user_meta(get_current_user_id(), 'rocket_lazyload_boxes', $actual);
-        delete_transient($_GET['box']);
+        delete_transient($box);
 
         if (empty($GLOBALS['pagenow']) || 'admin-post.php' !== $GLOBALS['pagenow']) {
             return;
         }
 
         if (defined('DOING_AJAX')) {
-            wp_send_json(array('error' => 0));
+            wp_send_json(['error' => 0]);
         } else {
             wp_safe_redirect(esc_url_raw(wp_get_referer()));
             die();

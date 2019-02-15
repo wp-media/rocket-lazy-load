@@ -1,4 +1,10 @@
 <?php
+/**
+ * Imagify notice view
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 defined('ABSPATH') || die('Cheatin\' uh?');
 
 $action_url = wp_nonce_url(
@@ -10,12 +16,12 @@ $action_url = wp_nonce_url(
         admin_url('update.php')
     ),
     'install-plugin_imagify'
-); // WPCS: prefix ok.
+); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound.
 
 $dismiss_url = wp_nonce_url(
     admin_url('admin-post.php?action=rocket_lazyload_ignore&box=rocket_lazyload_imagify_notice'),
     'rocket_lazyload_ignore_rocket_lazyload_imagify_notice'
-); // WPCS: prefix ok.
+); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound.
 
 ?>
 <div id="plugin-filter" class="updated plugin-card plugin-card-imagify rktll-imagify-notice">

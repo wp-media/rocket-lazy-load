@@ -9,6 +9,8 @@
  * Text Domain: rocket-lazy-load
  * Domain Path: /languages
  *
+ * @package RocketLazyloadPlugin
+ *
  * Copyright 2015-2019 WP Media
  *
  * This program is free software; you can redistribute it and/or modify
@@ -52,7 +54,7 @@ function rocket_lazyload_textdomain()
     $locale = get_locale();
 
     // This filter is documented in /wp-includes/l10n.php.
-    $locale = apply_filters('plugin_locale', $locale, 'rocket-lazy-load'); // WPCS: prefix ok.
+    $locale = apply_filters('plugin_locale', $locale, 'rocket-lazy-load'); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound.
     load_textdomain('rocket-lazy-load', WP_LANG_DIR . '/plugins/rocket-lazy-load-' . $locale . '.mo');
 
     load_plugin_textdomain('rocket-lazy-load', false, dirname(plugin_basename(__FILE__)) . '/languages/');

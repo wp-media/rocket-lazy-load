@@ -1,11 +1,20 @@
 <?php
+/**
+ * Options Class
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 namespace RocketLazyLoadPlugin\Options;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
 
+/**
+ * Interact with the WordPress Options API
+ */
 class Options extends AbstractOptions
 {
-/**
+    /**
      * The prefix used by Rocket Lazyload options.
      *
      * @since 2.0

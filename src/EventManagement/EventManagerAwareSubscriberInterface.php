@@ -1,4 +1,10 @@
 <?php
+/**
+ * Interface for subscribers who need access to the event manager object
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\EventManagement;
 
 interface EventManagerAwareSubscriberInterface extends SubscriberInterface

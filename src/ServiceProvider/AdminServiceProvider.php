@@ -1,4 +1,10 @@
 <?php
+/**
+ * Service Provider for the admin page classes
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
@@ -34,8 +40,8 @@ class AdminServiceProvider extends AbstractServiceProvider
     public function register()
     {
         $this->getContainer()->add('RocketLazyLoadPlugin\Admin\AdminPage')
-             ->withArgument($this->getContainer()->get('options'))
-             ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Options\OptionArray'))
-             ->withArgument($this->getContainer()->get('template_path'));
+            ->withArgument($this->getContainer()->get('options'))
+            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Options\OptionArray'))
+            ->withArgument($this->getContainer()->get('template_path'));
     }
 }

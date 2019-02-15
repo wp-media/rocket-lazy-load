@@ -1,4 +1,10 @@
 <?php
+/**
+ * Manages the plugin options data
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 namespace RocketLazyLoadPlugin\Options;
 
 /**

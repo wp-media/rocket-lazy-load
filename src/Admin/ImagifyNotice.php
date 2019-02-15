@@ -1,4 +1,10 @@
 <?php
+/**
+ * Imagify Notice Class
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 namespace RocketLazyLoadPlugin\Admin;
 
 /**
@@ -57,7 +63,7 @@ class ImagifyNotice
     {
         $template_path = $this->template_path . $template . '.php';
 
-        if (!is_readable($template_path)) {
+        if (! is_readable($template_path)) {
             return;
         }
 

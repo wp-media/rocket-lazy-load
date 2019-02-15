@@ -1,10 +1,16 @@
 <?php
+/**
+ * Admin Page view
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 defined('ABSPATH') || die('Cheatin\' uh?');
 
 global $wp_version;
 
 $options = [
-    'images' => [
+    'images'  => [
         'label' => __('Images', 'rocket-lazy-load'),
     ],
     'iframes' => [
@@ -13,12 +19,12 @@ $options = [
     'youtube' => [
         'label' => __('Replace Youtube videos by thumbnail', 'rocket-lazy-load'),
     ],
-]; // WPCS: prefix ok.
+];
 
 ?>
 <div class="wrap rocket-lazyload-settings">
 
-    <?php $heading_tag = version_compare($wp_version, '4.3') >= 0 ? 'h1' : 'h2'; // WPCS: prefix ok. ?>
+    <?php $heading_tag = version_compare($wp_version, '4.3') >= 0 ? 'h1' : 'h2'; ?>
     <<?php echo $heading_tag; ?> class="screen-reader-text"><?php echo esc_html(get_admin_page_title()); ?></<?php echo $heading_tag; ?>>
     <div class="rocket-lazyload-header">
         <div>
@@ -42,7 +48,7 @@ $options = [
                 <p><?php esc_html_e('LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazy-load'); ?></p>
                 <p><?php esc_html_e('This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazy-load'); ?></p>
                 <ul class="rocket-lazyload-options">
-                    <?php foreach ($options as $slug => $infos) : // WPCS: prefix ok. ?>
+                    <?php foreach ($options as $slug => $infos) : ?>
                     <li class="rocket-lazyload-option">
                         <input type="checkbox" value="1" id="lazyload-<?php echo esc_attr($slug); ?>" name="rocket_lazyload_options[<?php echo esc_attr($slug); ?>]" <?php checked($this->option_array->get($slug, 0), 1); ?> aria-labelledby="describe-lazyload-<?php echo esc_attr($slug); ?>">
                         <label for="lazyload-<?php echo esc_attr($slug); ?>">
@@ -55,7 +61,7 @@ $options = [
                 </ul>
             </fieldset>
         <?php settings_fields('rocket_lazyload'); ?>
-        
+
         <?php if (! is_plugin_active('wp-rocket/wp-rocket.php')) { ?>
         <div class="rocket-lazyload-upgrade">
 
@@ -65,7 +71,7 @@ $options = [
                     <?php esc_html_e('Go Premium with', 'rocket-lazy-load'); ?>
                     <img class="rocket-lazyload-rocket-logo" src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/wprocket.png'); ?>" srcset="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/wprocket@2x.png'); ?>" width="232" height="63" alt="WP Rocket">
                 </p>
-                
+
                 <div class="rocket-lazyload-cta-block">
                     <a class="button button-primary" href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_lazyload"><?php _e('Get WP&nbsp;Rocket Now!', 'rocket-lazy-load'); ?></a>
                 </div>
@@ -73,37 +79,51 @@ $options = [
 
             <div class="rocket-lazyload-upgrade-arguments">
                 <ul>
-                    <li class="rll-upgrade-item"><?php
+                    <li class="rll-upgrade-item">
+                    <?php
                     // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
                     printf(__('%1$sMultiple new features%2$s to further improve your load time', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?></li>
-                    <li class="rll-upgrade-item"><?php
+                    ?>
+                    </li>
+                    <li class="rll-upgrade-item">
+                    <?php
                     // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
                     printf(__('All you need to %1$simprove your Google PageSpeed%2$s score', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?></li>
-                    <li class="rll-upgrade-item"><?php
+                    ?>
+                    </li>
+                    <li class="rll-upgrade-item">
+                    <?php
                     // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
                     printf(__('%1$sBoost your SEO%2$s by preloading your cache page for Google’s bots', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?></li>
-                    <li class="rll-upgrade-item"><?php
+                    ?>
+                    </li>
+                    <li class="rll-upgrade-item">
+                    <?php
                     // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
                     printf(__('Watch your conversion rise with the %1$s100%% WooCommerce compatibility%2$s', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?></li>
-                    <li class="rll-upgrade-item"><?php
+                    ?>
+                    </li>
+                    <li class="rll-upgrade-item">
+                    <?php
                     // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
                     printf(__('Minimal configuration, %1$sImmediate results%2$s', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?></li>
-                    <li class="rll-upgrade-item"><?php
+                    ?>
+                    </li>
+                    <li class="rll-upgrade-item">
+                    <?php
                     // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
                     printf(__('Set up takes %1$s5 minutes flat%2$s', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?></li>
-                    <li class="rll-upgrade-item"><?php
+                    ?>
+                    </li>
+                    <li class="rll-upgrade-item">
+                    <?php
                     // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
                     printf(__('%1$s24/7 support%2$s', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?></li>
+                    ?>
+                    </li>
                 </ul>
             </div><!-- .rocket-lazyload-upgrade-arguments -->
-            
+
         </div><!-- .rocket-lazyload-upgrade -->
         <?php } ?>
 

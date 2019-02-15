@@ -1,4 +1,10 @@
 <?php
+/**
+ * Service Provider for the imagify notice class
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
@@ -34,6 +40,6 @@ class ImagifyNoticeServiceProvider extends AbstractServiceProvider
     public function register()
     {
         $this->getContainer()->add('RocketLazyLoadPlugin\Admin\ImagifyNotice')
-             ->withArgument($this->getContainer()->get('template_path'));
+            ->withArgument($this->getContainer()->get('template_path'));
     }
 }

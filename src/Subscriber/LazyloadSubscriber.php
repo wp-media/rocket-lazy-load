@@ -1,4 +1,10 @@
 <?php
+/**
+ * Lazyload subscriber
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 namespace RocketLazyLoadPlugin\Subscriber;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
@@ -64,9 +70,9 @@ class LazyloadSubscriber implements SubscriberInterface
      * @author Remy Perona
      *
      * @param OptionArray $option_array OptionArray instance.
-     * @param Assets $assets Assets instance.
-     * @param Image $image Image instance.
-     * @param Iframe $iframe Iframe instance.
+     * @param Assets      $assets Assets instance.
+     * @param Image       $image Image instance.
+     * @param Iframe      $iframe Iframe instance.
      */
     public function __construct(OptionArray $option_array, Assets $assets, Image $image, Iframe $iframe)
     {
@@ -82,17 +88,17 @@ class LazyloadSubscriber implements SubscriberInterface
     public function getSubscribedEvents()
     {
         return [
-            'wp_footer' => [
+            'wp_footer'            => [
                 [ 'insertLazyloadScript', ROCKET_LL_INT_MAX ],
                 ['insertYoutubeThumbnailScript', ROCKET_LL_INT_MAX ],
             ],
-            'wp_enqueue_scripts' => [
+            'wp_enqueue_scripts'   => [
                 ['insertNoJSStyle', ROCKET_LL_INT_MAX - 1],
                 ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
             ],
-            'template_redirect'  => ['lazyload', ROCKET_LL_INT_MAX],
+            'template_redirect'    => ['lazyload', ROCKET_LL_INT_MAX],
             'rocket_lazyload_html' => 'lazyloadResponsive',
-            'init'        => 'lazyloadSmilies',
+            'init'                 => 'lazyloadSmilies',
         ];
     }
 
@@ -125,15 +131,15 @@ class LazyloadSubscriber implements SubscriberInterface
         $threshold = apply_filters('rocket_lazyload_threshold', 300);
 
         $args = [
-            'base_url' => ROCKET_LL_FRONT_JS_URL,
-            'suffix'   => defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min',
+            'base_url'  => ROCKET_LL_FRONT_JS_URL,
+            'suffix'    => defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min',
             'threshold' => $threshold,
-            'version' => '10.19',
-            'fallback' => '8.17',
+            'version'   => '10.19',
+            'fallback'  => '8.17',
         ];
 
         if ($this->option_array->get('images')) {
-            $args['elements']['image'] = 'img[data-lazy-src]';
+            $args['elements']['image']            = 'img[data-lazy-src]';
             $args['elements']['background_image'] = '.rocket-lazyload-bg';
         }
 
@@ -241,16 +247,16 @@ class LazyloadSubscriber implements SubscriberInterface
      */
     private function shouldLazyload()
     {
-        if (is_admin() || is_feed() || is_preview() || (defined('REST_REQUEST') && REST_REQUEST) || (defined('DONOTLAZYLOAD') && DONOTLAZYLOAD)) {
+        if (is_admin() || is_feed() || is_preview() || ( defined('REST_REQUEST') && REST_REQUEST ) || ( defined('DONOTLAZYLOAD') && DONOTLAZYLOAD )) {
             return false;
         }
 
-        // Don't lazyload on Beaver Builder editor
+        // Don't lazyload on Beaver Builder editor.
         if (isset($_GET['fl_builder'])) {
             return false;
         }
 
-        // Don't lazyload on Divi editor
+        // Don't lazyload on Divi editor.
         if (isset($_GET['et_fb'])) {
             return false;
         }
@@ -263,7 +269,7 @@ class LazyloadSubscriber implements SubscriberInterface
          *
          * @param bool $do_rocket_lazyload True to apply lazyload, false otherwise.
          */
-        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+        if (! apply_filters('do_rocket_lazyload', true)) {
             return false;
         }
 
@@ -293,7 +299,7 @@ class LazyloadSubscriber implements SubscriberInterface
      * @since 2.0
      * @author Remy Perona
      *
-     * @param string $html HTML content
+     * @param string $html HTML content.
      * @return string
      */
     public function lazyloadBuffer($html)
@@ -366,7 +372,7 @@ class LazyloadSubscriber implements SubscriberInterface
     /**
      * Remove inline scripts from the HTML to parse
      *
-     * @param string $html
+     * @param string $html HTML content.
      * @return string
      */
     private function ignoreScripts($html)
