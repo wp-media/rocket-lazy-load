@@ -1,10 +1,10 @@
 === Lazy Load by WP Rocket ===
-Contributors: creativejuiz, tabrisrp, wp_media
+Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
 Tested up to: 5.0.2
 Requires PHP: 5.4
-Stable tag: 2.0.2
+Stable tag: 2.0.3.2
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -18,11 +18,12 @@ You can also replace Youtube iframes by a preview thumbnail to further speed up 
 
 = Dependencies =
 
-Lazyload script: https://github.com/verlok/lazyload
+Lazyload script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
 
 = Related Plugins =
-* <a href="https://wordpress.org/plugins/imagify/">Imagify</a>: Best Image Optimizer to speed up your website with lighter images.
-* <a href="https://wp-rocket.me">WP Rocket</a>: Best caching plugin to speed-up your WordPress website.
+* [Imagify](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best Image Optimizer to speed up your website with lighter images.
+* [WP Rocket](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best caching plugin to speed-up your WordPress website.
+* [Heartbeat Control by WP Rocket](https://wordpress.org/plugins/heartbeat-control/): Heartbeat Control by WP Rocket: Best plugin to control the WordPress Heartbeat API and reduce CPU usage.
 
 == Installation ==
 
@@ -78,6 +79,18 @@ The element you want to apply lazyload on must have this specific markup:
 The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.0.3.2 =
+* Bugfix: Correctly ignore inline scripts with line breaks inside
+
+= 2.0.3.1 =
+* Bugfix: Correct an issue preventing lazyload from working
+
+= 2.0.3 =
+* Bugfix: Prevent incorrect display if JavaScript is disabled
+* Bugfix: Don't apply lazyload on Divi/Extra/Beaver Builder Editor pages
+* Bugfix: Use the correct URL for each iframe when multiple iframes are on the same page
+* Bugfix: Ignore content inside inline script tags to prevent applying lazyload in it
+
 = 2.0.2 =
 * Bugfix: Fix an error in the compatibility for the AMP plugin
 
