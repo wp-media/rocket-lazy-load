@@ -18,12 +18,6 @@
 	"config": {
 		"sort-packages": true
 	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/wp-media/rocket-lazyload-common"
-		}
-	],
 	"support": {
 		"issues": "https://github.com/wp-media/rocket-lazy-load/issues",
 		"source": "https://github.com/wp-media/rocket-lazy-load"
