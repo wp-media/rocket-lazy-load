@@ -4,7 +4,7 @@ Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smili
 Requires at least: 4.7
 Tested up to: 5.0.2
 Requires PHP: 5.4
-Stable tag: 2.0.3.2
+Stable tag: 2.0.4
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -53,6 +53,8 @@ Simply add a `data-no-lazy="1"` property in you `img` or `iframe` tag.
 
 You can also use the filters `rocket_lazyload_excluded_attributes` or `rocket_lazyload_excluded_src` to exclude specific patterns.
 
+For iframes, the filter is `rocket_lazyload_iframe_excluded_patterns`.
+
 = How can I change the threshold to trigger the load? =
 
 You can use the `rocket_lazyload_threshold` filter.
@@ -79,6 +81,12 @@ The element you want to apply lazyload on must have this specific markup:
 The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.0.4 =
+* Enhancement: Add filter for iframe lazyload pattern exclusion
+* Enhancement: Auto-exclude soliloquy-image pattern from lazyload
+* Bugfix: Prevent issue when an image/iframe is duplicated on the same page
+* Bugfix: Prevent W3C validation error for the SVG placeholder
+
 = 2.0.3.2 =
 * Bugfix: Correctly ignore inline scripts with line breaks inside
 
