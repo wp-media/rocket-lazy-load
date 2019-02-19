@@ -1,4 +1,10 @@
 <?php
+/**
+ * Service Provider for the lazyload library
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;

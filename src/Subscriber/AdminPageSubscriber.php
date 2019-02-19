@@ -1,4 +1,10 @@
 <?php
+/**
+ * Admin Page subscriber
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\Subscriber;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
@@ -41,7 +47,7 @@ class AdminPageSubscriber implements SubscriberInterface
      * @author Remy Perona
      *
      * @param AdminPage $page AdminPage instance.
-     * @param string $plugin_basename Plugin basename.
+     * @param string    $plugin_basename Plugin basename.
      */
     public function __construct(AdminPage $page, $plugin_basename)
     {

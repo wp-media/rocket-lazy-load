@@ -1,4 +1,10 @@
 <?php
+/**
+ * Admin Page Class
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 namespace RocketLazyLoadPlugin\Admin;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
@@ -60,9 +66,9 @@ class AdminPage
      * @since 2.0
      * @author Remy Perona
      *
-     * @param Options $options Options instance.
+     * @param Options     $options Options instance.
      * @param OptionArray $option_array OptionArray instance.
-     * @param string $template_path Template path.
+     * @param string      $template_path Template path.
      */
     public function __construct(Options $options, OptionArray $option_array, $template_path)
     {
@@ -161,7 +167,7 @@ class AdminPage
     {
         $template_path = $this->template_path . $template . '.php';
 
-        if (!is_readable($template_path)) {
+        if (! is_readable($template_path)) {
             return;
         }
 

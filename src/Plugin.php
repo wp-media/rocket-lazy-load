@@ -1,4 +1,10 @@
 <?php
+/**
+ * Initialize and load the plugin
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 namespace RocketLazyLoadPlugin;
 
 use League\Container\Container;
@@ -50,7 +56,7 @@ class Plugin
             return;
         }
 
-        $container = new Container;
+        $container = new Container();
 
         $container->add('template_path', ROCKET_LL_PATH . 'views/');
         $container->add('plugin_basename', ROCKET_LL_BASENAME);
@@ -68,7 +74,7 @@ class Plugin
             'RocketLazyLoadPlugin\ServiceProvider\AdminServiceProvider',
             'RocketLazyLoadPlugin\ServiceProvider\ImagifyNoticeServiceProvider',
             'RocketLazyLoadPlugin\ServiceProvider\LazyloadServiceProvider',
-            'RocketLazyLoadPlugin\ServiceProvider\SubscribersServiceProvider'
+            'RocketLazyLoadPlugin\ServiceProvider\SubscribersServiceProvider',
         ];
 
         foreach ($service_providers as $service) {

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Abstract class to interact with the WP options API
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 namespace RocketLazyLoadPlugin\Options;
 
 /**

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Check if current requirements are met
+ *
+ * @package RocketLazyloadPlugin
+ */
+
 defined('ABSPATH') || die('Cheatin&#8217; uh?');
 
 /**
@@ -54,7 +60,7 @@ class Rocket_Lazyload_Requirements_Check
     public function __construct($args)
     {
         foreach (array('plugin_name', 'plugin_version', 'wp_version', 'php_version') as $setting) {
-            if (isset($args[ $setting])) {
+            if (isset($args[ $setting ])) {
                 $this->$setting = $args[ $setting ];
             }
         }

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Event Manager to interact with the WP plugin API
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\EventManagement;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
@@ -100,8 +106,8 @@ class EventManager
      * of the WordPress plugin API.
      *
      * @param SubscriberInterface $subscriber SubscriberInterface implementation.
-     * @param string               $hook_name  Hook name.
-     * @param mixed                $parameters Parameters, can be a string, an array or a multidimensional array.
+     * @param string              $hook_name  Hook name.
+     * @param mixed               $parameters Parameters, can be a string, an array or a multidimensional array.
      */
     private function addSubscriberCallback(SubscriberInterface $subscriber, $hook_name, $parameters)
     {
@@ -121,8 +127,8 @@ class EventManager
      * of the WordPress plugin API.
      *
      * @param SubscriberInterface $subscriber SubscriberInterface implementation.
-     * @param string               $hook_name  Hook name.
-     * @param mixed                $parameters Parameters, can be a string, an array or a multidimensional array.
+     * @param string              $hook_name  Hook name.
+     * @param mixed               $parameters Parameters, can be a string, an array or a multidimensional array.
      */
     private function removeSubscriberCallback(SubscriberInterface $subscriber, $hook_name, $parameters)
     {

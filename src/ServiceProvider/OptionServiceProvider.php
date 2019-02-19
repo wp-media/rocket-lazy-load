@@ -1,4 +1,10 @@
 <?php
+/**
+ * Service Provider for the plugin options
+ *
+ * @package RocketLazyload
+ */
+
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
 use League\Container\ServiceProvider\AbstractServiceProvider;
@@ -34,6 +40,6 @@ class OptionServiceProvider extends AbstractServiceProvider
     public function register()
     {
         $this->getContainer()->add('RocketLazyLoadPlugin\Options\OptionArray')
-             ->withArgument($this->getContainer()->get('options')->get('_options'));
+            ->withArgument($this->getContainer()->get('options')->get('_options'));
     }
 }
