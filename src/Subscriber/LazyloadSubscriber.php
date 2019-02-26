@@ -132,10 +132,8 @@ class LazyloadSubscriber implements SubscriberInterface
 
         $args = [
             'base_url'  => ROCKET_LL_FRONT_JS_URL,
-            'suffix'    => defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min',
             'threshold' => $threshold,
-            'version'   => '10.19',
-            'fallback'  => '8.17',
+            'version'   => '11.0.2',
         ];
 
         if ($this->option_array->get('images')) {
@@ -308,6 +306,8 @@ class LazyloadSubscriber implements SubscriberInterface
 
         if ($this->option_array->get('images')) {
             $html = $this->image->lazyloadImages($html, $buffer);
+            $html = $this->image->lazyloadPictures($html, $buffer);
+            $html = $this->image->lazyloadBackgroundImages($html, $buffer);
         }
 
         if ($this->option_array->get('iframes')) {
