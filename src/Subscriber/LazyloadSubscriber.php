@@ -306,6 +306,8 @@ class LazyloadSubscriber implements SubscriberInterface
 
         if ($this->option_array->get('images')) {
             $html = $this->image->lazyloadImages($html, $buffer);
+            $html = $this->image->lazyloadPictures($html, $buffer);
+            $html = $this->image->lazyloadBackgroundImages($html, $buffer);
         }
 
         if ($this->option_array->get('iframes')) {
