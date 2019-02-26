@@ -2,9 +2,9 @@
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
-Tested up to: 5.0.2
+Tested up to: 5.1
 Requires PHP: 5.4
-Stable tag: 2.0.4
+Stable tag: 2.1
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -74,13 +74,22 @@ Some plugins are not compatible without lazy loading. Please open a support thre
 
 = How can I lazyload a background-image? =
 
-The element you want to apply lazyload on must have this specific markup:
+The plugin will automatically lazyload background-images set with a `style` attribute to a `div` element:
+
+`<div style="background-image: url(image.jpg);">`
+
+You can also apply it manually. The element you want to apply lazyload on must have this specific markup:
 
 `<div class="rocket-lazyload-bg" data-bg="url(../img/image.jpg)"></div>`
 
 The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.1 =
+* Enhancement: Update lazyload script to the latest version
+* Enhancement: Apply lazyload on picture elements found on the page
+* Enhancement: Apply lazyload on div elements with a background image found on the page. See FAQ for more info.
+
 = 2.0.4 =
 * Enhancement: Add filter for iframe lazyload pattern exclusion
 * Enhancement: Auto-exclude soliloquy-image pattern from lazyload
