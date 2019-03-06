@@ -92,10 +92,8 @@ class LazyloadSubscriber implements SubscriberInterface
                 [ 'insertLazyloadScript', ROCKET_LL_INT_MAX ],
                 ['insertYoutubeThumbnailScript', ROCKET_LL_INT_MAX ],
             ],
-            'wp_enqueue_scripts'   => [
-                ['insertNoJSStyle', ROCKET_LL_INT_MAX - 1],
-                ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
-            ],
+            'wp_head'              => ['insertNoJSStyle', ROCKET_LL_INT_MAX ],
+            'wp_enqueue_scripts'   => ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
             'template_redirect'    => ['lazyload', ROCKET_LL_INT_MAX],
             'rocket_lazyload_html' => 'lazyloadResponsive',
             'init'                 => 'lazyloadSmilies',
@@ -130,10 +128,21 @@ class LazyloadSubscriber implements SubscriberInterface
          */
         $threshold = apply_filters('rocket_lazyload_threshold', 300);
 
+        /**
+         * Filters the use of the polyfill for intersectionObserver
+         *
+         * @since 3.3
+         * @author Remy Perona
+         *
+         * @param bool $polyfill True to use the polyfill, false otherwise.
+         */
+        $polyfill = apply_filters('rocket_lazyload_polyfill', false);
+
         $args = [
             'base_url'  => ROCKET_LL_FRONT_JS_URL,
             'threshold' => $threshold,
-            'version'   => '11.0.2',
+            'version'   => '11.0.3',
+            'polyfill'  => $polyfill,
         ];
 
         if ($this->option_array->get('images')) {
@@ -189,6 +198,7 @@ class LazyloadSubscriber implements SubscriberInterface
         $this->assets->insertYoutubeThumbnailScript(
             [
                 'resolution' => $thumbnail_resolution,
+                'lazy_image' => (bool) $this->option_array->get('images'),
             ]
         );
     }
@@ -249,14 +259,17 @@ class LazyloadSubscriber implements SubscriberInterface
             return false;
         }
 
-        // Don't lazyload on Beaver Builder editor.
-        if (isset($_GET['fl_builder'])) {
-            return false;
-        }
+        // Exclude Page Builders editors.
+        $excluded_parameters = [
+            'fl_builder',
+            'et_fb',
+            'ct_builder',
+        ];
 
-        // Don't lazyload on Divi editor.
-        if (isset($_GET['et_fb'])) {
-            return false;
+        foreach ($excluded_parameters as $excluded) {
+            if (isset($_GET[ $excluded ])) {
+                return false;
+            }
         }
 
         /**
@@ -267,7 +280,7 @@ class LazyloadSubscriber implements SubscriberInterface
          *
          * @param bool $do_rocket_lazyload True to apply lazyload, false otherwise.
          */
-        if (! apply_filters('do_rocket_lazyload', true)) {
+        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
             return false;
         }
 
