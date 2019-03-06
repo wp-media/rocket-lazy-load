@@ -4,7 +4,7 @@ Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smili
 Requires at least: 4.7
 Tested up to: 5.1
 Requires PHP: 5.4
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -85,6 +85,16 @@ You can also apply it manually. The element you want to apply lazyload on must h
 The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.1.2 =
+* Enhancement: Update lazyload script to the latest version
+* Enhancement: Add a way to lazyload the Youtube thumbnail image
+* Enhancement: Add width and height attributes to the Youtube thumbnail image depending on the resolution
+* Enhancement: Disable polyfill for intersectionObserver by default, added a way to activate it instead
+* Enhancement: Add data-cfasync="false" to the lazyload script tag
+* Enhancement: Prevent lazyload on the Oxygen Builder page editor
+* Bugfix: Wrap no JS CSS in noscript tag and remove the no-js identifier
+
+
 = 2.1.1 =
 * Bugfix: Correctly apply lazyload on `picture` elements
 * Bugfix: Prevent double loading of an image when an `img` element inside a `picture` element only has a `srcset` attribute and no `src` attribute
