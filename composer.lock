@@ -273,16 +273,16 @@
         },
         {
             "name": "wp-media/rocket-lazyload-common",
-            "version": "v2.2.2",
+            "version": "v2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-                "reference": "6ea6abc019402042f8a0d578bd3db5dd2a8aba88"
+                "reference": "53c2b1cf0d36009027690a839cb34cf827c255fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/6ea6abc019402042f8a0d578bd3db5dd2a8aba88",
-                "reference": "6ea6abc019402042f8a0d578bd3db5dd2a8aba88",
+                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/53c2b1cf0d36009027690a839cb34cf827c255fe",
+                "reference": "53c2b1cf0d36009027690a839cb34cf827c255fe",
                 "shasum": ""
             },
             "require": {
@@ -317,7 +317,7 @@
                 }
             ],
             "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
-            "time": "2019-02-27T20:31:03+00:00"
+            "time": "2019-03-05T21:43:32+00:00"
         }
     ],
     "packages-dev": [
@@ -2095,16 +2095,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "d461670ee145092b7e2a56c1da7118f19cadadb0"
+                "reference": "761fa560a937fd7686e5274ff89dcfa87a5047df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/d461670ee145092b7e2a56c1da7118f19cadadb0",
-                "reference": "d461670ee145092b7e2a56c1da7118f19cadadb0",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/761fa560a937fd7686e5274ff89dcfa87a5047df",
+                "reference": "761fa560a937fd7686e5274ff89dcfa87a5047df",
                 "shasum": ""
             },
             "require": {
@@ -2150,7 +2150,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "webmozart/assert",
