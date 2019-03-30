@@ -4,7 +4,7 @@ Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smili
 Requires at least: 4.7
 Tested up to: 5.1
 Requires PHP: 5.4
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -85,6 +85,13 @@ You can also apply it manually. The element you want to apply lazyload on must h
 The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.1.5 =
+* Bugfix: Prevent matching with the wrong data when a data-style attribute is on a div for background images
+* Remove data-cfasync="false" by default
+* Enhancement: Add filter rocket_lazyload_script_tag to modify the lazyload script HTML if needed
+* Enhancement: Add data-no-minify attribute to the lazyload script tag to prevent it from being combined by JS combiners
+* Enhancement: Improve MutationObserver code to only call the lazyload update method if an image/iframe or element with .rocket-lazyload is contained in the new node(s) added to the DOM
+
 = 2.1.4 =
 * Regression fix: Correctly exclude scripts from lazyload again
 
