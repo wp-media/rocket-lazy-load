@@ -2,7 +2,7 @@
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 5.4
 Stable tag: 2.1.5
 
@@ -80,9 +80,9 @@ The plugin will automatically lazyload background-images set with a `style` attr
 
 You can also apply it manually. The element you want to apply lazyload on must have this specific markup:
 
-`<div class="rocket-lazyload-bg" data-bg="url(../img/image.jpg)"></div>`
+`<div class="rocket-lazyload" data-bg="url(../img/image.jpg)"></div>`
 
-The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
+The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
 = 2.1.5 =
