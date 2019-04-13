@@ -42,16 +42,16 @@ class SubscribersServiceProvider extends AbstractServiceProvider
      */
     public function register()
     {
-        $this->getContainer()->add('RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber');
+        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber');
 
-        $this->getContainer()->add('RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber')
+        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber')
             ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Admin\AdminPage'))
             ->withArgument($this->getContainer()->get('plugin_basename'));
 
-        $this->getContainer()->add('RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber')
+        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber')
             ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Admin\ImagifyNotice'));
 
-        $this->getContainer()->add('RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber')
+        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber')
             ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Options\OptionArray'))
             ->withArgument($this->getContainer()->get('RocketLazyload\Assets'))
             ->withArgument($this->getContainer()->get('RocketLazyload\Image'))
