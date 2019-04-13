@@ -141,7 +141,7 @@ class LazyloadSubscriber implements SubscriberInterface
         $args = [
             'base_url'  => ROCKET_LL_FRONT_JS_URL,
             'threshold' => $threshold,
-            'version'   => '11.0.3',
+            'version'   => '11.0.6',
             'polyfill'  => $polyfill,
         ];
 
