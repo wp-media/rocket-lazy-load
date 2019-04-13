@@ -316,7 +316,7 @@ class LazyloadSubscriber implements SubscriberInterface
     public function lazyloadBuffer($html)
     {
         $buffer = $this->ignoreScripts($html);
-        $buffer = $this->ignoreNoScripts($html);
+        $buffer = $this->ignoreNoscripts($buffer);
 
         if ($this->option_array->get('images')) {
             $html = $this->image->lazyloadImages($html, $buffer);
@@ -400,7 +400,7 @@ class LazyloadSubscriber implements SubscriberInterface
      * @param string $html HTML content.
      * @return string
      */
-    private function ignoreNoScripts($html)
+    private function ignoreNoscripts($html)
     {
         return preg_replace('#<noscript>(?:.+)</noscript>#Umsi', '', $html);
     }

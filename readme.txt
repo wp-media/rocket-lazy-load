@@ -2,9 +2,9 @@
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 2.1.2
+Stable tag: 2.1.5
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -80,11 +80,24 @@ The plugin will automatically lazyload background-images set with a `style` attr
 
 You can also apply it manually. The element you want to apply lazyload on must have this specific markup:
 
-`<div class="rocket-lazyload-bg" data-bg="url(../img/image.jpg)"></div>`
+`<div class="rocket-lazyload" data-bg="url(../img/image.jpg)"></div>`
 
-The element must have the class `rocket-lazyload-bg`, and a `data-bg` attribute, which value is the CSS url for the image.
+The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.1.5 =
+* Bugfix: Prevent matching with the wrong data when a data-style attribute is on a div for background images
+* Remove data-cfasync="false" by default
+* Enhancement: Add filter rocket_lazyload_script_tag to modify the lazyload script HTML if needed
+* Enhancement: Add data-no-minify attribute to the lazyload script tag to prevent it from being combined by JS combiners
+* Enhancement: Improve MutationObserver code to only call the lazyload update method if an image/iframe or element with .rocket-lazyload is contained in the new node(s) added to the DOM
+
+= 2.1.4 =
+* Regression fix: Correctly exclude scripts from lazyload again
+
+= 2.1.3 =
+* Bugfix: Ignore content inside noscript tags to prevent modifying them and causing some display issues
+
 = 2.1.2 =
 * Enhancement: Update lazyload script to the latest version
 * Enhancement: Add a way to lazyload the Youtube thumbnail image
