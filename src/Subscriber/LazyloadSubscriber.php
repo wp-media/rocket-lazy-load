@@ -7,8 +7,6 @@
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
-defined('ABSPATH') || die('Cheatin\' uh?');
-
 use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
 use RocketLazyLoadPlugin\Options\OptionArray;
 use RocketLazyload\Assets;
@@ -240,7 +238,8 @@ class LazyloadSubscriber implements SubscriberInterface
 
         $this->assets->insertYoutubeThumbnailCSS(
             [
-                'base_url' => ROCKET_LL_ASSETS_URL,
+                'base_url'          => ROCKET_LL_ASSETS_URL,
+                'responsive_embeds' => current_theme_supports('responsive-embeds'),
             ]
         );
     }
@@ -259,17 +258,8 @@ class LazyloadSubscriber implements SubscriberInterface
             return false;
         }
 
-        // Exclude Page Builders editors.
-        $excluded_parameters = [
-            'fl_builder',
-            'et_fb',
-            'ct_builder',
-        ];
-
-        foreach ($excluded_parameters as $excluded) {
-            if (isset($_GET[ $excluded ])) {
-                return false;
-            }
+        if ($this->isPageBuilder()) {
+            return false;
         }
 
         /**
@@ -285,6 +275,32 @@ class LazyloadSubscriber implements SubscriberInterface
         }
 
         return true;
+    }
+
+    /**
+     * Checks if current page is a page builder editor.
+     *
+     * @since 2.2.2
+     * @author Remy Perona
+     *
+     * @return bool
+     */
+    private function isPageBuilder()
+    {
+        // Exclude Page Builders editors.
+        $excluded_parameters = [
+            'fl_builder',
+            'et_fb',
+            'ct_builder',
+        ];
+
+        foreach ($excluded_parameters as $excluded) {
+            if (isset($_GET[ $excluded ])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
