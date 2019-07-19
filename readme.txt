@@ -4,7 +4,7 @@ Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smili
 Requires at least: 4.7
 Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -85,6 +85,14 @@ You can also apply it manually. The element you want to apply lazyload on must h
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.2.3 =
+* Enhancement: Improve compatibility for the picture element
+* Enhancement: Apply lazyload on background images set on section, span and li elements
+* Enhancement: also pass $width and $height values to the rocket_lazyload_placeholder filter
+* Bugfix: Use 0 instead of 1 for the default placeholder dimensions to improve compatibility
+* Bugfix: Improve infinite scroll support
+* Bugfix: Exclude Enfold avia-background-fixed background images and data-large_image from lazyload
+
 = 2.2.2 =
 * Bugfix: Auto-exclude data-height-percentage attribute to prevent display issues
 * Bugfix: Correctly handle responsive videos using fitVids again
