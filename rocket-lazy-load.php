@@ -54,7 +54,7 @@ function rocket_lazyload_textdomain()
     $locale = get_locale();
 
     // This filter is documented in /wp-includes/l10n.php.
-    $locale = apply_filters('plugin_locale', $locale, 'rocket-lazy-load'); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound.
+    $locale = apply_filters('plugin_locale', $locale, 'rocket-lazy-load'); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
     load_textdomain('rocket-lazy-load', WP_LANG_DIR . '/plugins/rocket-lazy-load-' . $locale . '.mo');
 
     load_plugin_textdomain('rocket-lazy-load', false, dirname(plugin_basename(__FILE__)) . '/languages/');
