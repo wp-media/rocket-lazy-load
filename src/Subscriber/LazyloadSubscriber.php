@@ -138,21 +138,23 @@ class LazyloadSubscriber implements SubscriberInterface
 
         $script_args = [
             'base_url' => ROCKET_LL_FRONT_JS_URL,
-            'version'  => '11.0.6',
+            'version'  => '12.0',
             'polyfill' => $polyfill,
         ];
 
         $inline_args = [
             'threshold' => $threshold,
+            'options'   => [
+                'use_native' => 'true',
+            ],
         ];
 
-        if ($this->option_array->get('images')) {
-            $inline_args['elements']['image']            = 'img[data-lazy-src]';
-            $inline_args['elements']['background_image'] = '.rocket-lazyload';
+        if ($this->option_array->get('images') || $this->option_array->get('iframes')) {
+            $inline_args['elements']['loading'] = '[loading=lazy]';
         }
 
-        if ($this->option_array->get('iframes')) {
-            $inline_args['elements']['iframe'] = 'iframe[data-lazy-src]';
+        if ($this->option_array->get('images')) {
+            $inline_args['elements']['background_image'] = '.rocket-lazyload';
         }
 
         /**

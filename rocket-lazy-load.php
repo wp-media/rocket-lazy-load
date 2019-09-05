@@ -3,7 +3,7 @@
  * Plugin Name: Lazy Load by WP Rocket
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 2.2.3
+ * Version: 2.3
  * Author: WP Rocket
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -29,7 +29,7 @@
 
 defined('ABSPATH') || die('Cheatin\' uh?');
 
-define('ROCKET_LL_VERSION', '2.2.3');
+define('ROCKET_LL_VERSION', '2.3');
 define('ROCKET_LL_WP_VERSION', '4.7');
 define('ROCKET_LL_PHP_VERSION', '5.6');
 define('ROCKET_LL_BASENAME', plugin_basename(__FILE__));
@@ -54,7 +54,7 @@ function rocket_lazyload_textdomain()
     $locale = get_locale();
 
     // This filter is documented in /wp-includes/l10n.php.
-    $locale = apply_filters('plugin_locale', $locale, 'rocket-lazy-load'); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound.
+    $locale = apply_filters('plugin_locale', $locale, 'rocket-lazy-load'); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
     load_textdomain('rocket-lazy-load', WP_LANG_DIR . '/plugins/rocket-lazy-load-' . $locale . '.mo');
 
     load_plugin_textdomain('rocket-lazy-load', false, dirname(plugin_basename(__FILE__)) . '/languages/');
