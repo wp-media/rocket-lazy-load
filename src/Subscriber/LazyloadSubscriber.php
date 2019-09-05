@@ -143,17 +143,18 @@ class LazyloadSubscriber implements SubscriberInterface
         ];
 
         $inline_args = [
-            'threshold'  => $threshold,
-            'use_native' => 'true',
+            'threshold' => $threshold,
+            'options'   => [
+                'use_native' => 'true',
+            ],
         ];
 
-        if ($this->option_array->get('images')) {
-            $inline_args['elements']['image']            = 'img[loading="lazy"]';
-            $inline_args['elements']['background_image'] = '.rocket-lazyload';
+        if ($this->option_array->get('images') || $this->option_array->get('iframes')) {
+            $inline_args['elements']['loading'] = '[loading=lazy]';
         }
 
-        if ($this->option_array->get('iframes')) {
-            $inline_args['elements']['iframe'] = 'iframe[loading="lazy"]';
+        if ($this->option_array->get('images')) {
+            $inline_args['elements']['background_image'] = '.rocket-lazyload';
         }
 
         /**
