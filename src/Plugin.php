@@ -7,7 +7,7 @@
 
 namespace RocketLazyLoadPlugin;
 
-use League\Container\Container;
+use RocketLazyLoadPlugin\Dependencies\League\Container\Container;
 use RocketLazyLoadPlugin\EventManagement\EventManager;
 use RocketLazyLoadPlugin\Options\Options;
 
