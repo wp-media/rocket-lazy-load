@@ -26,9 +26,9 @@ class LazyloadServiceProvider extends AbstractServiceProvider
      * @var array
      */
     protected $provides = [
-        'RocketLazyload\Assets',
-        'RocketLazyload\Image',
-        'RocketLazyload\Iframe',
+        'RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets',
+        'RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image',
+        'RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe',
     ];
 
     /**
@@ -41,8 +41,8 @@ class LazyloadServiceProvider extends AbstractServiceProvider
      */
     public function register()
     {
-        $this->getContainer()->add('RocketLazyload\Assets');
-        $this->getContainer()->add('RocketLazyload\Image');
-        $this->getContainer()->add('RocketLazyload\Iframe');
+        $this->getContainer()->add('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets');
+        $this->getContainer()->add('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image');
+        $this->getContainer()->add('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe');
     }
 }
