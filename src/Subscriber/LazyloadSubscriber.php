@@ -9,9 +9,9 @@ namespace RocketLazyLoadPlugin\Subscriber;
 
 use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
 use RocketLazyLoadPlugin\Options\OptionArray;
-use RocketLazyload\Assets;
-use RocketLazyload\Image;
-use RocketLazyload\Iframe;
+use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets;
+use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image;
+use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
 
 /**
  * Lazyload Subscriber
