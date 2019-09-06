@@ -41,13 +41,34 @@
 	},
 	"require-dev": {
 		"brain/monkey": "^2.0",
+		"coenjacobs/mozart": "^0.4.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.0",
 		"phpunit/phpunit": "^5.7",
 		"wp-coding-standards/wpcs": "^2.0.0"
 	},
+	"extra": {
+		"mozart": {
+			"dep_namespace": "RocketLazyLoadPlugin\\Dependencies\\",
+			"dep_directory": "/src/Dependencies/",
+			"classmap_directory": "/classes/dependencies/",
+			"classmap_prefix": "RLLP_",
+			"packages": [
+				"wp-media/rocket-lazyload-common",
+				"league/container"
+			]
+		}
+	},
 	"scripts": {
         "test-unit":"\"vendor/bin/phpunit\" --testsuite unit --colors=always",
-        "test-integration": "\"vendor/bin/phpunit\" --testsuite integration --colors=always --configuration tests/Integration/phpunit.xml.dist"
+		"test-integration": "\"vendor/bin/phpunit\" --testsuite integration --colors=always --configuration tests/Integration/phpunit.xml.dist",
+		"post-install-cmd": [
+			"\"vendor/bin/mozart\" compose",
+			"composer dump-autoload"
+		],
+		"post-update-cmd": [
+			"\"vendor/bin/mozart\" compose",
+			"composer dump-autoload"
+		]
     }
 }
