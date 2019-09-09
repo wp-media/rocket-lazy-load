@@ -7,7 +7,7 @@
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
-use League\Container\ServiceProvider\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
 
 /**
  * Adds the admin page to the container

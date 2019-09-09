@@ -7,7 +7,7 @@
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
-use League\Container\ServiceProvider\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
 
 /**
  * Adds the subscribers to the container
@@ -53,8 +53,8 @@ class SubscribersServiceProvider extends AbstractServiceProvider
 
         $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber')
             ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Options\OptionArray'))
-            ->withArgument($this->getContainer()->get('RocketLazyload\Assets'))
-            ->withArgument($this->getContainer()->get('RocketLazyload\Image'))
-            ->withArgument($this->getContainer()->get('RocketLazyload\Iframe'));
+            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets'))
+            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image'))
+            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe'));
     }
 }
