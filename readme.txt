@@ -4,7 +4,7 @@ Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smili
 Requires at least: 4.7
 Tested up to: 5.2
 Requires PHP: 5.6
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -85,6 +85,9 @@ You can also apply it manually. The element you want to apply lazyload on must h
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.3.2 =
+Bugfix: Incorrect characters used in Youtube thumbnail HTML code
+
 = 2.3.1 =
 Bugfix: Prevent a conflict with WP Rocket
 Bugfix: apply loading="lazy" on Youtube thumbnail
