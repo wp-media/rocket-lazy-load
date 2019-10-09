@@ -136,7 +136,8 @@ class AdminPageSubscriber implements SubscriberInterface
         if ('settings_page_rocket_lazyload' !== $hook_suffix) {
             return;
         }
-    
-        wp_enqueue_style('rocket-lazyload', ROCKET_LL_ASSETS_URL . 'css/admin.css', null, ROCKET_LL_VERSION);
+		wp_register_script( 'rocket-lazyload_admin_script', ROCKET_LL_ASSETS_URL.'js/'.'admin.js', array( 'jquery' ), ROCKET_LL_VERSION );
+		wp_enqueue_script( 'rocket-lazyload_admin_script' );
+        wp_enqueue_style('rocket-lazyload', ROCKET_LL_ASSETS_URL . 'css/style.min.css', null, ROCKET_LL_VERSION);
     }
 }

@@ -20,16 +20,15 @@ $options = [
         'label' => __('Replace Youtube videos by thumbnail', 'rocket-lazy-load'),
     ],
 ];
-
+$notices = \RocketLazyLoadPlugin\Admin\Notices::get_instance();
+$notices->echoNotices();
 ?>
 <div class="wrap rocket-lazyload-settings">
-
     <?php $heading_tag = version_compare($wp_version, '4.3') >= 0 ? 'h1' : 'h2'; ?>
     <<?php echo $heading_tag; ?> class="screen-reader-text"><?php echo esc_html(get_admin_page_title()); ?></<?php echo $heading_tag; ?>>
     <div class="rocket-lazyload-header">
         <div>
             <p class="rocket-lazyload-title"><img src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/logo.png'); ?>" srcset="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/logo@2x.png'); ?> 2x" alt="<?php echo esc_attr(get_admin_page_title()); ?>" width="216" height="59"></p>
-            <p class="rocket-lazyload-subtitle"><?php esc_html_e('Settings', 'rocket-lazy-load'); ?></p>
         </div>
         <?php $rocket_lazyload_rate_url = 'https://wordpress.org/support/plugin/rocket-lazy-load/reviews/?rate=5#postform'; ?>
         <p class="rocket-lazyload-rate-us">
@@ -42,97 +41,196 @@ $options = [
         </p>
     </div>
     <div class="rocket-lazyload-body">
-        <form action="options.php" class="rocket-lazyload-form" method="post">
-            <fieldset>
-                <legend class="screen-reader-text"><?php esc_html_e('Lazyload', 'rocket-lazy-load'); ?></legend>
-                <p><?php esc_html_e('LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazy-load'); ?></p>
-                <p><?php esc_html_e('This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazy-load'); ?></p>
-                <ul class="rocket-lazyload-options">
-                    <?php foreach ($options as $slug => $infos) : ?>
-                    <li class="rocket-lazyload-option">
-                        <input type="checkbox" value="1" id="lazyload-<?php echo esc_attr($slug); ?>" name="rocket_lazyload_options[<?php echo esc_attr($slug); ?>]" <?php checked($this->option_array->get($slug, 0), 1); ?> aria-labelledby="describe-lazyload-<?php echo esc_attr($slug); ?>">
-                        <label for="lazyload-<?php echo esc_attr($slug); ?>">
-                            <span id="describe-lazyload-<?php echo esc_attr($slug); ?>" class="rocket-lazyload-label-description"><?php echo esc_html($infos['label']); ?></span>
-                        </label>
-                    </li>
-
-                    <?php endforeach; ?>
-
-                </ul>
-            </fieldset>
-        <?php settings_fields('rocket_lazyload'); ?>
-
-        <?php if (! is_plugin_active('wp-rocket/wp-rocket.php')) { ?>
-        <div class="rocket-lazyload-upgrade">
-
-            <div class="rocket-lazyload-upgrade-cta">
-                <p class="rocket-lazyload-subtitle"><?php esc_html_e('We recommend for you', 'rocket-lazy-load'); ?></p>
-                <p class="rocket-lazyload-bigtext">
-                    <?php esc_html_e('Go Premium with', 'rocket-lazy-load'); ?>
-                    <img class="rocket-lazyload-rocket-logo" src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/wprocket.png'); ?>" srcset="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/wprocket@2x.png'); ?>" width="232" height="63" alt="WP Rocket">
-                </p>
-
-                <div class="rocket-lazyload-cta-block">
-                    <a class="button button-primary" href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_lazyload"><?php _e('Get WP&nbsp;Rocket Now!', 'rocket-lazy-load'); ?></a>
+		<div class="wrapper-nav">
+			<h2 class="nav-tab-wrapper">
+				<span class="nav-tab nav-tab-active" data-tab="general-settings"><?php esc_html_e( 'General settings', 'rocket-lazy-load' ); ?></span>
+<?php if( !$this->plugin_cards['wp-rocket']->is_activated() ): ?>
+				<span class="nav-tab" data-tab="more-optimization"><?php esc_html_e( 'More optimization', 'rocket-lazy-load' ); ?></span>
+<?php endif; ?>
+				<span class="nav-tab" data-tab="about-us" ><?php esc_html_e( 'About us', 'rocket-lazy-load' ); ?></span>
+			</h2>
+		</div>
+		<div id="tab_general-settings" class="tab tab-active">
+			<form action="options.php" class="rocket-lazyload-form" method="post">
+				<fieldset>
+					<legend class="screen-reader-text"><?php esc_html_e('Lazyload', 'rocket-lazy-load'); ?></legend>
+					<p><?php esc_html_e('LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazy-load'); ?></p>
+					<p><?php esc_html_e('This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazy-load'); ?></p>
+					<ul class="rocket-lazyload-options">
+						<?php foreach ($options as $slug => $infos) : ?>
+							<li class="rocket-lazyload-option">
+								<input type="checkbox" value="1" id="lazyload-<?php echo esc_attr($slug); ?>" name="rocket_lazyload_options[<?php echo esc_attr($slug); ?>]" <?php checked($this->option_array->get($slug, 0), 1); ?> aria-labelledby="describe-lazyload-<?php echo esc_attr($slug); ?>">
+								<label for="lazyload-<?php echo esc_attr($slug); ?>">
+									<span id="describe-lazyload-<?php echo esc_attr($slug); ?>" class="rocket-lazyload-label-description"><?php echo esc_html($infos['label']); ?></span>
+								</label>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</fieldset>
+				<?php settings_fields('rocket_lazyload'); ?>
+				<p class="submit">
+					<button type="submit" class="button button-primary">
+						<span class="text"><?php esc_html_e('Save changes', 'rocket-lazy-load'); ?></span>
+						<span class="icon">✓</span>
+					</button>
+				</p>
+			</form>
+		</div>
+<?php if( !$this->plugin_cards['wp-rocket']->is_activated() ): ?>
+        <div id="tab_more-optimization" class="tab">
+            <div class="wrapper-content wrapper-intro">
+                <div class="wrapper-left">
+                    <div class="wrapper-img">
+                        <img src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/logo-wprocket.svg'); ?>" alt="">
+                    </div>
+                    <div class="wrapper-txt">
+                        <p>
+                            <?php
+                                printf(
+                                    __( 'Looking for more optimization? %1$sThen you should use %2$sWP Rocket%3$s, and your site will be cached and optimized without you lifting a finger!', 'rocket-lazy-load' ),
+                                    '<br>', '<strong>', '</strong>'
+                                );
+                            ?>
+                    </div>
+<?php 	if( 'installed' === $this->plugin_cards['wp-rocket']->get_status() ): ?>
+					<a class="btn referer-link <?php echo esc_attr( $this->plugin_cards['wp-rocket']->get_status() ); ?>" href="<?php echo $this->plugin_cards['wp-rocket']->get_install_url(); ?>">
+						<?php esc_html_e( 'Activate wp rocket', 'rocket-lazy-load' ); ?>
+					</a>
+<?php 	else: ?>
+					<a href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_heartbeat" class="btn" target="_blank">
+						<?php esc_html_e( 'Get wp rocket', 'rocket-lazy-load' ); ?>
+					</a>
+<?php 	endif; ?>
+                    <div class="wrapper-img"></div>
                 </div>
-            </div><!-- .rocket-lazyload-upgrade-cta -->
-
-            <div class="rocket-lazyload-upgrade-arguments">
-                <ul>
-                    <li class="rll-upgrade-item">
+                <div class="wrapper-right">
+                    <div class="wrapper-right-img"></div>
+                </div>
+            </div>
+            <div class="wrapper-content wrapper-numbers">
+                <div class="top-part">
                     <?php
-                    // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
-                    printf(__('%1$sMultiple new features%2$s to further improve your load time', 'rocket-lazy-load'), '<strong>', '</strong>')
+                        printf(
+                            __( 'Recognized as the %1$smost powerful caching plugin%2$s by WordPress experts', 'rocket-lazy-load' ),
+                            '<strong>', '</strong>'
+                        );
                     ?>
-                    </li>
-                    <li class="rll-upgrade-item">
+                </div>
+                <div class="bottom-part">
+                    <ul>
+                        <li>
+                            <div class="visuel visuel-chiffre"></div>
+                            <div class="txt">
+                                <?php
+                                    printf(
+                                        __( 'Automatically apply more than %1$s80&#x25;%2$s of web performance best practices', 'rocket-lazy-load' ),
+                                        '<strong>', '</strong>'
+                                    );
+                                ?>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="visuel">
+                                <img src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/noun_performance_1221123.svg'); ?>" alt="">
+                            </div>
+                            <div class="txt">
+                                <?php
+                                    printf(
+                                        __( 'Help improve your %1$sGoogle PageSpeed%2$s score', 'rocket-lazy-load' ),
+                                        '<strong>', '</strong>'
+                                    );
+                                ?>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="visuel">
+                                <img src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/noun_SEO_737036.svg'); ?>" alt="">
+                            </div>
+                            <div class="txt">
+                                <?php
+                                    printf(
+                                        __( '%1$sBoost your SEO%2$s by preloading your pages and make them faster for Google\'s bots', 'rocket-lazy-load' ),
+                                        '<strong>', '</strong>'
+                                    );
+                                ?>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="visuel">
+                                <img src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/noun_revenue_949180.svg'); ?>" alt="">
+                            </div>
+                            <div class="txt">
+                                <?php
+                                    printf(
+                                        __( 'Improve %1$sconversions and revenue%2$s thanks to a stunning web performance', 'rocket-lazy-load' ),
+                                        '<strong>', '</strong>'
+                                    );
+                                ?>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="wrapper-content wrapper-video">
+                <div class="wrapper-iframe">
+                    <script src="https://fast.wistia.com/embed/medias/s3jveyzr5h.json" async></script>
+                    <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+                    <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
+                        <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                            <div class="wistia_embed wistia_async_s3jveyzr5h videoFoam=true" style="height:100%;position:relative;width:100%">
+                                <div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
+                                    <img src="https://fast.wistia.com/embed/medias/s3jveyzr5h/swatch"
+                                        style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt=""
+                                        aria-hidden="true"
+                                        onload="this.parentNode.style.opacity=1;"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper-content wrapper-contact">
+                <div class="txt">
                     <?php
-                    // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
-                    printf(__('All you need to %1$simprove your Google PageSpeed%2$s score', 'rocket-lazy-load'), '<strong>', '</strong>')
+                        printf(
+                            __( 'Forget complicated settings and headaches, and %1$senjoy the fastest speed results%2$s your site has ever had!', 'rocket-lazy-load' ),
+                            '<strong>', '</strong>'
+                        );
                     ?>
-                    </li>
-                    <li class="rll-upgrade-item">
-                    <?php
-                    // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
-                    printf(__('%1$sBoost your SEO%2$s by preloading your cache page for Google’s bots', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?>
-                    </li>
-                    <li class="rll-upgrade-item">
-                    <?php
-                    // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
-                    printf(__('Watch your conversion rise with the %1$s100%% WooCommerce compatibility%2$s', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?>
-                    </li>
-                    <li class="rll-upgrade-item">
-                    <?php
-                    // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
-                    printf(__('Minimal configuration, %1$sImmediate results%2$s', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?>
-                    </li>
-                    <li class="rll-upgrade-item">
-                    <?php
-                    // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
-                    printf(__('Set up takes %1$s5 minutes flat%2$s', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?>
-                    </li>
-                    <li class="rll-upgrade-item">
-                    <?php
-                    // Translators: %1$s = strong opening tag, %2$s = strong closing tag.
-                    printf(__('%1$s24/7 support%2$s', 'rocket-lazy-load'), '<strong>', '</strong>')
-                    ?>
-                    </li>
-                </ul>
-            </div><!-- .rocket-lazyload-upgrade-arguments -->
-
-        </div><!-- .rocket-lazyload-upgrade -->
-        <?php } ?>
-
-        <p class="submit">
-            <button type="submit" class="button button-primary">
-                <span class="text"><?php esc_html_e('Save changes', 'rocket-lazy-load'); ?></span>
-                <span class="icon">✓</span>
-            </button>
-        </p>
-        </form>
+                </div>
+                <div class="contact-btn">
+<?php 	if( 'installed' === $this->plugin_cards['wp-rocket']->get_status() ): ?>
+					<a class="btn referer-link <?php echo esc_attr( $this->plugin_cards['wp-rocket']->get_status() ); ?>" href="<?php echo $this->plugin_cards['wp-rocket']->get_install_url(); ?>">
+						<?php esc_html_e( 'Activate wp rocket', 'rocket-lazy-load' ); ?>
+					</a>
+<?php 	else: ?>
+					<a href="https://wp-rocket.me/?utm_source=wp_plugin&utm_medium=rocket_heartbeat" class="btn" target="_blank">
+						<?php esc_html_e( 'Get wp rocket', 'rocket-lazy-load' ); ?>
+					</a>
+<?php 	endif; ?>
+				</div>
+            </div>
+        </div>
+<?php endif; ?>
+		<div id="tab_about-us" class="tab">
+			<div class="wrapper-top wrapper-info">
+				<div class="top-img">
+                    <img src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/team.jpg'); ?>" alt="">
+				</div>
+				<div class="top-txt">
+					<h2><?php esc_html_e( 'Welcome to WP Media!', 'rocket-lazy-load' ); ?></h2>
+					<p><?php esc_html_e( 'Founded in 2014 in beautiful Lyon (France), WP Media is now a distributed company of more than 20 WordPress lovers living in the four corners of the world.', 'rocket-lazy-load' ); ?></p>
+					<p><?php esc_html_e( 'We develop plugins that make the web a better place - faster, lighter, and easier to use.', 'rocket-lazy-load' ); ?></p>
+					<p><?php esc_html_e( 'Check out our other plugins: we built them all to give a boost to the performance of your website!', 'rocket-lazy-load' ); ?></p>
+				</div>
+			</div>
+            <div class="wrapper-bottom wrapper-link">
+    			<?php $this->plugin_cards['wp-rocket']->helper(); ?>
+    			<?php $this->plugin_cards['imagify']->helper(); ?>
+    			<?php $this->plugin_cards['heartbeat-control']->helper(); ?>
+		  </div>
+        </div>
     </div>
 </div>

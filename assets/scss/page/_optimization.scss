@@ -1,0 +1,179 @@
+
+.wrapper-intro {
+    display: flex;
+    margin-top: -26px;
+    background: #fff;
+    width: 100%;
+    padding-top: 20px;
+    overflow: hidden;
+    @media only screen and (max-width: 860px) {
+        margin-bottom: 60px;
+    }
+    .wrapper-left {
+        display: flex;
+        flex-direction: column;
+        width: 335px;
+        justify-content: center;
+        padding-left: 40px;
+        @media only screen and (max-width: 860px) {
+            width: 100%;
+        }
+        .wrapper-txt {
+            p {
+                font-size: 16px!important;
+            }
+        }
+        .btn {
+            background: $orange;
+            color: #fff;
+            transition: all .275s;
+            &:hover {
+                background: #FC8665;
+                transform: translateY(-2px);
+            }
+        }
+    }
+    .wrapper-right {
+        display: flex;
+        width: 485px;
+        height: 370px;
+        position: relative;
+        @media only screen and (max-width: 860px) {
+            display: none;
+        }
+        .wrapper-right-img {
+            background-image : url(../img/laptop.png);
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+    }
+}
+
+.wrapper-numbers {
+    background: #372954;
+    color: #fff;
+    padding-top: 60px;
+    margin-top: -26px;
+    .top-part {
+        font-size: 20px;
+        padding: 0 260px;
+        text-align: center;
+        line-height: 28px;
+        margin-bottom: 60px;
+        @media only screen and (max-width: 860px) {
+            padding: 0 20px;
+        }
+
+    }
+    .bottom-part {
+        padding: 0 10px 80px 10px;
+        ul {
+            display: flex;
+            justify-content: space-between;
+            @media only screen and (max-width: 860px) {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            li {
+                display: flex;
+                flex-direction: column;
+                width: 23%;
+                padding: 0 20px;
+                @media only screen and (max-width: 860px) {
+                    width: 50%;
+                    margin-bottom: 20px;
+                }
+                .visuel {
+                    text-align: center;
+                    margin-bottom: 20px;
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .visuel-chiffre {
+                    background-image : url(../img/80.svg);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+                .txt {
+                    font-size: 14px;
+                    text-align: center;
+                }
+                &:first-child {
+                    .visuel {
+                        font-size: 40px;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.wrapper-video {
+    padding: 0 60px;
+    .wrapper-iframe {
+        display: flex;
+        justify-content: center;
+        margin-top: -54px;
+        padding-bottom: 40px;
+        .wistia_responsive_padding {
+            width: 100%;
+        }
+        .w-bottom-bar.w-css-reset {
+           
+        }
+        .w-big-play-button.w-css-reset-button-important.w-vulcan-v2-button {
+            height: 52px!important;
+            width: 75px!important;
+            border-radius: 10px!important;
+            background: #0e1c23!important;
+        }
+    }
+}
+.ytp-chrome-top {
+    display: none!important;
+}
+.wrapper-contact {
+    background-color: $orange;
+    background-image: url(../img/fusee.png)!important;
+    background-repeat: no-repeat!important;
+    padding: 44px 70px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    @media only screen and (max-width: 860px) {
+        flex-direction: column;
+    }
+    .txt {
+        width: 70%;
+        font-size: 20px;
+        line-height: 28px;
+        padding-right: 40px;
+        @media only screen and (max-width: 860px) {
+            width: 100%;
+            padding-right: 0;
+        }
+    }
+    .contact-btn {
+        @media only screen and (max-width: 860px) {
+            margin-top: 20px;
+        }
+    }
+    a {
+        width: 30%;
+        background: #0E1C23;
+        color: #fff!important;
+        transition: all .275s;
+
+        &:hover {
+            background: #3D474E;
+            transform: translateY(-2px);
+        }
+    }   
+}

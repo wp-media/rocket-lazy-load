@@ -28,7 +28,6 @@ class SubscribersServiceProvider extends AbstractServiceProvider
     protected $provides = [
         'RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber',
         'RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber',
-        'RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber',
         'RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber',
     ];
 
@@ -47,9 +46,6 @@ class SubscribersServiceProvider extends AbstractServiceProvider
         $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber')
             ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Admin\AdminPage'))
             ->withArgument($this->getContainer()->get('plugin_basename'));
-
-        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber')
-            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Admin\ImagifyNotice'));
 
         $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber')
             ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Options\OptionArray'))

@@ -60,7 +60,17 @@ class AdminPage
      */
     private $template_path;
 
-    /**
+	/**
+	 * Plugin cards
+	 *
+	 * @since 2.3.3
+	 *
+	 * @var array
+	 */
+	private $plugin_cards;
+
+
+	/**
      * Constructor
      *
      * @since 2.0
@@ -72,9 +82,19 @@ class AdminPage
      */
     public function __construct(Options $options, OptionArray $option_array, $template_path)
     {
-        $this->options       = $options;
+    	$this->options       = $options;
         $this->option_array  = $option_array;
         $this->template_path = $template_path;
+
+		$imagify_partner = new Imagify_Partner( 'rocket-lazy-load' );
+		$imagify_partner->init();
+		$this->plugin_cards = array(
+			'heartbeat-control' 		=> new Plugin_Card_Helper( array( 'plugin_slug' => 'heartbeat-control' ) ),
+			'imagify'	=> new Plugin_Card_Helper( array( 'plugin_slug' => 'imagify' ), array(
+				'imagify_partner' => $imagify_partner,
+			) ),
+			'wp-rocket'	=> new Plugin_Card_Helper( array( 'plugin_slug' => 'wp-rocket' ) ),
+		);
     }
 
     /**

@@ -72,7 +72,6 @@ class Plugin
         $service_providers = [
             'RocketLazyLoadPlugin\ServiceProvider\OptionServiceProvider',
             'RocketLazyLoadPlugin\ServiceProvider\AdminServiceProvider',
-            'RocketLazyLoadPlugin\ServiceProvider\ImagifyNoticeServiceProvider',
             'RocketLazyLoadPlugin\ServiceProvider\LazyloadServiceProvider',
             'RocketLazyLoadPlugin\ServiceProvider\SubscribersServiceProvider',
         ];
@@ -84,7 +83,6 @@ class Plugin
         $subscribers = [
             'RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber',
             'RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber',
-            'RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber',
             'RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber',
         ];
 
