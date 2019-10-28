@@ -379,9 +379,6 @@ COLORS
     .wrapper-video .wrapper-iframe .wistia_responsive_padding {
       width: 100%; }
     .wrapper-video .wrapper-iframe .w-big-play-button.w-css-reset-button-important.w-vulcan-v2-button {
-      height: 52px !important;
-      width: 75px !important;
-      border-radius: 10px !important;
       background: #0e1c23 !important; }
 
 .ytp-chrome-top {
@@ -413,6 +410,8 @@ COLORS
   @media only screen and (max-width: 860px) {
     .wrapper-contact .contact-btn {
       margin-top: 20px; } }
+  .wrapper-contact .contact-btn a {
+    padding: 10px 10px; }
   .wrapper-contact a {
     width: 30%;
     background: #0E1C23;

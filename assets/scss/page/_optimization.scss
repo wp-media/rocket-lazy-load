@@ -129,9 +129,6 @@
            
         }
         .w-big-play-button.w-css-reset-button-important.w-vulcan-v2-button {
-            height: 52px!important;
-            width: 75px!important;
-            border-radius: 10px!important;
             background: #0e1c23!important;
         }
     }
@@ -163,6 +160,9 @@
     .contact-btn {
         @media only screen and (max-width: 860px) {
             margin-top: 20px;
+        }
+        a {
+            padding: 10px 10px;
         }
     }
     a {

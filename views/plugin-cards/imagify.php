@@ -11,7 +11,7 @@ $helper->set_button_text( array(
 ) );
 $helper->set_description(
 	sprintf(
-		__( '%2$sReduces image file sizes%3$s without loosing quality. %1$sBy compressing your images our speed up your website and boost your SEO.', 'rocket-lazy-load' ),
+		__( '%2$sReduces image file sizes%3$s without losing quality. %1$sBy compressing your images you speed up your website and boost your SEO.', 'rocket-lazy-load' ),
 		'<br>', '<strong>', '</strong>'
 	)
 );
