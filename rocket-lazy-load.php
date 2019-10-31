@@ -30,7 +30,7 @@
 defined('ABSPATH') || die('Cheatin\' uh?');
 
 define('ROCKET_LL_VERSION', '2.3.2');
-define('ROCKET_LL_WP_VERSION', '4.7');
+define('ROCKET_LL_WP_VERSION', '4.9');
 define('ROCKET_LL_PHP_VERSION', '5.6');
 define('ROCKET_LL_BASENAME', plugin_basename(__FILE__));
 define('ROCKET_LL_PATH', realpath(plugin_dir_path(__FILE__)) . '/');
