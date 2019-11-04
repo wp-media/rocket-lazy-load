@@ -146,14 +146,21 @@ class LazyloadSubscriber implements SubscriberInterface
             'threshold' => $threshold,
         ];
 
-        if (apply_filters('rocket_use_native_lazyload', false)) {
+        /**
+         * Filters the use of native lazyload
+         *
+         * @since 2.3.3
+         * @param bool $use_native True to enable native lazyload usage.
+         */
+        if (apply_filters('rocket_use_native_lazyload', false)) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
             $inline_args['options'] = [
                 'use_native' => 'true',
             ];
         }
 
         if ($this->option_array->get('images') || $this->option_array->get('iframes')) {
-            if (apply_filters('rocket_use_native_lazyload', false)) {
+            // this filter is documented in src/Subscriber/LazyloadSubscriber.php.
+            if (apply_filters('rocket_use_native_lazyload', false)) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
                 $inline_args['elements']['loading'] = '[loading=lazy]';
             }
         }
@@ -286,7 +293,7 @@ class LazyloadSubscriber implements SubscriberInterface
          *
          * @param bool $do_rocket_lazyload True to apply lazyload, false otherwise.
          */
-        if (! apply_filters('do_rocket_lazyload', true)) { // WPCS: prefix ok.
+        if (! apply_filters('do_rocket_lazyload', true)) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
             return false;
         }
 

@@ -311,7 +311,8 @@ class Image
 
         $image_lazyload = str_replace($image['atts'], $placeholder_atts . ' data-lazy-src="' . $image['src'] . '"', $image[0]);
 
-        if (! preg_match('@\sloading\s*=\s*(\'|")(?:lazy|auto)\1@i', $image_lazyload) && apply_filters('rocket_use_native_lazyload', false)) {
+        // this filter is documented in src/Subscriber/LazyloadSubscriber.php.
+        if (! preg_match('@\sloading\s*=\s*(\'|")(?:lazy|auto)\1@i', $image_lazyload) && apply_filters('rocket_use_native_lazyload', false)) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
             $image_lazyload = str_replace('<img', '<img loading="lazy"', $image_lazyload);
         }
 
@@ -434,7 +435,7 @@ class Image
          * @param string $img        Filename for the smiley image.
          * @param string $site_url   Site URL, as returned by site_url().
          */
-        $src_url = apply_filters('smilies_src', includes_url("images/smilies/$img"), $img, site_url());
+        $src_url = apply_filters('smilies_src', includes_url("images/smilies/$img"), $img, site_url()); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 
         // Don't LazyLoad if process is stopped for these reasons.
         if (is_feed() || is_preview()) {
