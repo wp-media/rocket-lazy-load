@@ -3,9 +3,9 @@
     <description>Rocket LazyLoad</description>
     <arg name="extensions" value="php"/>
     <file>.</file>
-    <!-- Check for cross-version support for PHP 5.4 and higher. -->
-    <config name="testVersion" value="5.4-"/>
-    <config name="minimum_supported_wp_version" value="4.7"/>
+    <!-- Check for cross-version support for PHP 5.6 and higher. -->
+    <config name="testVersion" value="5.6-"/>
+    <config name="minimum_supported_wp_version" value="4.9"/>
 
     <exclude-pattern>*.js</exclude-pattern>
     <exclude-pattern>/vendor/*</exclude-pattern>
@@ -15,7 +15,7 @@
     <rule ref="PHPCompatibilityWP">
     	<include-pattern>*\.php$</include-pattern>
 	</rule>
-    <rule ref="PSR2" />
+    <rule ref="PSR12" />
     <rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName" />
 		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
