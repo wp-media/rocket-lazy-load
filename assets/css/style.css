@@ -402,18 +402,23 @@ COLORS
     width: 70%;
     font-size: 20px;
     line-height: 28px;
-    padding-right: 40px; }
+    padding-right: 30px; }
     @media only screen and (max-width: 860px) {
       .wrapper-contact .txt {
         width: 100%;
         padding-right: 0; } }
-  @media only screen and (max-width: 860px) {
-    .wrapper-contact .contact-btn {
-      margin-top: 20px; } }
-  .wrapper-contact .contact-btn a {
-    padding: 10px 10px; }
-  .wrapper-contact a {
+  .wrapper-contact .contact-btn {
     width: 30%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: end;
+        justify-content: flex-end; }
+    @media only screen and (max-width: 860px) {
+      .wrapper-contact .contact-btn {
+        margin-top: 20px; } }
+    .wrapper-contact .contact-btn a {
+      padding: 10px 10px; }
+  .wrapper-contact a {
     background: #0E1C23;
     color: #fff !important;
     transition: all .275s; }
