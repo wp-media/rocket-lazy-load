@@ -92,10 +92,13 @@ class Image
     private function addLazyClass($element)
     {
         if (preg_match('#class=["\']?(?<classes>[^"\'>]*)["\']?#is', $element, $class)) {
-            $classes = str_replace($class['classes'], $class['classes'] . ' rocket-lazyload', $class[0]);
-            $element = str_replace($class[0], $classes, $element);
+            if (empty($class['classes'])) {
+                return str_replace($class[0], 'class="rocket-lazyload"', $element);
+            }
 
-            return $element;
+            $classes = str_replace($class['classes'], $class['classes'] . ' rocket-lazyload', $class[0]);
+
+            return str_replace($class[0], $classes, $element);
         }
 
         return preg_replace('#<(img|div|section|li|span)([^>]*)>#is', '<\1 class="rocket-lazyload"\2>', $element);
@@ -259,6 +262,8 @@ class Image
                 'data-height-percentage',
                 'data-large_image',
                 'avia-bg-style-fixed',
+                'data-skip-lazy',
+                'skip-lazy',
             ]
         );
     }
@@ -311,8 +316,7 @@ class Image
 
         $image_lazyload = str_replace($image['atts'], $placeholder_atts . ' data-lazy-src="' . $image['src'] . '"', $image[0]);
 
-        // this filter is documented in src/Subscriber/LazyloadSubscriber.php.
-        if (! preg_match('@\sloading\s*=\s*(\'|")(?:lazy|auto)\1@i', $image_lazyload) && apply_filters('rocket_use_native_lazyload', false)) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+        if (! preg_match('@\sloading\s*=\s*(\'|")(?:lazy|auto)\1@i', $image_lazyload) && apply_filters('rocket_use_native_lazyload', false)) {
             $image_lazyload = str_replace('<img', '<img loading="lazy"', $image_lazyload);
         }
 
@@ -435,7 +439,7 @@ class Image
          * @param string $img        Filename for the smiley image.
          * @param string $site_url   Site URL, as returned by site_url().
          */
-        $src_url = apply_filters('smilies_src', includes_url("images/smilies/$img"), $img, site_url()); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+        $src_url = apply_filters('smilies_src', includes_url("images/smilies/$img"), $img, site_url());
 
         // Don't LazyLoad if process is stopped for these reasons.
         if (is_feed() || is_preview()) {

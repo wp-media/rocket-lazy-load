@@ -107,6 +107,8 @@ class Iframe
                 'data-no-lazy=',
                 'recaptcha/api/fallback',
                 'loading="eager"',
+                'data-skip-lazy',
+                'skip-lazy',
             ]
         );
     }
@@ -227,7 +229,7 @@ class Iframe
      */
     public function cleanYoutubeUrl ( $url ) {
         $parsed_url = wp_parse_url( $url, -1 );
-        $scheme     = isset( $parsed_url['scheme'] ) ? $parsed_url['scheme'] . '://' : '';
+        $scheme     = isset( $parsed_url['scheme'] ) ? $parsed_url['scheme'] . '://' : '//';
         $host       = isset( $parsed_url['host'] ) ? $parsed_url['host'] : '';
         $path       = isset( $parsed_url['path'] ) ? $parsed_url['path'] : '';
 
