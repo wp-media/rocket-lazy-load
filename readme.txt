@@ -37,7 +37,7 @@ To use native lazyload on browsers supporting this feature, You need to use the 
 
 `add_filter( 'rocket_use_native_lazyload', '__return_true' );`
 
-Browsers not support native lazyload will use the JS-based solution as before.
+Browsers that do not support native lazyload will use the JS-based solution as before.
 
 = How can I deactivate Lazy Load on some pages? = 
 
