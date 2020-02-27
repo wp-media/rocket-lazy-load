@@ -167,11 +167,13 @@ class LazyloadSubscriber implements SubscriberInterface
         }
 
         if ($this->option_array->get('images')) {
+            $inline_args['elements'] = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
             $inline_args['elements']['image']            = 'img[data-lazy-src]';
             $inline_args['elements']['background_image'] = '.rocket-lazyload';
         }
 
         if ($this->option_array->get('iframes')) {
+            $inline_args['elements'] = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
             $inline_args['elements']['iframe'] = 'iframe[data-lazy-src]';
         }
 
