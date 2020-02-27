@@ -161,6 +161,7 @@ class LazyloadSubscriber implements SubscriberInterface
         if ($this->option_array->get('images') || $this->option_array->get('iframes')) {
             // This filter is documented in src/Subscriber/LazyloadSubscriber.php.
             if (apply_filters('rocket_use_native_lazyload', false)) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+                $inline_args['elements'] = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
                 $inline_args['elements']['loading'] = '[loading=lazy]';
             }
         }

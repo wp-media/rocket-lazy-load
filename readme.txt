@@ -33,7 +33,7 @@ Lazyload script: [https://github.com/verlok/lazyload](https://github.com/verlok/
 == Frequently Asked Questions ==
 
 = How can I use native lazyload? =
-To use native lazyload on browsers supporting this feature, You need to use the following line:
+To use native lazyload on browsers supporting this feature, you need to use the following line:
 
 `add_filter( 'rocket_use_native_lazyload', '__return_true' );`
 
