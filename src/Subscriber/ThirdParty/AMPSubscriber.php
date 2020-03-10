@@ -21,6 +21,11 @@ defined('ABSPATH') || die('Cheatin\' uh?');
 class AMPSubscriber implements EventManagerAwareSubscriberInterface
 {
     /**
+     * @var EventManager
+     */
+    protected $event_manager;
+
+    /**
      * @inheritDoc
      */
     public function getSubscribedEvents()
