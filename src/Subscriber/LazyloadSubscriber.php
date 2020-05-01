@@ -87,11 +87,11 @@ class LazyloadSubscriber implements SubscriberInterface
     {
         return [
             'wp_footer'            => [
-                [ 'insertLazyloadScript', ROCKET_LL_INT_MAX ],
-                ['insertYoutubeThumbnailScript', ROCKET_LL_INT_MAX ],
+                [ 'insertLazyloadScript', \ROCKET_LL_INT_MAX ],
+                ['insertYoutubeThumbnailScript', \ROCKET_LL_INT_MAX ],
             ],
-            'wp_head'              => ['insertNoJSStyle', ROCKET_LL_INT_MAX ],
-            'wp_enqueue_scripts'   => ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
+            'wp_head'              => ['insertNoJSStyle', \ROCKET_LL_INT_MAX ],
+            'wp_enqueue_scripts'   => ['insertYoutubeThumbnailStyle', \ROCKET_LL_INT_MAX],
             'template_redirect'    => ['lazyload', 2],
             'rocket_lazyload_html' => 'lazyloadResponsive',
             'init'                 => 'lazyloadSmilies',
