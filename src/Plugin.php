@@ -58,8 +58,8 @@ class Plugin
 
         $container = new Container();
 
-        $container->add('template_path', ROCKET_LL_PATH . 'views/');
-        $container->add('plugin_basename', ROCKET_LL_BASENAME);
+        $container->add('template_path', \ROCKET_LL_PATH . 'views/');
+        $container->add('plugin_basename', \ROCKET_LL_BASENAME);
 
         $container->add('options', function () {
             return new Options('rocket_lazyload');

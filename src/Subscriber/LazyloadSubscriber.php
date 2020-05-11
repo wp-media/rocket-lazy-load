@@ -87,11 +87,11 @@ class LazyloadSubscriber implements SubscriberInterface
     {
         return [
             'wp_footer'            => [
-                [ 'insertLazyloadScript', ROCKET_LL_INT_MAX ],
-                ['insertYoutubeThumbnailScript', ROCKET_LL_INT_MAX ],
+                [ 'insertLazyloadScript', \ROCKET_LL_INT_MAX ],
+                ['insertYoutubeThumbnailScript', \ROCKET_LL_INT_MAX ],
             ],
-            'wp_head'              => ['insertNoJSStyle', ROCKET_LL_INT_MAX ],
-            'wp_enqueue_scripts'   => ['insertYoutubeThumbnailStyle', ROCKET_LL_INT_MAX],
+            'wp_head'              => ['insertNoJSStyle', \ROCKET_LL_INT_MAX ],
+            'wp_enqueue_scripts'   => ['insertYoutubeThumbnailStyle', \ROCKET_LL_INT_MAX],
             'template_redirect'    => ['lazyload', 2],
             'rocket_lazyload_html' => 'lazyloadResponsive',
             'init'                 => 'lazyloadSmilies',
@@ -161,16 +161,19 @@ class LazyloadSubscriber implements SubscriberInterface
         if ($this->option_array->get('images') || $this->option_array->get('iframes')) {
             // This filter is documented in src/Subscriber/LazyloadSubscriber.php.
             if (apply_filters('rocket_use_native_lazyload', false)) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+                $inline_args['elements'] = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
                 $inline_args['elements']['loading'] = '[loading=lazy]';
             }
         }
 
         if ($this->option_array->get('images')) {
+            $inline_args['elements'] = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
             $inline_args['elements']['image']            = 'img[data-lazy-src]';
             $inline_args['elements']['background_image'] = '.rocket-lazyload';
         }
 
         if ($this->option_array->get('iframes')) {
+            $inline_args['elements'] = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
             $inline_args['elements']['iframe'] = 'iframe[data-lazy-src]';
         }
 

@@ -137,6 +137,6 @@ class AdminPageSubscriber implements SubscriberInterface
             return;
         }
     
-        wp_enqueue_style('rocket-lazyload', ROCKET_LL_ASSETS_URL . 'css/admin.css', null, ROCKET_LL_VERSION);
+        wp_enqueue_style('rocket-lazyload', \ROCKET_LL_ASSETS_URL . 'css/admin.css', null, \ROCKET_LL_VERSION);
     }
 }
