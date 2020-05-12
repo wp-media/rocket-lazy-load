@@ -1,5 +1,7 @@
 sudo: false
 language: php
+services:
+- mysql
 notifications:
   slack:
     secure: AhtX1RztruH3HYMnXGH1IcGXWRNTdnjJIRVMHI4zeKQfFaomyJstLK6LD43vKxEaefMrHALhcB7csEvcQYBmlgvNgxOzcjHuGE5BVPW2OM6OUt/lv8r6979o0iIKC1dS7Ngc6S41UqWUy7CzmSxNSiapxT+gg0P7T2mHcYCrIrNb14gLLW8oKlem9JxG2Os1U47PGe9n5vNymCdLERprnzuDYkyYkzwLjNFwsl8rkFTU1mSScI6K+O/sbKNe1UEBXzJYAcB0Ta0j7ORPwJua0j+qAcqm9d9QUpzsrQyXev69yGCa0eSDDSiRWUIidpn3wq1uEHYjkFPF1XaXeUJYU9tvan1H7wjynCFmzJAQnxnEGOR8LwE+r6aYgWQfbwSIrxw+Hnc6CK90tA79mgsZoRxeHnLZo+hukeaXIUWn3kNCiRR/vWtwd67bzG3LOq4evDs34a1CzfdJWF17nAoilDI7kKUyXo/I4lbwPB1aveoCracTDKuCSl+IjQkSTH2a2afYk6pibFImAN73G50IFqk5DVgVwGMlCI6WvXs8FN1Mi9vR49F+Sxe5gCPx/Vdx9sGIfQEGC628sO92TKASEdcAjMtxaCKMZUnlBG9M0IyIb7RP2Uh3twTOaWaowZ81Zcs8hY2pFPQTLUpBS+XOqP7WmbPsDD+V+c0r613qSeE=
@@ -13,7 +15,6 @@ branches:
   - master
 cache:
   directories:
-  - vendor
   - "$HOME/.composer/cache"
 matrix:
   include:
@@ -29,7 +30,7 @@ matrix:
     env: WP_VERSION=latest
   - php: 5.6
     env: WP_VERSION=latest
-before_script:
+install:
 - export PATH="$HOME/.composer/vendor/bin:$PATH"
 - composer install --no-progress
 - |
