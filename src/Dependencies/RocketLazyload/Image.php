@@ -316,6 +316,12 @@ class Image
 
         $image_lazyload = str_replace($image['atts'], $placeholder_atts . ' data-lazy-src="' . $image['src'] . '"', $image[0]);
 
+        /**
+         * Filters the use of native lazyload
+         *
+         * @since 2.5
+         * @param bool $use_native True to enable native lazyload usage.
+         */
         if (! preg_match('@\sloading\s*=\s*(\'|")(?:lazy|auto)\1@i', $image_lazyload) && apply_filters('rocket_use_native_lazyload', false)) {
             $image_lazyload = str_replace('<img', '<img loading="lazy"', $image_lazyload);
         }
