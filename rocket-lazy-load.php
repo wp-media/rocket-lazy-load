@@ -3,7 +3,8 @@
  * Plugin Name: Lazy Load - Optimize Images
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 2.3.2
+ * Version: 2.3.3
+ * Requires PHP: 5.6
  * Author: WP Rocket
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -27,16 +28,16 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-defined('ABSPATH') || die('Cheatin\' uh?');
+defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
-define('ROCKET_LL_VERSION', '2.3.2');
-define('ROCKET_LL_WP_VERSION', '4.7');
-define('ROCKET_LL_PHP_VERSION', '5.6');
-define('ROCKET_LL_BASENAME', plugin_basename(__FILE__));
-define('ROCKET_LL_PATH', realpath(plugin_dir_path(__FILE__)) . '/');
-define('ROCKET_LL_ASSETS_URL', plugin_dir_url(__FILE__) . 'assets/');
-define('ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/');
-define('ROCKET_LL_INT_MAX', PHP_INT_MAX - 15);
+define( 'ROCKET_LL_VERSION', '2.3.3' );
+define( 'ROCKET_LL_WP_VERSION', '4.9' );
+define( 'ROCKET_LL_PHP_VERSION', '5.6' );
+define( 'ROCKET_LL_BASENAME', plugin_basename( __FILE__ ) );
+define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
+define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
+define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
+define( 'ROCKET_LL_INT_MAX', PHP_INT_MAX - 15 );
 
 require ROCKET_LL_PATH . 'src/rocket-lazyload-requirements-check.php';
 
@@ -48,31 +49,30 @@ require ROCKET_LL_PATH . 'src/rocket-lazyload-requirements-check.php';
  *
  * @return void
  */
-function rocket_lazyload_textdomain()
-{
-    // Load translations from the languages directory.
-    $locale = get_locale();
+function rocket_lazyload_textdomain() {
+	// Load translations from the languages directory.
+	$locale = get_locale();
 
-    // This filter is documented in /wp-includes/l10n.php.
-    $locale = apply_filters('plugin_locale', $locale, 'rocket-lazy-load'); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-    load_textdomain('rocket-lazy-load', WP_LANG_DIR . '/plugins/rocket-lazy-load-' . $locale . '.mo');
+	// This filter is documented in /wp-includes/l10n.php.
+	$locale = apply_filters( 'plugin_locale', $locale, 'rocket-lazy-load' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+	load_textdomain( 'rocket-lazy-load', WP_LANG_DIR . '/plugins/rocket-lazy-load-' . $locale . '.mo' );
 
-    load_plugin_textdomain('rocket-lazy-load', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+	load_plugin_textdomain( 'rocket-lazy-load', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
-add_action('plugins_loaded', 'rocket_lazyload_textdomain');
+add_action( 'plugins_loaded', 'rocket_lazyload_textdomain' );
 
 $rocket_lazyload_requirement_checks = new Rocket_Lazyload_Requirements_Check(
-    array(
-        'plugin_name'    => 'Lazy Load by WP Rocket',
-        'plugin_version' => ROCKET_LL_VERSION,
-        'wp_version'     => ROCKET_LL_WP_VERSION,
-        'php_version'    => ROCKET_LL_PHP_VERSION,
-    )
+	[
+		'plugin_name'    => 'Lazy Load by WP Rocket',
+		'plugin_version' => ROCKET_LL_VERSION,
+		'wp_version'     => ROCKET_LL_WP_VERSION,
+		'php_version'    => ROCKET_LL_PHP_VERSION,
+	]
 );
 
-if ($rocket_lazyload_requirement_checks->check()) {
-    require ROCKET_LL_PATH . 'main.php';
+if ( $rocket_lazyload_requirement_checks->check() ) {
+	require ROCKET_LL_PATH . 'main.php';
 }
 
-unset($rocket_lazyload_requirement_checks);
+unset( $rocket_lazyload_requirement_checks );
