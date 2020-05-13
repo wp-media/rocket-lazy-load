@@ -1,13 +1,6 @@
 <?php
-/**
- * Admin Page subscriber
- *
- * @package RocketLazyload
- */
 
 namespace RocketLazyLoadPlugin\Subscriber;
-
-defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
 use RocketLazyLoadPlugin\Admin\AdminPage;
@@ -61,10 +54,10 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 */
 	public function getSubscribedEvents() {
 		return [
-			'admin_init'            => 'configure',
-			'admin_menu'            => 'addAdminPage',
-			'plugin_action_links_' . $this->plugin_basename => 'addPluginPageLink',
-			'admin_enqueue_scripts' => 'enqueueAdminStyle',
+			'admin_init'                                   => 'configure',
+			'admin_menu'                                   => 'addAdminPage',
+			"plugin_action_links_{$this->plugin_basename}" => 'addPluginPageLink',
+			'admin_enqueue_scripts'                        => 'enqueueAdminStyle',
 		];
 	}
 

@@ -1,9 +1,4 @@
 <?php
-/**
- * Lazyload subscriber
- *
- * @package RocketLazyloadPlugin
- */
 
 namespace RocketLazyLoadPlugin\Subscriber;
 

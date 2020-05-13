@@ -1,16 +1,9 @@
 <?php
-/**
- * AMP plugin compatibility subscrber
- *
- * @package RocketLazyload
- */
 
 namespace RocketLazyLoadPlugin\Subscriber\ThirdParty;
 
 use RocketLazyLoadPlugin\EventManagement\EventManager;
 use RocketLazyLoadPlugin\EventManagement\EventManagerAwareSubscriberInterface;
-
-defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 /**
  * Manages compatibility with the AMP plugin
@@ -72,7 +65,7 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 * @return boolean
 	 */
 	private function isAmpEndpoint() {
-		if ( function_exists( 'is_amp_endpoint' ) && \is_amp_endpoint() ) {
+		if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
 			return true;
 		}
 

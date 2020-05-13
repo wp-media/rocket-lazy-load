@@ -1,9 +1,4 @@
 <?php
-/**
- * Initialize and load the plugin
- *
- * @package RocketLazyloadPlugin
- */
 
 namespace RocketLazyLoadPlugin;
 
