@@ -95,6 +95,7 @@ The element must have the class `rocket-lazyload`, and a `data-bg` attribute, wh
 = 2.3.3 =
 Enhancement: Add data-skip-lazy and skip-lazy class to exclusions list as part of the interoperability initiative between lazyload plugins
 Enhancement: Use native lazyload only if filter `rocket_use_native_lazyload` is true
+Enhancement: Apply lazyload on background images set on `figure` elements
 Bugfix: Correctly add the rocket-lazyload class when class attribute is empty on an element with a background image
 Bugfix: Correctly replace YouTube iframe with preview image when using relative protocol
 Bugfix: Preserve youtube-nocookie.com during LazyLoad
