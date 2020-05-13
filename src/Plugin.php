@@ -17,81 +17,85 @@ use RocketLazyLoadPlugin\Options\Options;
  * @since 2.0
  * @author Remy Perona
  */
-class Plugin
-{
-    /**
-     * Is the plugin loaded
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var boolean
-     */
-    private $loaded = false;
+class Plugin {
 
-    /**
-     * Checks if the plugin is loaded
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return boolean
-     */
-    private function isLoaded()
-    {
-        return $this->loaded;
-    }
+	/**
+	 * Is the plugin loaded
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @var boolean
+	 */
+	private $loaded = false;
 
-    /**
-     * Loads the plugin in WordPress
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function load()
-    {
-        if ($this->isLoaded()) {
-            return;
-        }
+	/**
+	 * Checks if the plugin is loaded
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @return boolean
+	 */
+	private function isLoaded() {
+		return $this->loaded;
+	}
 
-        $container = new Container();
+	/**
+	 * Loads the plugin in WordPress
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @return void
+	 */
+	public function load() {
+		if ( $this->isLoaded() ) {
+			return;
+		}
 
-        $container->add('template_path', \ROCKET_LL_PATH . 'views/');
-        $container->add('plugin_basename', \ROCKET_LL_BASENAME);
+		$container = new Container();
 
-        $container->add('options', function () {
-            return new Options('rocket_lazyload');
-        });
+		$container->add( 'template_path', \ROCKET_LL_PATH . 'views/' );
+		$container->add( 'plugin_basename', \ROCKET_LL_BASENAME );
 
-        $container->add('event_manager', function () {
-            return new EventManager();
-        });
+		$container->add(
+			'options',
+			function () {
+				return new Options( 'rocket_lazyload' );
+			}
+			);
 
-        $service_providers = [
-            'RocketLazyLoadPlugin\ServiceProvider\OptionServiceProvider',
-            'RocketLazyLoadPlugin\ServiceProvider\AdminServiceProvider',
-            'RocketLazyLoadPlugin\ServiceProvider\ImagifyNoticeServiceProvider',
-            'RocketLazyLoadPlugin\ServiceProvider\LazyloadServiceProvider',
-            'RocketLazyLoadPlugin\ServiceProvider\SubscribersServiceProvider',
-        ];
+		$container->add(
+			'event_manager',
+			function () {
+				return new EventManager();
+			}
+			);
 
-        foreach ($service_providers as $service) {
-            $container->addServiceProvider($service);
-        }
+		$service_providers = [
+			'RocketLazyLoadPlugin\ServiceProvider\OptionServiceProvider',
+			'RocketLazyLoadPlugin\ServiceProvider\AdminServiceProvider',
+			'RocketLazyLoadPlugin\ServiceProvider\ImagifyNoticeServiceProvider',
+			'RocketLazyLoadPlugin\ServiceProvider\LazyloadServiceProvider',
+			'RocketLazyLoadPlugin\ServiceProvider\SubscribersServiceProvider',
+		];
 
-        $subscribers = [
-            'RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber',
-            'RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber',
-            'RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber',
-            'RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber',
-        ];
+		foreach ( $service_providers as $service ) {
+			$container->addServiceProvider( $service );
+		}
 
-        foreach ($subscribers as $subscriber) {
-            $container->get('event_manager')->addSubscriber($container->get($subscriber));
-        }
+		$subscribers = [
+			'RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber',
+			'RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber',
+			'RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber',
+			'RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber',
+		];
 
-        $this->loaded = true;
-    }
+		foreach ( $subscribers as $subscriber ) {
+			$container->get( 'event_manager' )->addSubscriber( $container->get( $subscriber ) );
+		}
+
+		$this->loaded = true;
+	}
 }

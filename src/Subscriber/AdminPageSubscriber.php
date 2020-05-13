@@ -7,7 +7,7 @@
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
-defined('ABSPATH') || die('Cheatin\' uh?');
+defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
 use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
 use RocketLazyLoadPlugin\Admin\AdminPage;
@@ -18,125 +18,121 @@ use RocketLazyLoadPlugin\Admin\AdminPage;
  * @since 2.0
  * @author Remy Perona
  */
-class AdminPageSubscriber implements SubscriberInterface
-{
-    /**
-     * AdminPage instance
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var AdminPage
-     */
-    private $page;
+class AdminPageSubscriber implements SubscriberInterface {
 
-    /**
-     * Plugin basename
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var string
-     */
-    private $plugin_basename;
+	/**
+	 * AdminPage instance
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @var AdminPage
+	 */
+	private $page;
 
-    /**
-     * Constructor
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @param AdminPage $page AdminPage instance.
-     * @param string    $plugin_basename Plugin basename.
-     */
-    public function __construct(AdminPage $page, $plugin_basename)
-    {
-        $this->page            = $page;
-        $this->plugin_basename = $plugin_basename;
-    }
+	/**
+	 * Plugin basename
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @var string
+	 */
+	private $plugin_basename;
 
-    /**
-     * @inheritDoc
-     */
-    public function getSubscribedEvents()
-    {
-        return [
-            'admin_init'                                      => 'configure',
-            'admin_menu'                                      => 'addAdminPage',
-            'plugin_action_links_' . $this->plugin_basename   => 'addPluginPageLink',
-            'admin_enqueue_scripts'                           => 'enqueueAdminStyle',
-        ];
-    }
+	/**
+	 * Constructor
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @param AdminPage $page AdminPage instance.
+	 * @param string    $plugin_basename Plugin basename.
+	 */
+	public function __construct( AdminPage $page, $plugin_basename ) {
+		$this->page            = $page;
+		$this->plugin_basename = $plugin_basename;
+	}
 
-    /**
-     * Registers the plugin settings in WordPress
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function configure()
-    {
-        $this->page->configure();
-    }
+	/**
+	 * Returns an array of events that this subscriber wants to listen to.
+	 *
+	 * @return array
+	 */
+	public function getSubscribedEvents() {
+		return [
+			'admin_init'            => 'configure',
+			'admin_menu'            => 'addAdminPage',
+			'plugin_action_links_' . $this->plugin_basename => 'addPluginPageLink',
+			'admin_enqueue_scripts' => 'enqueueAdminStyle',
+		];
+	}
 
-    /**
-     * Adds the admin page to the settings menu
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function addAdminPage()
-    {
-        add_options_page(
-            $this->page->getPageTitle(),
-            $this->page->getMenuTitle(),
-            $this->page->getCapability(),
-            $this->page->getSlug(),
-            [ $this->page, 'renderPage' ]
-        );
-    }
+	/**
+	 * Registers the plugin settings in WordPress
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @return void
+	 */
+	public function configure() {
+		$this->page->configure();
+	}
 
-    /**
-     * Adds a link to the plugin settings on the plugins page
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @param array $actions Actions for the plugin.
-     * @return array
-     */
-    public function addPluginPageLink($actions)
-    {
-        array_unshift(
-            $actions,
-            sprintf(
-                '<a href="%s">%s</a>',
-                admin_url('options-general.php?page=' . $this->page->getSlug()),
-                __('Settings', 'rocket-lazy-load')
-            )
-        );
+	/**
+	 * Adds the admin page to the settings menu
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @return void
+	 */
+	public function addAdminPage() {
+		add_options_page(
+			$this->page->getPageTitle(),
+			$this->page->getMenuTitle(),
+			$this->page->getCapability(),
+			$this->page->getSlug(),
+			[ $this->page, 'renderPage' ]
+		);
+	}
 
-        return $actions;
-    }
+	/**
+	 * Adds a link to the plugin settings on the plugins page
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @param array $actions Actions for the plugin.
+	 * @return array
+	 */
+	public function addPluginPageLink( $actions ) {
+		array_unshift(
+			$actions,
+			sprintf(
+				'<a href="%s">%s</a>',
+				admin_url( 'options-general.php?page=' . $this->page->getSlug() ),
+				__( 'Settings', 'rocket-lazy-load' )
+			)
+		);
 
-    /**
-     * Enqueue the css for the option page
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @param string $hook_suffix Current page hook.
-     */
-    public function enqueueAdminStyle($hook_suffix)
-    {
-        if ('settings_page_rocket_lazyload' !== $hook_suffix) {
-            return;
-        }
-    
-        wp_enqueue_style('rocket-lazyload', \ROCKET_LL_ASSETS_URL . 'css/admin.css', null, \ROCKET_LL_VERSION);
-    }
+		return $actions;
+	}
+
+	/**
+	 * Enqueue the css for the option page
+	 *
+	 * @since 2.0
+	 * @author Remy Perona
+	 *
+	 * @param string $hook_suffix Current page hook.
+	 */
+	public function enqueueAdminStyle( $hook_suffix ) {
+		if ( 'settings_page_rocket_lazyload' !== $hook_suffix ) {
+			return;
+		}
+
+		wp_enqueue_style( 'rocket-lazyload', \ROCKET_LL_ASSETS_URL . 'css/admin.css', null, \ROCKET_LL_VERSION );
+	}
 }
