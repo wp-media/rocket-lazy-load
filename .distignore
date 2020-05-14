@@ -1,0 +1,14 @@
+/.wordpress-org
+/.git
+/.github
+/bin
+/tests
+/vendor
+
+.distignore
+.gitignore
+.travis.yml
+composer.lock
+LICENSE
+phpcs.xml
+phpunit.xml.dist
