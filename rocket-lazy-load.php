@@ -3,7 +3,7 @@
  * Plugin Name: Lazy Load - Optimize Images
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 2.3.3
+ * Version: 2.3.4
  * Requires PHP: 5.6
  * Author: WP Rocket
  * Author URI: https://wp-rocket.me
