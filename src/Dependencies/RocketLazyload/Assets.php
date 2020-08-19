@@ -39,18 +39,18 @@ class Assets {
 		];
 
 		$allowed_options = [
-			'container'       => 1,
-			'thresholds'      => 1,
-			'data_bg'         => 1,
-			'class_error'     => 1,
-			'load_delay'      => 1,
-			'auto_unobserve'  => 1,
-			'callback_enter'  => 1,
-			'callback_exit'   => 1,
-			'callback_reveal' => 1,
-			'callback_error'  => 1,
-			'callback_finish' => 1,
-			'use_native'      => 1,
+			'container'           => 1,
+			'thresholds'          => 1,
+			'data_bg'             => 1,
+			'class_error'         => 1,
+			'cancel_on_exit'      => 1,
+			'unobserve_completed' => 1,
+			'callback_enter'      => 1,
+			'callback_exit'       => 1,
+			'callback_loading'    => 1,
+			'callback_error'      => 1,
+			'callback_finish'     => 1,
+			'use_native'          => 1,
 		];
 
 		$args   = wp_parse_args( $args, $defaults );

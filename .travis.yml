@@ -30,9 +30,11 @@ matrix:
     env: WP_VERSION=latest
   - php: 5.6
     env: WP_VERSION=latest
+before_install:
+  - composer remove --dev --no-scripts coenjacobs/mozart
 install:
 - export PATH="$HOME/.composer/vendor/bin:$PATH"
-- composer install --no-progress
+- composer install --no-progress --no-scripts
 - |
   if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
     phpenv config-rm xdebug.ini
