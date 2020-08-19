@@ -93,7 +93,7 @@ The element must have the class `rocket-lazyload`, and a `data-bg` attribute, wh
 
 == Changelog ==
 = 2.3.4 =
-Bugfix: Fatal error from League Container conflict with WooCommerce 4.4
+Bugfix: Prevent a Fatal error related to the League Container package conflict with WooCommerce 4.4
 
 = 2.3.3 =
 Enhancement: Add data-skip-lazy and skip-lazy class to exclusions list as part of the interoperability initiative between lazyload plugins
