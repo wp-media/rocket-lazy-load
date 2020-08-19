@@ -93,7 +93,14 @@ The element must have the class `rocket-lazyload`, and a `data-bg` attribute, wh
 
 == Changelog ==
 = 2.3.4 =
+Enhancement: Allow `<a>` tags to lazyload background images
+Enhancement: Add <noscript> tag to lazyloaded picture elements
 Bugfix: Prevent a Fatal error related to the League Container package conflict with WooCommerce 4.4
+Bugfix: Update lazyload for background images support for new version of lazyload script
+Bugfix: Correctly apply the rocket-lazyload class on elements with a background-image and an empty class value
+Bugfix: Correctly apply the rocket-lazyloadclass on elements with malformed HTML
+Bugfix: Prevent a display issue with background-images when using different types of quotes around the URL 
+Bugfix: Prevent Layout from breaking when <img> alt attribute has any html encoded characters
 
 = 2.3.3 =
 Enhancement: Add data-skip-lazy and skip-lazy class to exclusions list as part of the interoperability initiative between lazyload plugins
