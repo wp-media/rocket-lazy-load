@@ -30,6 +30,8 @@ matrix:
     env: WP_VERSION=latest
   - php: 5.6
     env: WP_VERSION=latest
+before_install:
+  - composer remove --dev coenjacobs/mozart
 install:
 - export PATH="$HOME/.composer/vendor/bin:$PATH"
 - composer install --no-progress
