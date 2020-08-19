@@ -2,9 +2,9 @@
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
-Tested up to: 5.3
+Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -92,6 +92,16 @@ You can also apply it manually. The element you want to apply lazyload on must h
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.3.4 =
+Enhancement: Allow `<a>` tags to lazyload background images
+Enhancement: Add <noscript> tag to lazyloaded picture elements
+Bugfix: Prevent a Fatal error related to the League Container package conflict with WooCommerce 4.4
+Bugfix: Update lazyload for background images support for new version of lazyload script
+Bugfix: Correctly apply the rocket-lazyload class on elements with a background-image and an empty class value
+Bugfix: Correctly apply the rocket-lazyloadclass on elements with malformed HTML
+Bugfix: Prevent a display issue with background-images when using different types of quotes around the URL 
+Bugfix: Prevent Layout from breaking when <img> alt attribute has any html encoded characters
+
 = 2.3.3 =
 Enhancement: Add data-skip-lazy and skip-lazy class to exclusions list as part of the interoperability initiative between lazyload plugins
 Enhancement: Use native lazyload only if filter `rocket_use_native_lazyload` is true
