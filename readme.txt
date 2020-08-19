@@ -4,7 +4,7 @@ Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smili
 Requires at least: 4.7
 Tested up to: 5.3
 Requires PHP: 5.6
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 
 Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -92,6 +92,9 @@ You can also apply it manually. The element you want to apply lazyload on must h
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.3.4 =
+Bugfix: Fatal error from League Container conflict with WooCommerce 4.4
+
 = 2.3.3 =
 Enhancement: Add data-skip-lazy and skip-lazy class to exclusions list as part of the interoperability initiative between lazyload plugins
 Enhancement: Use native lazyload only if filter `rocket_use_native_lazyload` is true
