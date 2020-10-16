@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Lazy Load - Optimize Images
+ * Plugin Name: Lazy Load
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
  * Version: 2.3.3
