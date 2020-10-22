@@ -1,4 +1,4 @@
-=== Lazy Load - Optimize Images ===
+=== Lazy Load ===
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
@@ -6,19 +6,21 @@ Tested up to: 5.5
 Requires PHP: 5.6
 Stable tag: 2.3.4
 
-Lazy Load your images and iframes, replace Youtube videos by a preview thumbnail.
+Lazy load your images and iframes, replace Youtube videos by a preview thumbnail.
 
 == Description ==
 
-Lazy Load by WP Rocket displays images and/or iframes on a page only when they are visible to the user. This reduces the number of HTTP requests mechanism and improves the loading time.
+Lazy Load displays images and/or iframes on a page only when they are visible to the user. This reduces the number of HTTP requests mechanism and improves the loading time.
 
-This plugin works on thumbnails, all images in a post content or in a widget text, avatars, smilies and iframes. No JavaScript library such as jQuery is used and the script weight is less than 10KB.
+You can lazy load thumbnails, all images in a post content or in a widget text, avatars, smilies and iframes. No JavaScript library such as jQuery is used and the script weight is less than 10KB.
 
 You can also replace Youtube iframes by a preview thumbnail to further speed up the loading time of your website.
 
+Turn on lazy load to optimize your images and make your website faster!
+
 = Dependencies =
 
-Lazyload script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
+Lazy load script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
 
 = Related Plugins =
 * [Imagify](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best Image Optimizer to speed up your website with lighter images.
@@ -79,13 +81,13 @@ add_filter( 'rocket_lazyload_threshold', 'rocket_lazyload_custom_threshold' );
 
 Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
 
-= How can I lazyload a background-image? =
+= How can I lazy load a background-image? =
 
-The plugin will automatically lazyload background-images set with a `style` attribute to a `div` element:
+The plugin will automatically lazy load background-images set with a `style` attribute to a `div` element:
 
 `<div style="background-image: url(image.jpg);">`
 
-You can also apply it manually. The element you want to apply lazyload on must have this specific markup:
+You can also apply it manually. The element you want to apply lazy load on must have this specific markup:
 
 `<div class="rocket-lazyload" data-bg="url(../img/image.jpg)"></div>`
 
