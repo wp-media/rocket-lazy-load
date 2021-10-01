@@ -1,31 +1,40 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container\Inflector;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\ImmutableContainerAwareTrait;
+use Generator;
+use RocketLazyLoadPlugin\Dependencies\League\Container\ContainerAwareTrait;
 
 class InflectorAggregate implements InflectorAggregateInterface
 {
-    use ImmutableContainerAwareTrait;
+    use ContainerAwareTrait;
 
     /**
-     * @var array
+     * @var Inflector[]
      */
     protected $inflectors = [];
 
     /**
      * {@inheritdoc}
      */
-    public function add($type, callable $callback = null)
+    public function add(string $type, callable $callback = null) : Inflector
     {
-        if (is_null($callback)) {
-            $inflector = new Inflector;
-            $this->inflectors[$type] = $inflector;
+        $inflector          = new Inflector($type, $callback);
+        $this->inflectors[] = $inflector;
 
-            return $inflector;
+        return $inflector;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator() : Generator
+    {
+        $count = count($this->inflectors);
+
+        for ($i = 0; $i < $count; $i++) {
+            yield $this->inflectors[$i];
         }
-
-        $this->inflectors[$type] = $callback;
     }
 
     /**
@@ -33,19 +42,15 @@ class InflectorAggregate implements InflectorAggregateInterface
      */
     public function inflect($object)
     {
-        foreach ($this->inflectors as $type => $inflector) {
+        foreach ($this->getIterator() as $inflector) {
+            $type = $inflector->getType();
+
             if (! $object instanceof $type) {
                 continue;
             }
 
-            if ($inflector instanceof Inflector) {
-                $inflector->setContainer($this->getContainer());
-                $inflector->inflect($object);
-                continue;
-            }
-
-            // must be dealing with a callable as the inflector
-            call_user_func_array($inflector, [$object]);
+            $inflector->setLeagueContainer($this->getLeagueContainer());
+            $inflector->inflect($object);
         }
 
         return $object;

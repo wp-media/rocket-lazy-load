@@ -2,12 +2,12 @@
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container\Argument;
 
-interface RawArgumentInterface
+interface ClassNameInterface
 {
     /**
-     * Return the value of the raw argument.
+     * Return the class name.
      *
-     * @return mixed
+     * @return string
      */
-    public function getValue();
+    public function getClassName() : string;
 }

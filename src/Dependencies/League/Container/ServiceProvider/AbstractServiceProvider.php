@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider;
 
@@ -14,14 +14,33 @@ abstract class AbstractServiceProvider implements ServiceProviderInterface
     protected $provides = [];
 
     /**
+     * @var string
+     */
+    protected $identifier;
+
+    /**
      * {@inheritdoc}
      */
-    public function provides($alias = null)
+    public function provides(string $alias) : bool
     {
-        if (! is_null($alias)) {
-            return (in_array($alias, $this->provides));
-        }
+        return in_array($alias, $this->provides, true);
+    }
 
-        return $this->provides;
+    /**
+     * {@inheritdoc}
+     */
+    public function setIdentifier(string $id) : ServiceProviderInterface
+    {
+        $this->identifier = $id;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIdentifier() : string
+    {
+        return $this->identifier ?? get_class($this);
     }
 }
