@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Handle the lazyload required assets: inline CSS and JS
  *
- * @package RocketLazyload
+ * @package RocketLazyLoadPlugin\Dependencies\RocketLazyload
  */
 
 namespace RocketLazyLoadPlugin\Dependencies\RocketLazyload;
@@ -19,7 +21,7 @@ class Assets {
 	 * @return void
 	 */
 	public function insertLazyloadScript( $args = [] ) {
-		echo $this->getLazyloadScript( $args );
+		echo $this->getLazyloadScript( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -31,7 +33,6 @@ class Assets {
 	public function getInlineLazyloadScript( $args = [] ) {
 		$defaults = [
 			'elements'  => [
-				'img',
 				'iframe',
 			],
 			'threshold' => 300,
@@ -42,13 +43,24 @@ class Assets {
 			'container'           => 1,
 			'thresholds'          => 1,
 			'data_bg'             => 1,
+			'data_bg_hidpi'       => 1,
+			'data_bg_multi'       => 1,
+			'data_bg_multi_hidpi' => 1,
+			'data_poster'         => 1,
+			'class_applied'       => 1,
 			'class_error'         => 1,
+			'class_entered'       => 1,
+			'class_exited'        => 1,
 			'cancel_on_exit'      => 1,
+			'unobserve_entered'   => 1,
 			'unobserve_completed' => 1,
 			'callback_enter'      => 1,
 			'callback_exit'       => 1,
 			'callback_loading'    => 1,
+			'callback_cancel'     => 1,
+			'callback_loaded'     => 1,
 			'callback_error'      => 1,
+			'callback_applied'    => 1,
 			'callback_finish'     => 1,
 			'use_native'          => 1,
 		];
@@ -101,13 +113,13 @@ class Assets {
                     var rocketlazy_count = 0;
 
                     mutations.forEach(function(mutation) {
-                        for (i = 0; i < mutation.addedNodes.length; i++) {
+                        for (var i = 0; i < mutation.addedNodes.length; i++) {
                             if (typeof mutation.addedNodes[i].getElementsByTagName !== \'function\') {
-                                return;
+                                continue;
                             }
 
                            if (typeof mutation.addedNodes[i].getElementsByClassName !== \'function\') {
-                                return;
+                                continue;
                             }
 
                             images = mutation.addedNodes[i].getElementsByTagName(\'img\');
@@ -155,16 +167,10 @@ class Assets {
 		$defaults = [
 			'base_url' => '',
 			'version'  => '',
-			'polyfill' => false,
 		];
 
-		$args   = wp_parse_args( $args, $defaults );
-		$min    = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-		$script = '';
-
-		if ( isset( $args['polyfill'] ) && $args['polyfill'] ) {
-			$script .= '<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default%2CIntersectionObserver%2CIntersectionObserverEntry"></script>';
-		}
+		$args = wp_parse_args( $args, $defaults );
+		$min  = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		/**
 		 * Filters the script tag for the lazyload script
@@ -173,9 +179,7 @@ class Assets {
 		 *
 		 * @param $script_tag HTML tag for the lazyload script.
 		 */
-		$script .= apply_filters( 'rocket_lazyload_script_tag', '<script data-no-minify="1" async src="' . $args['base_url'] . $args['version'] . '/lazyload' . $min . '.js"></script>' );
-
-		return $script;
+		return apply_filters( 'rocket_lazyload_script_tag', '<script data-no-minify="1" async src="' . $args['base_url'] . $args['version'] . '/lazyload' . $min . '.js"></script>' ); // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 	}
 
 	/**
@@ -185,7 +189,7 @@ class Assets {
 	 * @return void
 	 */
 	public function insertYoutubeThumbnailScript( $args = [] ) {
-		echo $this->getYoutubeThumbnailScript( $args );
+		echo $this->getYoutubeThumbnailScript( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -244,7 +248,7 @@ class Assets {
 	 * @return void
 	 */
 	public function insertYoutubeThumbnailCSS( $args = [] ) {
-		wp_register_style( 'rocket-lazyload', false );
+		wp_register_style( 'rocket-lazyload', false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( 'rocket-lazyload' );
 		wp_add_inline_style( 'rocket-lazyload', $this->getYoutubeThumbnailCSS( $args ) );
 	}
@@ -276,7 +280,7 @@ class Assets {
 	 * Inserts the CSS needed when Javascript is not enabled to keep the display correct
 	 */
 	public function insertNoJSCSS() {
-		echo $this->getNoJSCSS();
+		echo $this->getNoJSCSS(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
