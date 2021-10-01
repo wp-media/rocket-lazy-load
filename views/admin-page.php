@@ -5,7 +5,7 @@
  * @package RocketLazyloadPlugin
  */
 
-defined('ABSPATH') || die('Cheatin\' uh?');
+defined('ABSPATH') || exit;
 
 global $wp_version;
 

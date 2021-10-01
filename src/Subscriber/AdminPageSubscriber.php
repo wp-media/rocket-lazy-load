@@ -9,7 +9,6 @@ use RocketLazyLoadPlugin\Admin\AdminPage;
  * Admin Page Subscriber
  *
  * @since 2.0
- * @author Remy Perona
  */
 class AdminPageSubscriber implements SubscriberInterface {
 
@@ -17,7 +16,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * AdminPage instance
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var AdminPage
 	 */
@@ -27,7 +25,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * Plugin basename
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var string
 	 */
@@ -37,7 +34,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * Constructor
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @param AdminPage $page AdminPage instance.
 	 * @param string    $plugin_basename Plugin basename.
@@ -65,7 +61,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * Registers the plugin settings in WordPress
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -77,7 +72,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * Adds the admin page to the settings menu
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -95,7 +89,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * Adds a link to the plugin settings on the plugins page
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @param array $actions Actions for the plugin.
 	 * @return array
@@ -117,7 +110,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * Enqueue the css for the option page
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @param string $hook_suffix Current page hook.
 	 */

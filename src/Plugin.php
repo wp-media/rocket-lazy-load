@@ -10,7 +10,6 @@ use RocketLazyLoadPlugin\Options\Options;
  * Plugin initialize
  *
  * @since 2.0
- * @author Remy Perona
  */
 class Plugin {
 
@@ -18,7 +17,6 @@ class Plugin {
 	 * Is the plugin loaded
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var boolean
 	 */
@@ -28,7 +26,6 @@ class Plugin {
 	 * Checks if the plugin is loaded
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return boolean
 	 */
@@ -40,7 +37,6 @@ class Plugin {
 	 * Loads the plugin in WordPress
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */

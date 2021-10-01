@@ -1,13 +1,5 @@
 <?php
-/**
- * Event Manager to interact with the WP plugin API
- *
- * @package RocketLazyload
- */
-
 namespace RocketLazyLoadPlugin\EventManagement;
-
-defined('ABSPATH') || die('Cheatin\' uh?');
 
 /**
  * The event manager manages events using the WordPress plugin API.

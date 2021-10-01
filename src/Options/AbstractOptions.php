@@ -1,17 +1,10 @@
 <?php
-/**
- * Abstract class to interact with the WP options API
- *
- * @package RocketLazyloadPlugin
- */
-
 namespace RocketLazyLoadPlugin\Options;
 
 /**
  * Manages options using the WordPress options API.
  *
  * @since 2.0
- * @author Remy Perona
  */
 abstract class AbstractOptions
 {
@@ -19,7 +12,6 @@ abstract class AbstractOptions
      * Gets the option for the given name. Returns the default value if the value does not exist.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $name    Name of the option to get.
      * @param mixed  $default Default value to return if the value does not exist.
@@ -32,7 +24,7 @@ abstract class AbstractOptions
      * Sets the value of an option. Update the value if the option for the given name already exists.
      *
      * @since 2.0
-     * @author Remy Perona
+     *
      * @param string $name Name of the option to set.
      * @param mixed  $value Value to set for the option.
      *
@@ -44,7 +36,6 @@ abstract class AbstractOptions
      * Deletes the option with the given name.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $name Name of the option to delete.
      *
@@ -56,7 +47,6 @@ abstract class AbstractOptions
      * Checks if the option with the given name exists.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $name Name of the option to check.
      *

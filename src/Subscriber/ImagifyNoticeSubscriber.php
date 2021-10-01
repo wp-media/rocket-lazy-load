@@ -1,13 +1,5 @@
 <?php
-/**
- * Imagify Notice subscriber
- *
- * @package RocketLazyload
- */
-
 namespace RocketLazyLoadPlugin\Subscriber;
-
-defined('ABSPATH') || die('Cheatin\' uh?');
 
 use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
 use RocketLazyLoadPlugin\Admin\ImagifyNotice;
@@ -16,7 +8,6 @@ use RocketLazyLoadPlugin\Admin\ImagifyNotice;
  * Imagify Notice Subscriber
  *
  * @since 2.0
- * @author Remy Perona
  */
 class ImagifyNoticeSubscriber implements SubscriberInterface
 {
@@ -24,7 +15,6 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
      * ImagifyNotice instance
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @var ImagifyNotice
      */
@@ -34,7 +24,6 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
      * Constructor
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param ImagifyNotice $imagify_notice ImagifyNotice instance.
      */
@@ -60,7 +49,6 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
      * Displays the Imagify notice
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return void
      */
@@ -85,7 +73,6 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
      * Inserts the javascript to dismiss the notice
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return void
      */
@@ -106,7 +93,6 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
      * Saves the dismiss for the user
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return void
      */
