@@ -1,10 +1,10 @@
 === Lazy Load ===
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
-Requires at least: 4.7
+Requires at least: 5.4
 Tested up to: 5.8
-Requires PHP: 5.6
-Stable tag: 2.3.4
+Requires PHP: 7.0
+Stable tag: 3.0
 
 Lazy load your images and iframes, replace Youtube videos by a preview thumbnail.
 
