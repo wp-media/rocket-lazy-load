@@ -187,6 +187,7 @@ class LazyloadSubscriber implements SubscriberInterface {
 			[
 				'resolution' => $thumbnail_resolution,
 				'lazy_image' => (bool) $this->option_array->get( 'images' ),
+				'native'     => $this->is_native_images(),
 			]
 		);
 	}
