@@ -1,13 +1,5 @@
 <?php
-/**
- * Admin Page Class
- *
- * @package RocketLazyloadPlugin
- */
-
 namespace RocketLazyLoadPlugin\Admin;
-
-defined('ABSPATH') || die('Cheatin\' uh?');
 
 use RocketLazyLoadPlugin\Options\Options;
 use RocketLazyLoadPlugin\Options\OptionArray;
@@ -16,7 +8,6 @@ use RocketLazyLoadPlugin\Options\OptionArray;
  * Admin page configuration
  *
  * @since 2.0
- * @author Remy Perona
  */
 class AdminPage
 {
@@ -24,7 +15,6 @@ class AdminPage
      * Plugin slug
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @var string
      */
@@ -34,7 +24,6 @@ class AdminPage
      * Options instance
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @var Options
      */
@@ -44,7 +33,6 @@ class AdminPage
      * OptionArray instance
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @var OptionArray
      */
@@ -54,7 +42,6 @@ class AdminPage
      * Template path
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @var string
      */
@@ -64,7 +51,6 @@ class AdminPage
      * Constructor
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param Options     $options Options instance.
      * @param OptionArray $option_array OptionArray instance.
@@ -81,7 +67,6 @@ class AdminPage
      * Registers plugin settings with WordPress
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return void
      */
@@ -94,7 +79,6 @@ class AdminPage
      * Gets the settings page title
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return string
      */
@@ -107,7 +91,6 @@ class AdminPage
      * Gets the settings submenu title
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return string
      */
@@ -120,7 +103,6 @@ class AdminPage
      * Gets the plugin slug
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return string
      */
@@ -133,7 +115,6 @@ class AdminPage
      * Gets the plugin required capability
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return string
      */
@@ -146,7 +127,6 @@ class AdminPage
      * Renders the admin page template
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return void
      */
@@ -159,7 +139,6 @@ class AdminPage
      * Renders the given template if it's readable.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $template Template name.
      */

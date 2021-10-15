@@ -1,17 +1,10 @@
 <?php
-/**
- * Imagify Notice Class
- *
- * @package RocketLazyloadPlugin
- */
-
 namespace RocketLazyLoadPlugin\Admin;
 
 /**
  * Imagify Notice display
  *
  * @since 2.0
- * @author Remy Perona
  */
 class ImagifyNotice
 {
@@ -19,7 +12,6 @@ class ImagifyNotice
      * Template path
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @var string
      */
@@ -29,7 +21,6 @@ class ImagifyNotice
      * Constructor
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $template_path Template path.
      */
@@ -42,7 +33,6 @@ class ImagifyNotice
      * Renders the Imagify notice
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return void
      */
@@ -55,7 +45,6 @@ class ImagifyNotice
      * Renders the given template if it's readable.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $template Template name.
      */

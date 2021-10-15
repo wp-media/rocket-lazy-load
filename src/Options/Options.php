@@ -1,13 +1,5 @@
 <?php
-/**
- * Options Class
- *
- * @package RocketLazyloadPlugin
- */
-
 namespace RocketLazyLoadPlugin\Options;
-
-defined('ABSPATH') || die('Cheatin\' uh?');
 
 /**
  * Interact with the WordPress Options API
@@ -18,7 +10,6 @@ class Options extends AbstractOptions
      * The prefix used by Rocket Lazyload options.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @var string
      */
@@ -28,7 +19,6 @@ class Options extends AbstractOptions
      * Constructor
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $prefix options prefix.
      */
@@ -41,7 +31,6 @@ class Options extends AbstractOptions
      * Gets the option name used to store the option in the WordPress database.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $name Unprefixed name of the option.
      *
@@ -56,7 +45,6 @@ class Options extends AbstractOptions
      * Gets the option for the given name. Returns the default value if the value does not exist.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $name    Name of the option to get.
      * @param mixed  $default Default value to return if the value does not exist.
@@ -78,7 +66,7 @@ class Options extends AbstractOptions
      * Sets the value of an option. Update the value if the option for the given name already exists.
      *
      * @since 2.0
-     * @author Remy Perona
+     *
      * @param string $name  Name of the option to set.
      * @param mixed  $value Value to set for the option.
      *
@@ -93,7 +81,6 @@ class Options extends AbstractOptions
      * Deletes the option with the given name.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $name Name of the option to delete.
      *

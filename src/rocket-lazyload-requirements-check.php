@@ -1,17 +1,8 @@
 <?php
 /**
- * Check if current requirements are met
- *
- * @package RocketLazyloadPlugin
- */
-
-defined('ABSPATH') || die('Cheatin&#8217; uh?');
-
-/**
  * Class to check if the current WordPress and PHP versions meet our requirements
  *
  * @since 2.0
- * @author Remy Perona
  */
 class Rocket_Lazyload_Requirements_Check
 {
@@ -46,8 +37,8 @@ class Rocket_Lazyload_Requirements_Check
     /**
      * Constructor
      *
-     * @since 3.0
-     * @author Remy Perona
+     * @since 2.0
+
      *
      * @param array $args {
      *     Arguments to populate the class properties.
@@ -69,8 +60,7 @@ class Rocket_Lazyload_Requirements_Check
     /**
      * Checks if all requirements are ok, if not, display a notice and the rollback
      *
-     * @since 3.0
-     * @author Remy Perona
+     * @since 2.0
      *
      * @return bool
      */
@@ -88,8 +78,7 @@ class Rocket_Lazyload_Requirements_Check
     /**
      * Checks if the current PHP version is equal or superior to the required PHP version
      *
-     * @since 3.0
-     * @author Remy Perona
+     * @since 2.0
      *
      * @return bool
      */
@@ -101,8 +90,7 @@ class Rocket_Lazyload_Requirements_Check
     /**
      * Checks if the current WordPress version is equal or superior to the required PHP version
      *
-     * @since 3.0
-     * @author Remy Perona
+     * @since 2.0
      *
      * @return bool
      */
@@ -117,7 +105,6 @@ class Rocket_Lazyload_Requirements_Check
      * Displays a notice if requirements are not met.
      *
      * @since 2.0
-     * @author Remy Perona
      */
     public function notice()
     {

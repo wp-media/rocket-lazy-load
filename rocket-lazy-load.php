@@ -3,8 +3,9 @@
  * Plugin Name: Lazy Load - Optimize Images
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 2.3.4
- * Requires PHP: 5.6
+ * Version: 3.0
+ * Requires at least: 5.4
+ * Requires PHP: 7.0
  * Author: WP Rocket
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -12,7 +13,7 @@
  *
  * @package RocketLazyloadPlugin
  *
- * Copyright 2015-2019 WP Media
+ * Copyright 2015-2021 WP Media
  *
  * This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -28,11 +29,11 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
+defined( 'ABSPATH' ) || exit;
 
-define( 'ROCKET_LL_VERSION', '2.3.4' );
-define( 'ROCKET_LL_WP_VERSION', '4.9' );
-define( 'ROCKET_LL_PHP_VERSION', '5.6' );
+define( 'ROCKET_LL_VERSION', '3.0' );
+define( 'ROCKET_LL_WP_VERSION', '5.4' );
+define( 'ROCKET_LL_PHP_VERSION', '7.0' );
 define( 'ROCKET_LL_BASENAME', plugin_basename( __FILE__ ) );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
@@ -45,7 +46,6 @@ require ROCKET_LL_PATH . 'src/rocket-lazyload-requirements-check.php';
  * Loads plugin translations
  *
  * @since 2.0
- * @author Remy Perona
  *
  * @return void
  */

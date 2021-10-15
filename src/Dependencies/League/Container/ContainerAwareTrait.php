@@ -1,21 +1,30 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container;
+
+use RocketLazyLoadPlugin\Dependencies\League\Container\Exception\ContainerException;
+use RocketLazyLoadPlugin\Dependencies\Psr\Container\ContainerInterface;
 
 trait ContainerAwareTrait
 {
     /**
-     * @var \RocketLazyLoadPlugin\Dependencies\League\Container\ContainerInterface
+     * @var ContainerInterface
      */
     protected $container;
 
     /**
+     * @var Container
+     */
+    protected $leagueContainer;
+
+    /**
      * Set a container.
      *
-     * @param  \RocketLazyLoadPlugin\Dependencies\League\Container\ContainerInterface $container
-     * @return $this
+     * @param ContainerInterface $container
+     *
+     * @return ContainerAwareInterface
      */
-    public function setContainer(ContainerInterface $container)
+    public function setContainer(ContainerInterface $container) : ContainerAwareInterface
     {
         $this->container = $container;
 
@@ -25,10 +34,43 @@ trait ContainerAwareTrait
     /**
      * Get the container.
      *
-     * @return \RocketLazyLoadPlugin\Dependencies\League\Container\ContainerInterface
+     * @return ContainerInterface
      */
-    public function getContainer()
+    public function getContainer() : ContainerInterface
     {
-        return $this->container;
+        if ($this->container instanceof ContainerInterface) {
+            return $this->container;
+        }
+
+        throw new ContainerException('No container implementation has been set.');
+    }
+
+    /**
+     * Set a container.
+     *
+     * @param Container $container
+     *
+     * @return self
+     */
+    public function setLeagueContainer(Container $container) : ContainerAwareInterface
+    {
+        $this->container = $container;
+        $this->leagueContainer = $container;
+
+        return $this;
+    }
+
+    /**
+     * Get the container.
+     *
+     * @return Container
+     */
+    public function getLeagueContainer() : Container
+    {
+        if ($this->leagueContainer instanceof Container) {
+            return $this->leagueContainer;
+        }
+
+        throw new ContainerException('No container implementation has been set.');
     }
 }

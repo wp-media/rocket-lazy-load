@@ -1,17 +1,10 @@
 <?php
-/**
- * Manages the plugin options data
- *
- * @package RocketLazyloadPlugin
- */
-
 namespace RocketLazyLoadPlugin\Options;
 
 /**
  * Manages the data inside an option.
  *
  * @since 2.0
- * @author Remy Perona
  */
 class OptionArray
 {
@@ -36,7 +29,6 @@ class OptionArray
      * Checks if the provided key exists in the option data array.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $key key name.
      * @return boolean
@@ -50,7 +42,6 @@ class OptionArray
      * Gets the value associated with a specific key.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $key     key name.
      * @param mixed  $default default value to return if key doesn't exist.
@@ -69,7 +60,6 @@ class OptionArray
      * Sets the value associated with a specific key.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param string $key   key name.
      * @param mixed  $value Value to set.
@@ -84,7 +74,6 @@ class OptionArray
      * Sets multiple values.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @param array $options An array of key/value pairs to set.
      * @return void
@@ -100,7 +89,6 @@ class OptionArray
      * Gets the option array.
      *
      * @since 2.0
-     * @author Remy Perona
      *
      * @return array
      */

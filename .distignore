@@ -7,7 +7,6 @@
 
 .distignore
 .gitignore
-.travis.yml
 composer.lock
 LICENSE
 phpcs.xml

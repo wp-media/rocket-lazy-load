@@ -9,7 +9,6 @@ use RocketLazyLoadPlugin\EventManagement\EventManagerAwareSubscriberInterface;
  * Manages compatibility with the AMP plugin
  *
  * @since 2.0
- * @author Remy Perona
  */
 class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 
@@ -45,7 +44,6 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 * Disable if on AMP page
 	 *
 	 * @since 2.0.2
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -60,7 +58,6 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 * Checks if current page uses AMP
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return boolean
 	 */

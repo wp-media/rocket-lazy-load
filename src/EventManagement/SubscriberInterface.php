@@ -1,10 +1,4 @@
 <?php
-/**
- * Interface for subscribers
- *
- * @package RocketLazyload
- */
-
 namespace RocketLazyLoadPlugin\EventManagement;
 
 /**

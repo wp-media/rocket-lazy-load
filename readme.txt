@@ -1,10 +1,10 @@
 === Lazy Load ===
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
-Requires at least: 4.7
+Requires at least: 5.4
 Tested up to: 5.8
-Requires PHP: 5.6
-Stable tag: 2.3.4
+Requires PHP: 7.0
+Stable tag: 3.0
 
 Lazy load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -35,9 +35,10 @@ Lazy load script: [https://github.com/verlok/lazyload](https://github.com/verlok
 == Frequently Asked Questions ==
 
 = How can I use native lazyload? =
-To use native lazyload on browsers supporting this feature, you need to use the following line:
+Native lazyload is enabled by default since version 3.0.
 
-`add_filter( 'rocket_use_native_lazyload', '__return_true' );`
+To disable native lazyload, you can use the following:
+`add_filter( 'rocket_use_native_lazyload', '__return_false' );`
 
 Browsers that do not support native lazyload will use the JS-based solution as before.
 
@@ -79,7 +80,7 @@ add_filter( 'rocket_lazyload_threshold', 'rocket_lazyload_custom_threshold' );
 
 = I use plugin X and my images don't show anymore =
 
-Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
+Some plugins are not compatible with lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
 
 = How can I lazy load a background-image? =
 
@@ -94,6 +95,11 @@ You can also apply it manually. The element you want to apply lazy load on must 
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 3.0 =
+Enhancement: Use native lazyload by default
+Enhancement: Update the lazyload script to the latest version
+Bugfix: Prevent error in the browser console in some cases
+
 = 2.3.4 =
 Enhancement: Allow `<a>` tags to lazyload background images
 Enhancement: Add <noscript> tag to lazyloaded picture elements

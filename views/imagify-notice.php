@@ -5,7 +5,7 @@
  * @package RocketLazyloadPlugin
  */
 
-defined('ABSPATH') || die('Cheatin\' uh?');
+defined('ABSPATH') || exit;
 
 $action_url = wp_nonce_url(
     add_query_arg(

@@ -12,7 +12,6 @@ use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
  * Lazyload Subscriber
  *
  * @since 2.0
- * @author Remy Perona
  */
 class LazyloadSubscriber implements SubscriberInterface {
 
@@ -20,7 +19,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * OptionArray instance
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var OptionArray
 	 */
@@ -30,7 +28,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Assets instance
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var Assets
 	 */
@@ -40,7 +37,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Image instance
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var Image
 	 */
@@ -50,7 +46,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Iframe instance
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var Iframe
 	 */
@@ -60,7 +55,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Constructor
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @param OptionArray $option_array OptionArray instance.
 	 * @param Assets      $assets Assets instance.
@@ -97,7 +91,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Inserts the lazyload script in the footer
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -114,26 +107,14 @@ class LazyloadSubscriber implements SubscriberInterface {
 		 * Filters the threshold at which lazyload is triggered
 		 *
 		 * @since 1.2
-		 * @author Remy Perona
 		 *
 		 * @param int $threshold Threshold value.
 		 */
 		$threshold = apply_filters( 'rocket_lazyload_threshold', 300 );
 
-		/**
-		 * Filters the use of the polyfill for intersectionObserver
-		 *
-		 * @since 3.3
-		 * @author Remy Perona
-		 *
-		 * @param bool $polyfill True to use the polyfill, false otherwise.
-		 */
-		$polyfill = apply_filters( 'rocket_lazyload_polyfill', false );
-
 		$script_args = [
 			'base_url' => ROCKET_LL_FRONT_JS_URL,
-			'version'  => '16.1',
-			'polyfill' => $polyfill,
+			'version'  => '17.5',
 		];
 
 		$inline_args = [
@@ -144,30 +125,23 @@ class LazyloadSubscriber implements SubscriberInterface {
 		 * Filters the use of native lazyload
 		 *
 		 * @since 2.3.3
-		 * @param bool $use_native True to enable native lazyload usage.
+		 *
+		 * @param bool $use_native True to use native lazyload, false otherwise.
 		 */
-		if ( apply_filters( 'rocket_use_native_lazyload', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-			$inline_args['options'] = [
-				'use_native' => 'true',
-			];
+		if ( (bool) apply_filters( 'rocket_use_native_lazyload', false ) ) {
+			$inline_args['options']['use_native'] = true;
+			$inline_args['elements']['loading']   = '[loading=lazy]';
 		}
 
-		if ( $this->option_array->get( 'images' ) || $this->option_array->get( 'iframes' ) ) {
-			// This filter is documented in src/Subscriber/LazyloadSubscriber.php.
-			if ( apply_filters( 'rocket_use_native_lazyload', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-				$inline_args['elements']            = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
-				$inline_args['elements']['loading'] = '[loading=lazy]';
+		if ( (bool) $this->option_array->get( 'images' ) ) {
+			if ( ! $this->is_native_images() ) {
+				$inline_args['elements']['image'] = 'img[data-lazy-src]';
 			}
-		}
 
-		if ( $this->option_array->get( 'images' ) ) {
-			$inline_args['elements']                     = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
-			$inline_args['elements']['image']            = 'img[data-lazy-src]';
 			$inline_args['elements']['background_image'] = '.rocket-lazyload';
 		}
 
-		if ( $this->option_array->get( 'iframes' ) ) {
-			$inline_args['elements']           = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
+		if ( (bool) $this->option_array->get( 'iframes' ) ) {
 			$inline_args['elements']['iframe'] = 'iframe[data-lazy-src]';
 		}
 
@@ -175,7 +149,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 		 * Filters the arguments array for the lazyload script options
 		 *
 		 * @since 2.0
-		 * @author Remy Perona
 		 *
 		 * @param array $inline_args Arguments used for the lazyload script options.
 		 */
@@ -189,7 +162,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Inserts the Youtube thumbnail script in the footer
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -206,7 +178,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 		 * Filters the resolution of the YouTube thumbnail
 		 *
 		 * @since 1.4.8
-		 * @author Arun Basil Lal
 		 *
 		 * @param string $thumbnail_resolution The resolution of the thumbnail. Accepted values: default, mqdefault, sddefault, hqdefault, maxresdefault
 		 */
@@ -216,6 +187,7 @@ class LazyloadSubscriber implements SubscriberInterface {
 			[
 				'resolution' => $thumbnail_resolution,
 				'lazy_image' => (bool) $this->option_array->get( 'images' ),
+				'native'     => $this->is_native_images(),
 			]
 		);
 	}
@@ -224,7 +196,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Inserts the no JS CSS compatibility in the header
 	 *
 	 * @since 2.0.3
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -240,7 +211,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Inserts the Youtube thumbnail CSS in the header
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -265,7 +235,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Checks if lazyload should be applied
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return bool
 	 */
@@ -282,7 +251,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 		 * Filters the lazyload application
 		 *
 		 * @since 2.0
-		 * @author Remy Perona
 		 *
 		 * @param bool $do_rocket_lazyload True to apply lazyload, false otherwise.
 		 */
@@ -297,7 +265,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Checks if current page is a page builder editor.
 	 *
 	 * @since 2.2.2
-	 * @author Remy Perona
 	 *
 	 * @return bool
 	 */
@@ -322,7 +289,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Gets the content to lazyload
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -338,7 +304,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Applies lazyload on the provided content
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @param string $html HTML content.
 	 * @return string
@@ -348,8 +313,11 @@ class LazyloadSubscriber implements SubscriberInterface {
 		$buffer = $this->ignoreNoscripts( $buffer );
 
 		if ( $this->option_array->get( 'images' ) ) {
-			$html = $this->image->lazyloadImages( $html, $buffer );
-			$html = $this->image->lazyloadPictures( $html, $buffer );
+			if ( ! $this->is_native_images() ) {
+				$html = $this->image->lazyloadPictures( $html, $buffer );
+			}
+
+			$html = $this->image->lazyloadImages( $html, $buffer, $this->is_native_images() );
 			$html = $this->image->lazyloadBackgroundImages( $html, $buffer );
 		}
 
@@ -368,12 +336,15 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Applies lazyload on responsive images attributes srcset and sizes
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @param string $html Image HTML.
 	 * @return string
 	 */
 	public function lazyloadResponsive( $html ) {
+		if ( $this->is_native_images() ) {
+			return $html;
+		}
+
 		return $this->image->lazyloadResponsiveAttributes( $html );
 	}
 
@@ -381,7 +352,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * Applies lazyload on WordPress smilies
 	 *
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @return void
 	 */
@@ -428,5 +398,23 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 */
 	private function ignoreNoscripts( $html ) {
 		return preg_replace( '#<noscript>(?:.+)</noscript>#Umsi', '', $html );
+	}
+
+	/**
+	 * Checks if native lazyload is enabled for images
+	 *
+	 * @since 3.0
+	 *
+	 * @return bool
+	 */
+	private function is_native_images(): bool {
+		/**
+		 * Filters the use of native lazyload for images
+		 *
+		 * @since 3.0
+		 *
+		 * @param bool $use_native True to use native lazyload for images, false otherwise.
+		 */
+		return (bool) apply_filters( 'rocket_use_native_lazyload_images', true );
 	}
 }
