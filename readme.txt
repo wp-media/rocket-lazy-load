@@ -2,9 +2,9 @@
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
-Tested up to: 5.8
+Tested up to: 5.9.3
 Requires PHP: 5.6
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 
 Lazy load your images and iframes, replace Youtube videos by a preview thumbnail.
 
@@ -41,7 +41,7 @@ To use native lazyload on browsers supporting this feature, you need to use the 
 
 Browsers that do not support native lazyload will use the JS-based solution as before.
 
-= How can I deactivate Lazy Load on some pages? = 
+= How can I deactivate Lazy Load on some pages? =
 
 You can use the `do_rocket_lazyload` filter.
 
@@ -56,7 +56,7 @@ function deactivate_rocket_lazyload_on_single() {
 }
 `
 
-= How can I deactivate Lazy Load on some images? = 
+= How can I deactivate Lazy Load on some images? =
 
 Simply add a `data-no-lazy="1"` property in you `img` or `iframe` tag.
 
@@ -101,7 +101,7 @@ Bugfix: Prevent a Fatal error related to the League Container package conflict w
 Bugfix: Update lazyload for background images support for new version of lazyload script
 Bugfix: Correctly apply the rocket-lazyload class on elements with a background-image and an empty class value
 Bugfix: Correctly apply the rocket-lazyloadclass on elements with malformed HTML
-Bugfix: Prevent a display issue with background-images when using different types of quotes around the URL 
+Bugfix: Prevent a display issue with background-images when using different types of quotes around the URL
 Bugfix: Prevent Layout from breaking when <img> alt attribute has any html encoded characters
 
 = 2.3.3 =
@@ -212,7 +212,7 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Enhancement: Possibility to apply lazyload on background-images with a specific markup, see FAQ
 * Enhancement: Use a svg image as placeholder instead of a base64 gif
 * Bugfix: Only use MutationObserver if available in the browser
-* Bugfix: When using the Youtube thumbnail option, correctly format the Youtube query if the video URL is encoded 
+* Bugfix: When using the Youtube thumbnail option, correctly format the Youtube query if the video URL is encoded
 * Bugfix: Improve iframe matching to prevent unexpected results
 * Bugfix: Update CSS for the Youtube thumbnail option to prevent issue with the Gutenberg embeds block
 
@@ -317,7 +317,7 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 
 = 1.0.2 =
 * 2014-12-28
-* Improvement: Add « rocket_lazyload_html » filter to manage the output that will be printed. 
+* Improvement: Add « rocket_lazyload_html » filter to manage the output that will be printed.
 
 = 1.0.1.1 =
 * 2014-07-25
