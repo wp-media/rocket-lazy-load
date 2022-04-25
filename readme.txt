@@ -94,6 +94,8 @@ You can also apply it manually. The element you want to apply lazy load on must 
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
 == Changelog ==
+= 2.3.5 =
+Enhancement: Test the plugin with latest version of WordPress v5.9.3
 = 2.3.4 =
 Enhancement: Allow `<a>` tags to lazyload background images
 Enhancement: Add <noscript> tag to lazyloaded picture elements
