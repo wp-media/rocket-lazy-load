@@ -6,26 +6,34 @@ Tested up to: 5.9.3
 Requires PHP: 5.6
 Stable tag: 2.3.5
 
-Lazy load your images and iframes, replace Youtube videos by a preview thumbnail.
+Tags: lazy load, lazy loading, defer offscreen images, lazy load plugin, lazy load images, image lazy loading, iframe lazy load, video lazy load
+
+The best free lazy load plugin for WordPress. Lazy load images, videos, and iframes to improve performance and Core Web Vitals scores.
 
 == Description ==
 
-Lazy Load displays images and/or iframes on a page only when they are visible to the user. This reduces the number of HTTP requests mechanism and improves the loading time.
+LazyLoad is the best free lazy load plugin for WordPress to lazy load images, videos, and iframes on WordPress. In a nutshell, LazyLoad displays images, videos, and iframes on a page only when they are visible to the user – that’s one crucial way to [speed up your WordPress site](https://wp-rocket.me/blog/guide-to-page-speed-optimization-for-wordpress/) and [optimize images for Google PageSpeed](https://imagify.io/blog/optimize-images-page-speed-google/#lazy-loading).
 
-You can lazy load thumbnails, all images in a post content or in a widget text, avatars, smilies and iframes. No JavaScript library such as jQuery is used and the script weight is less than 10KB.
+You can lazy load images in post content or widget text, plus thumbnails, avatars, and smilies. LazyLoad takes care of iframe lazy load, too: you’ll easily replace Youtube iframes with a preview thumbnail to further speed up the loading time of your website.
 
-You can also replace Youtube iframes by a preview thumbnail to further speed up the loading time of your website.
+No JavaScript library such as jQuery is used, and the script weight is less than 10KB.
 
-Turn on lazy load to optimize your images and make your website faster!
+= Why is lazy loading crucial for performance? =
+
+Lazy loading is a key performance technique to make your site faster. You’ll reduce loading time, [improve your Lighthouse performance score](https://wp-rocket.me/lighthouse-performance-score-wordpress/) and [optimize your Core Web Vitals grades](https://wp-rocket.me/google-core-web-vitals-wordpress/).
+
+[Lazy loading your images on WordPress](https://wp-rocket.me/blog/lazy-loading-wordpress-5-5/) will help you achieve a better PageSpeed Insights score for three main reasons:
+
+* You’ll address a specific PageSpeed Insights recommendation: [Defer offscreen images](https://wp-rocket.me/google-core-web-vitals-wordpress/defer-offscreen-images/, which means image lazy loading.
+* You’ll improve the performance of two key metrics: [First Input Delay](https://wp-rocket.me/google-core-web-vitals-wordpress/improve-first-input-delay/) (Core Web Vital) and [Total Blocking Time](https://wp-rocket.me/lighthouse-performance-score-wordpress/reduce-total-blocking-time/) (Lighthouse metric).
+* You’ll [make fewer HTTP requests](https://wp-rocket.me/blog/reduce-http-requests-speed-wordpress-site/) – that is another way to boost your site speed and [improve the Largest Contentful Paint score](https://wp-rocket.me/google-core-web-vitals-wordpress/improve-largest-contentful-paint/) (another Core Web Vital).
+
+Take a look at our complete list of reasons [why you should use lazy loading](https://wp-rocket.me/blog/lazyloading/#section-2). Then, turn on LazyLoad and make your WordPress website faster!
+
 
 = Dependencies =
 
-Lazy load script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
-
-= Related Plugins =
-* [Imagify](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best Image Optimizer to speed up your website with lighter images.
-* [WP Rocket](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best caching plugin to speed-up your WordPress website.
-* [Heartbeat Control by WP Rocket](https://wordpress.org/plugins/heartbeat-control/): Heartbeat Control by WP Rocket: Best plugin to control the WordPress Heartbeat API and reduce CPU usage.
+LazyLoad script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
 
 == Installation ==
 
@@ -92,6 +100,14 @@ You can also apply it manually. The element you want to apply lazy load on must 
 `<div class="rocket-lazyload" data-bg="url(../img/image.jpg)"></div>`
 
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
+
+= Related Plugins =
+
+* [Imagify: The Best image optimizer](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin) to speed up your website with lighter images.
+* [WP Rocket: Best performance plugin](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin) to speed up your WordPress website.
+* [Heartbeat Control by WP Rocket](https://wordpress.org/plugins/heartbeat-control/): Heartbeat Control by WP Rocket: The best plugin to control the WordPress Heartbeat API and reduce CPU usage.
+* [RocketCDN: The best CDN plugin for WordPress](https://rocketcdn.me/wordpress/) to propel your content at the speed of light – no matter where your users are located in the world.
+* [Increase Max upload file size](https://wordpress.org/plugins/upload-max-file-size/) is the best plugin to increase the upload file size limit to any value with one click.
 
 == Changelog ==
 = 2.3.5 =
