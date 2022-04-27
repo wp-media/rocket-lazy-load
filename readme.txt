@@ -1,4 +1,4 @@
-=== Lazy Load ===
+=== LazyLoad Plugin – Lazy Load Images, Videos, and Iframes ===
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
