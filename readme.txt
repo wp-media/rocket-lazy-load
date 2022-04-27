@@ -1,31 +1,38 @@
-=== Lazy Load ===
+=== LazyLoad Plugin – Lazy Load Images, Videos, and Iframes ===
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
 Requires at least: 4.7
-Tested up to: 5.8
+Tested up to: 5.9.3
 Requires PHP: 5.6
-Stable tag: 2.3.4
+Stable tag: 2.3.5
+Tags: lazy load, lazy loading, defer offscreen images, lazy load plugin, lazy load images, image lazy loading, iframe lazy load, video lazy load
 
-Lazy load your images and iframes, replace Youtube videos by a preview thumbnail.
+The best free lazy load plugin for WordPress. Lazy load images, videos, and iframes to improve performance and Core Web Vitals scores.
 
 == Description ==
 
-Lazy Load displays images and/or iframes on a page only when they are visible to the user. This reduces the number of HTTP requests mechanism and improves the loading time.
+LazyLoad is the best free lazy load plugin for WordPress to lazy load images, videos, and iframes on WordPress. In a nutshell, LazyLoad displays images, videos, and iframes on a page only when they are visible to the user – that’s one crucial way to [speed up your WordPress site](https://wp-rocket.me/blog/guide-to-page-speed-optimization-for-wordpress/) and [optimize images for Google PageSpeed](https://imagify.io/blog/optimize-images-page-speed-google/#lazy-loading).
 
-You can lazy load thumbnails, all images in a post content or in a widget text, avatars, smilies and iframes. No JavaScript library such as jQuery is used and the script weight is less than 10KB.
+You can lazy load images in post content or widget text, plus thumbnails, avatars, and smilies. LazyLoad takes care of iframe lazy load, too: you’ll easily replace Youtube iframes with a preview thumbnail to further speed up the loading time of your website.
 
-You can also replace Youtube iframes by a preview thumbnail to further speed up the loading time of your website.
+No JavaScript library such as jQuery is used, and the script weight is less than 10KB.
 
-Turn on lazy load to optimize your images and make your website faster!
+= Why is lazy loading crucial for performance? =
+
+Lazy loading is a key performance technique to make your site faster. You’ll reduce loading time, [improve your Lighthouse performance score](https://wp-rocket.me/lighthouse-performance-score-wordpress/) and [optimize your Core Web Vitals grades](https://wp-rocket.me/google-core-web-vitals-wordpress/).
+
+[Lazy loading your images on WordPress](https://wp-rocket.me/blog/lazy-loading-wordpress-5-5/) will help you achieve a better PageSpeed Insights score for three main reasons:
+
+* You’ll address a specific PageSpeed Insights recommendation: [Defer offscreen images](https://wp-rocket.me/google-core-web-vitals-wordpress/defer-offscreen-images/, which means image lazy loading.
+* You’ll improve the performance of two key metrics: [First Input Delay](https://wp-rocket.me/google-core-web-vitals-wordpress/improve-first-input-delay/) (Core Web Vital) and [Total Blocking Time](https://wp-rocket.me/lighthouse-performance-score-wordpress/reduce-total-blocking-time/) (Lighthouse metric).
+* You’ll [make fewer HTTP requests](https://wp-rocket.me/blog/reduce-http-requests-speed-wordpress-site/) – that is another way to boost your site speed and [improve the Largest Contentful Paint score](https://wp-rocket.me/google-core-web-vitals-wordpress/improve-largest-contentful-paint/) (another Core Web Vital).
+
+Take a look at our complete list of reasons [why you should use lazy loading](https://wp-rocket.me/blog/lazyloading/#section-2). Then, turn on LazyLoad and make your WordPress website faster!
+
 
 = Dependencies =
 
-Lazy load script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
-
-= Related Plugins =
-* [Imagify](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best Image Optimizer to speed up your website with lighter images.
-* [WP Rocket](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin): Best caching plugin to speed-up your WordPress website.
-* [Heartbeat Control by WP Rocket](https://wordpress.org/plugins/heartbeat-control/): Heartbeat Control by WP Rocket: Best plugin to control the WordPress Heartbeat API and reduce CPU usage.
+LazyLoad script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
 
 == Installation ==
 
@@ -41,7 +48,7 @@ To use native lazyload on browsers supporting this feature, you need to use the 
 
 Browsers that do not support native lazyload will use the JS-based solution as before.
 
-= How can I deactivate Lazy Load on some pages? = 
+= How can I deactivate Lazy Load on some pages? =
 
 You can use the `do_rocket_lazyload` filter.
 
@@ -56,7 +63,7 @@ function deactivate_rocket_lazyload_on_single() {
 }
 `
 
-= How can I deactivate Lazy Load on some images? = 
+= How can I deactivate Lazy Load on some images? =
 
 Simply add a `data-no-lazy="1"` property in you `img` or `iframe` tag.
 
@@ -93,7 +100,19 @@ You can also apply it manually. The element you want to apply lazy load on must 
 
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
+= Related Plugins =
+
+* [Imagify: The Best image optimizer](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin) to speed up your website with lighter images.
+* [WP Rocket: Best performance plugin](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin) to speed up your WordPress website.
+* [Heartbeat Control by WP Rocket](https://wordpress.org/plugins/heartbeat-control/): Heartbeat Control by WP Rocket: The best plugin to control the WordPress Heartbeat API and reduce CPU usage.
+* [RocketCDN: The best CDN plugin for WordPress](https://rocketcdn.me/wordpress/) to propel your content at the speed of light – no matter where your users are located in the world.
+* [Increase Max upload file size](https://wordpress.org/plugins/upload-max-file-size/) is the best plugin to increase the upload file size limit to any value with one click.
+
 == Changelog ==
+= 2.3.5 =
+Enhancement: Test the plugin with latest version of WordPress v5.9.3
+Enhancement: Change WP readme content.
+
 = 2.3.4 =
 Enhancement: Allow `<a>` tags to lazyload background images
 Enhancement: Add <noscript> tag to lazyloaded picture elements
@@ -101,7 +120,7 @@ Bugfix: Prevent a Fatal error related to the League Container package conflict w
 Bugfix: Update lazyload for background images support for new version of lazyload script
 Bugfix: Correctly apply the rocket-lazyload class on elements with a background-image and an empty class value
 Bugfix: Correctly apply the rocket-lazyloadclass on elements with malformed HTML
-Bugfix: Prevent a display issue with background-images when using different types of quotes around the URL 
+Bugfix: Prevent a display issue with background-images when using different types of quotes around the URL
 Bugfix: Prevent Layout from breaking when <img> alt attribute has any html encoded characters
 
 = 2.3.3 =
@@ -212,7 +231,7 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Enhancement: Possibility to apply lazyload on background-images with a specific markup, see FAQ
 * Enhancement: Use a svg image as placeholder instead of a base64 gif
 * Bugfix: Only use MutationObserver if available in the browser
-* Bugfix: When using the Youtube thumbnail option, correctly format the Youtube query if the video URL is encoded 
+* Bugfix: When using the Youtube thumbnail option, correctly format the Youtube query if the video URL is encoded
 * Bugfix: Improve iframe matching to prevent unexpected results
 * Bugfix: Update CSS for the Youtube thumbnail option to prevent issue with the Gutenberg embeds block
 
@@ -317,7 +336,7 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 
 = 1.0.2 =
 * 2014-12-28
-* Improvement: Add « rocket_lazyload_html » filter to manage the output that will be printed. 
+* Improvement: Add « rocket_lazyload_html » filter to manage the output that will be printed.
 
 = 1.0.1.1 =
 * 2014-07-25
