@@ -111,6 +111,8 @@ The element must have the class `rocket-lazyload`, and a `data-bg` attribute, wh
 == Changelog ==
 = 2.3.5 =
 Enhancement: Test the plugin with latest version of WordPress v5.9.3
+Enhancement: Change WP readme content.
+
 = 2.3.4 =
 Enhancement: Allow `<a>` tags to lazyload background images
 Enhancement: Add <noscript> tag to lazyloaded picture elements
