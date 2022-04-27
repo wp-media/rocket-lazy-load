@@ -4,7 +4,7 @@ Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smili
 Requires at least: 4.7
 Tested up to: 5.9.3
 Requires PHP: 5.6
-Stable tag: 2.3.5
+Stable tag: 2.3.6
 Tags: lazy load, lazy loading, defer offscreen images, lazy load plugin, lazy load images, image lazy loading, iframe lazy load, video lazy load
 
 The best free lazy load plugin for WordPress. Lazy load images, videos, and iframes to improve performance and Core Web Vitals scores.
