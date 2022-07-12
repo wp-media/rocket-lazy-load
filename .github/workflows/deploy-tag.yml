@@ -10,7 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: build
-      run: composer install -o --no-dev --no-scripts
+      run: composer install --no-dev --no-scripts
+    - name: remove composer/installers
+      run: composer remove composer/installers --update-no-dev --no-scripts
+    - name: optimize autoloader
+      run: composer dumpautoload -o
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@master
       env:
