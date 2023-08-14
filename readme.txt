@@ -100,6 +100,10 @@ You can also apply it manually. The element you want to apply lazy load on must 
 
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
+= Where do I report security bugs found in this plugin? =  
+  
+You can report any security bugs found in the source code of the site-reviews plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/rocket-lazy-load). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
+
 = Related Plugins =
 
 * [Imagify: The Best image optimizer](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin) to speed up your website with lighter images.
