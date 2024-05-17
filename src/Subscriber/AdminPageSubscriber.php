@@ -31,7 +31,7 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @var string
 	 */
-	private $plugin_basename;
+	private static string $plugin_basename;
 
 	/**
 	 * Constructor
@@ -43,8 +43,10 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * @param string    $plugin_basename Plugin basename.
 	 */
 	public function __construct( AdminPage $page, $plugin_basename ) {
+		error_log(__METHOD__);
 		$this->page            = $page;
-		$this->plugin_basename = $plugin_basename;
+		self::$plugin_basename = $plugin_basename;
+		error_log('$plugin_basename: '.self::$plugin_basename);
 	}
 
 	/**
@@ -52,11 +54,12 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @return array
 	 */
-	public function getSubscribedEvents() {
+	public static function get_subscribed_events(): array {
+		error_log(__METHOD__);
 		return [
 			'admin_init'                                   => 'configure',
 			'admin_menu'                                   => 'addAdminPage',
-			"plugin_action_links_{$this->plugin_basename}" => 'addPluginPageLink',
+			"plugin_action_links_".self::$plugin_basename => 'addPluginPageLink',
 			'admin_enqueue_scripts'                        => 'enqueueAdminStyle',
 		];
 	}
@@ -70,6 +73,7 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 * @return void
 	 */
 	public function configure() {
+		error_log(__METHOD__);
 		$this->page->configure();
 	}
 

@@ -7,7 +7,10 @@
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\Container\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Dependencies\League\Container\Definition\DefinitionInterface;
+use RocketLazyLoadPlugin\Options\OptionArray;
+
 
 /**
  * Adds the option array to the container
@@ -17,29 +20,14 @@ use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractS
  */
 class OptionServiceProvider extends AbstractServiceProvider
 {
-    /**
-     * Data provided by the service provider
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var array
-     */
-    protected $provides = [
-        'RocketLazyLoadPlugin\Options\OptionArray',
-    ];
-
-    /**
-     * Registers the option array in the container
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->getContainer()->add('RocketLazyLoadPlugin\Options\OptionArray')
-            ->withArgument($this->getContainer()->get('options')->get('_options'));
-    }
+	public function define()
+	{
+		// TODO how to ->get('_options')
+		$this->register_service( OptionArray::class)
+		     ->set_definition(function (DefinitionInterface $instance) {
+			     $instance->addArguments( [
+				     'options',
+			     ] );
+		     });
+	}
 }

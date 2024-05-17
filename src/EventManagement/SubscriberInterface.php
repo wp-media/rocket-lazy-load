@@ -6,6 +6,7 @@
  */
 
 namespace RocketLazyLoadPlugin\EventManagement;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\OptimizedSubscriberInterface;
 
 /**
  * A Subscriber knows what specific WordPress events it wants to listen to.
@@ -15,7 +16,7 @@ namespace RocketLazyLoadPlugin\EventManagement;
  *
  * @author Carl Alexander <contact@carlalexander.ca>
  */
-interface SubscriberInterface
+interface SubscriberInterface extends OptimizedSubscriberInterface
 {
     /**
      * Returns an array of events that this subscriber wants to listen to.
@@ -35,5 +36,5 @@ interface SubscriberInterface
      *
      * @return array
      */
-    public function getSubscribedEvents();
+    public static function get_subscribed_events();
 }

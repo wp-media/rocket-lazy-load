@@ -39,7 +39,9 @@ define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
 define( 'ROCKET_LL_INT_MAX', PHP_INT_MAX - 15 );
 
-require ROCKET_LL_PATH . 'src/rocket-lazyload-requirements-check.php';
+use function RocketLazyLoadPlugin\Dependencies\LaunchpadCore\boot;
+
+require ROCKET_LL_PATH . 'includes/RocketLazyloadRequirementsCheck.php';
 
 /**
  * Loads plugin translations
@@ -72,7 +74,10 @@ $rocket_lazyload_requirement_checks = new Rocket_Lazyload_Requirements_Check(
 );
 
 if ( $rocket_lazyload_requirement_checks->check() ) {
-	require ROCKET_LL_PATH . 'main.php';
+	require __DIR__ . '/src/Dependencies/LaunchpadCore/boot.php';
+
+	boot( __FILE__ );
 }
+
 
 unset( $rocket_lazyload_requirement_checks );

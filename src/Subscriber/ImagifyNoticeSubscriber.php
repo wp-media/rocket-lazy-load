@@ -46,8 +46,7 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
     /**
      * @inheritDoc
      */
-    public function getSubscribedEvents()
-    {
+    public static function get_subscribed_events(): array {
         return [
             'admin_notices'                              => 'imagifyNotice',
             'admin_footer-settings_page_rocket_lazyload' => 'dismissNoticeJS',
@@ -71,9 +70,9 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
         if ('admin_notices' === current_filter() && ( isset($current_screen) && 'settings_page_rocket_lazyload' !== $current_screen->base )) {
             return;
         }
-    
+
         $boxes = get_user_meta(get_current_user_id(), 'rocket_lazyload_boxes', true);
-    
+
         if (defined('IMAGIFY_VERSION') || in_array('rocket_lazyload_imagify_notice', (array) $boxes, true) || 1 === get_option('rocket_lazyload_dismiss_imagify_notice') || ! current_user_can('manage_options')) {
             return;
         }

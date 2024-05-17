@@ -7,39 +7,21 @@
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\Container\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Dependencies\League\Container\Definition\DefinitionInterface;
+
 
 /**
  * Adds the Imagify notice to the container
- *
- * @since 2.0
- * @author Remy Perona
  */
-class ImagifyNoticeServiceProvider extends AbstractServiceProvider
-{
-    /**
-     * Data provided by the service provider
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var array
-     */
-    protected $provides = [
-        'RocketLazyLoadPlugin\Admin\ImagifyNotice',
-    ];
+class ImagifyNoticeServiceProvider extends AbstractServiceProvider {
 
-    /**
-     * Registers the Imagify notice in the container
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->getContainer()->add('RocketLazyLoadPlugin\Admin\ImagifyNotice')
-            ->withArgument($this->getContainer()->get('template_path'));
-    }
+	public function define() {
+		$this->register_service( \RocketLazyLoadPlugin\Admin\ImagifyNotice::class )
+		     ->set_definition( function ( DefinitionInterface $instance ) {
+			     $instance->addArguments( [
+				     'template_path',
+			     ] );
+		     } );
+	}
 }

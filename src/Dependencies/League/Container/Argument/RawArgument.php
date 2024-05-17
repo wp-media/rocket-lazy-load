@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container\Argument;
 
@@ -10,7 +10,9 @@ class RawArgument implements RawArgumentInterface
     protected $value;
 
     /**
-     * {@inheritdoc}
+     * Construct.
+     *
+     * @param mixed $value
      */
     public function __construct($value)
     {

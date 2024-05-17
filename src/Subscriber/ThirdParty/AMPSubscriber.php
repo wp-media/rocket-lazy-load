@@ -2,8 +2,8 @@
 
 namespace RocketLazyLoadPlugin\Subscriber\ThirdParty;
 
-use RocketLazyLoadPlugin\EventManagement\EventManager;
-use RocketLazyLoadPlugin\EventManagement\EventManagerAwareSubscriberInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\EventManagerAwareSubscriberInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\EventManager;
 
 /**
  * Manages compatibility with the AMP plugin
@@ -25,7 +25,7 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 *
 	 * @return array
 	 */
-	public function getSubscribedEvents() {
+	public static function get_subscribed_events() {
 		return [
 			'wp' => 'disableIfAMP',
 		];
@@ -37,7 +37,7 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 * @param EventManager $event_manager EventManager instance.
 	 * @return void
 	 */
-	public function setEventManager( EventManager $event_manager ) {
+	public function set_event_manager( EventManager $event_manager ) {
 		$this->event_manager = $event_manager;
 	}
 

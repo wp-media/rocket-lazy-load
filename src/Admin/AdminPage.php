@@ -9,8 +9,8 @@ namespace RocketLazyLoadPlugin\Admin;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
 
-use RocketLazyLoadPlugin\Options\Options;
-use RocketLazyLoadPlugin\Options\OptionArray;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Interfaces\OptionsAwareInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\OptionsAwareTrait;
 
 /**
  * Admin page configuration
@@ -18,8 +18,10 @@ use RocketLazyLoadPlugin\Options\OptionArray;
  * @since 2.0
  * @author Remy Perona
  */
-class AdminPage
+class AdminPage implements OptionsAwareInterface
 {
+	use OptionsAwareTrait;
+
     /**
      * Plugin slug
      *
@@ -28,27 +30,7 @@ class AdminPage
      *
      * @var string
      */
-    private $slug = 'rocket_lazyload';
-
-    /**
-     * Options instance
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var Options
-     */
-    private $options;
-
-    /**
-     * OptionArray instance
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var OptionArray
-     */
-    private $option_array;
+    private string $slug = 'rocket_lazyload';
 
     /**
      * Template path
@@ -58,22 +40,20 @@ class AdminPage
      *
      * @var string
      */
-    private $template_path;
+    private string $template_path;
 
     /**
      * Constructor
      *
-     * @since 2.0
+     * @param string      $template_path Template path.
+     *
      * @author Remy Perona
      *
-     * @param Options     $options Options instance.
-     * @param OptionArray $option_array OptionArray instance.
-     * @param string      $template_path Template path.
+     * @since 2.0
      */
-    public function __construct(Options $options, OptionArray $option_array, $template_path)
+    public function __construct( string $template_path)
     {
-        $this->options       = $options;
-        $this->option_array  = $option_array;
+	    error_log(__METHOD__);
         $this->template_path = $template_path;
     }
 
@@ -87,7 +67,7 @@ class AdminPage
      */
     public function configure()
     {
-        register_setting($this->getSlug(), $this->options->getOptionName('_options'));
+        register_setting($this->getSlug(), $this->options->get('_options'));
     }
 
     /**

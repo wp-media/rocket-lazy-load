@@ -1,58 +1,87 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\Argument\ArgumentResolverInterface;
-use RocketLazyLoadPlugin\Dependencies\League\Container\Argument\ArgumentResolverTrait;
+use RocketLazyLoadPlugin\Dependencies\League\Container\Argument\{ArgumentResolverInterface, ArgumentResolverTrait};
 use RocketLazyLoadPlugin\Dependencies\League\Container\Exception\NotFoundException;
+use RocketLazyLoadPlugin\Dependencies\Psr\Container\ContainerInterface;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionFunction;
 use ReflectionMethod;
 
-class ReflectionContainer implements
-    ArgumentResolverInterface,
-    ImmutableContainerInterface
+class ReflectionContainer implements ArgumentResolverInterface, ContainerInterface
 {
     use ArgumentResolverTrait;
-    use ImmutableContainerAwareTrait;
+    use ContainerAwareTrait;
+
+    /**
+     * @var boolean
+     */
+    protected $cacheResolutions = false;
+
+    /**
+     * Cache of resolutions.
+     *
+     * @var array
+     */
+    protected $cache = [];
 
     /**
      * {@inheritdoc}
+     *
+     * @throws ReflectionException
      */
-    public function get($alias, array $args = [])
+    public function get($id, array $args = [])
     {
-        if (! $this->has($alias)) {
+        if ($this->cacheResolutions === true && array_key_exists($id, $this->cache)) {
+            return $this->cache[$id];
+        }
+
+        if (! $this->has($id)) {
             throw new NotFoundException(
-                sprintf('Alias (%s) is not an existing class and therefore cannot be resolved', $alias)
+                sprintf('Alias (%s) is not an existing class and therefore cannot be resolved', $id)
             );
         }
 
-        $reflector = new ReflectionClass($alias);
+        $reflector = new ReflectionClass($id);
         $construct = $reflector->getConstructor();
 
-        if ($construct === null) {
-            return new $alias;
+        if ($construct && !$construct->isPublic()) {
+            throw new NotFoundException(
+                sprintf('Alias (%s) has a non-public constructor and therefore cannot be instantiated', $id)
+            );
         }
 
-        return $reflector->newInstanceArgs(
-            $this->reflectArguments($construct, $args)
-        );
+        $resolution = $construct === null
+            ? new $id
+            : $resolution = $reflector->newInstanceArgs($this->reflectArguments($construct, $args))
+        ;
+
+        if ($this->cacheResolutions === true) {
+            $this->cache[$id] = $resolution;
+        }
+
+        return $resolution;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function has($alias)
+    public function has($id)
     {
-        return class_exists($alias);
+        return class_exists($id);
     }
 
     /**
      * Invoke a callable via the container.
      *
-     * @param  callable $callable
-     * @param  array    $args
+     * @param callable $callable
+     * @param array    $args
+     *
      * @return mixed
+     *
+     * @throws ReflectionException
      */
     public function call(callable $callable, array $args = [])
     {
@@ -80,8 +109,23 @@ class ReflectionContainer implements
             return $reflection->invokeArgs($callable, $this->reflectArguments($reflection, $args));
         }
 
-        $reflection = new ReflectionFunction($callable);
+        $reflection = new ReflectionFunction(\Closure::fromCallable($callable));
 
         return $reflection->invokeArgs($this->reflectArguments($reflection, $args));
+    }
+
+    /**
+     * Whether the container should default to caching resolutions and returning
+     * the cache on following calls.
+     *
+     * @param boolean $option
+     *
+     * @return self
+     */
+    public function cacheResolutions(bool $option = true) : ContainerInterface
+    {
+        $this->cacheResolutions = $option;
+
+        return $this;
     }
 }
