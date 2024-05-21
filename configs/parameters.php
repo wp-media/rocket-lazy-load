@@ -7,5 +7,5 @@ return [
 	'assets_baseurl'  => plugin_dir_url( __DIR__ ) . 'assets/',
 	'is_mu_plugin'    => false,
 	'translation_key' => 'rocket-lazy-load',
-	'prefix'          => 'RLL_'
+	'prefix'          => 'rocket_lazyload_'
 ];

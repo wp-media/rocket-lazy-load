@@ -12,6 +12,7 @@ defined('ABSPATH') || die('Cheatin\' uh?');
 use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Interfaces\OptionsAwareInterface;
 use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\OptionsAwareTrait;
 
+
 /**
  * Admin page configuration
  *
@@ -53,7 +54,6 @@ class AdminPage implements OptionsAwareInterface
      */
     public function __construct( string $template_path)
     {
-	    error_log(__METHOD__);
         $this->template_path = $template_path;
     }
 
@@ -67,7 +67,7 @@ class AdminPage implements OptionsAwareInterface
      */
     public function configure()
     {
-        register_setting($this->getSlug(), $this->options->get('_options'));
+       register_setting($this->getSlug(), $this->getSlug() . '_options');
     }
 
     /**

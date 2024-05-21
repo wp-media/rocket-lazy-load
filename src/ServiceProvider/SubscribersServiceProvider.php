@@ -32,18 +32,8 @@ class SubscribersServiceProvider extends AbstractServiceProvider {
 	}
 
 	public function define() {
-		error_log(__METHOD__);
 		$this->register_service( AMPSubscriber::class )
 		     ->share();
-
-		$this->register_service( AdminPageSubscriber::class )
-		     ->share()
-		     ->set_definition( function ( DefinitionInterface $instance ) {
-			     $instance->addArguments( [
-				     AdminPage::class,
-				     'plugin_basename'
-			     ] );
-		     } );
 
 		$this->register_service( ImagifyNoticeSubscriber::class )
 		     ->share()

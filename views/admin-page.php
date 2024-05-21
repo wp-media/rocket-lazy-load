@@ -48,9 +48,11 @@ $options = [
                 <p><?php esc_html_e('LazyLoad displays images, iframes and videos on a page only when they are visible to the user.', 'rocket-lazy-load'); ?></p>
                 <p><?php esc_html_e('This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazy-load'); ?></p>
                 <ul class="rocket-lazyload-options">
-                    <?php foreach ($options as $slug => $infos) : ?>
+                    <?php
+                    $options_values = $this->options->get('options');
+                    foreach ($options as $slug => $infos) : ?>
                     <li class="rocket-lazyload-option">
-                        <input type="checkbox" value="1" id="lazyload-<?php echo esc_attr($slug); ?>" name="rocket_lazyload_options[<?php echo esc_attr($slug); ?>]" <?php checked($this->option_array->get($slug, 0), 1); ?> aria-labelledby="describe-lazyload-<?php echo esc_attr($slug); ?>">
+                        <input type="checkbox" value="1" id="lazyload-<?php echo esc_attr($slug); ?>" name="rocket_lazyload_options[<?php echo esc_attr($slug); ?>]" <?php checked($options_values[$slug] ?? 0, 1); ?> aria-labelledby="describe-lazyload-<?php echo esc_attr($slug); ?>">
                         <label for="lazyload-<?php echo esc_attr($slug); ?>">
                             <span id="describe-lazyload-<?php echo esc_attr($slug); ?>" class="rocket-lazyload-label-description"><?php echo esc_html($infos['label']); ?></span>
                         </label>
