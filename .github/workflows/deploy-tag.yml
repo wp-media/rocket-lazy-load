@@ -12,7 +12,7 @@ jobs:
     - name: build
       run: composer install --no-dev --no-scripts --ignore-platform-reqs
     - name: remove composer/installers
-      run: composer remove composer/installers --update-no-dev --no-scripts
+      run: composer remove composer/installers --update-no-dev --no-scripts --ignore-platform-reqs
     - name: optimize autoloader
       run: composer dumpautoload -o
     - name: WordPress Plugin Deploy
