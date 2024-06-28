@@ -155,16 +155,11 @@ class Assets {
 		$defaults = [
 			'base_url' => '',
 			'version'  => '',
-			'polyfill' => false,
 		];
 
 		$args   = wp_parse_args( $args, $defaults );
 		$min    = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 		$script = '';
-
-		if ( isset( $args['polyfill'] ) && $args['polyfill'] ) {
-			$script .= '<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default%2CIntersectionObserver%2CIntersectionObserverEntry"></script>';
-		}
 
 		/**
 		 * Filters the script tag for the lazyload script
