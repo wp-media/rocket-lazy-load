@@ -95,7 +95,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 	 * @return void
 	 */
 	public function insertLazyloadScript() {
-		if ( ! $this->options->get( 'images' ) && ! $this->options->get( 'iframes' ) ) {
+		if ( ! $this->options->get('options')['images'] && ! $this->options->get('options')['iframes'] ) {
 			return;
 		}
 
@@ -135,7 +135,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 			];
 		}
 
-		if ( $this->options->get( 'images' ) || $this->options->get( 'iframes' ) ) {
+		if ( $this->options->get('options')['images'] || $this->options->get('options')['iframes'] ) {
 			// This filter is documented in src/Subscriber/LazyloadSubscriber.php.
 			if ( apply_filters( 'rocket_use_native_lazyload', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 				$inline_args['elements']            = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
@@ -143,13 +143,13 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 			}
 		}
 
-		if ( $this->options->get( 'images' ) ) {
+		if ( $this->options->get('options')['images'] ) {
 			$inline_args['elements']                     = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
 			$inline_args['elements']['image']            = 'img[data-lazy-src]';
 			$inline_args['elements']['background_image'] = '.rocket-lazyload';
 		}
 
-		if ( $this->options->get( 'iframes' ) ) {
+		if ( $this->options->get('options')['iframes'] ) {
 			$inline_args['elements']           = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
 			$inline_args['elements']['iframe'] = 'iframe[data-lazy-src]';
 		}
@@ -177,7 +177,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 	 * @return void
 	 */
 	public function insertYoutubeThumbnailScript() {
-		if ( ! $this->options->get( 'youtube' ) ) {
+		if ( ! $this->options->get('options')['youtube'] ) {
 			return;
 		}
 
@@ -198,7 +198,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 		$this->assets->insertYoutubeThumbnailScript(
 			[
 				'resolution' => $thumbnail_resolution,
-				'lazy_image' => (bool) $this->options->get( 'images' ),
+				'lazy_image' => (bool) $this->options->get('options')['images'],
 			]
 		);
 	}
@@ -228,7 +228,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 	 * @return void
 	 */
 	public function insertYoutubeThumbnailStyle() {
-		if ( ! $this->options->get( 'youtube' ) ) {
+		if ( ! $this->options->get('options')['youtube'] ) {
 			return;
 		}
 
@@ -330,15 +330,15 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 		$buffer = $this->ignoreScripts( $html );
 		$buffer = $this->ignoreNoscripts( $buffer );
 
-		if ( $this->options->get( 'images' ) ) {
+		if ( $this->options->get('options')['images']) {
 			$html = $this->image->lazyloadImages( $html, $buffer );
 			$html = $this->image->lazyloadPictures( $html, $buffer );
 			$html = $this->image->lazyloadBackgroundImages( $html, $buffer );
 		}
 
-		if ( $this->options->get( 'iframes' ) ) {
+		if ( $this->options->get('options')['iframes'] ) {
 			$args = [
-				'youtube' => $this->options->get( 'youtube' ),
+				'youtube' => $this->options->get('options')['youtube'],
 			];
 
 			$html = $this->iframe->lazyloadIframes( $html, $buffer, $args );
@@ -373,7 +373,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 			return;
 		}
 
-		if ( ! $this->options->get( 'images' ) ) {
+		if ( ! $this->options->get('options')['images'] ) {
 			return;
 		}
 
