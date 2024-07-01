@@ -25,7 +25,6 @@ class SubscribersServiceProvider extends AbstractServiceProvider {
 	public function get_common_subscribers(): array {
 		return [
 			AMPSubscriber::class,
-			AdminPageSubscriber::class,
 			ImagifyNoticeSubscriber::class,
 			LazyloadSubscriber::class
 		];
