@@ -186,9 +186,8 @@ class Assets {
 			'version'  => '',
 		];
 
-		$args   = wp_parse_args( $args, $defaults );
-		$min    = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-		$script = '';
+		$args = wp_parse_args( $args, $defaults );
+		$min  = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		/**
 		 * Filters the script tag for the lazyload script
