@@ -113,20 +113,10 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 		 */
 		$threshold = apply_filters( 'rocket_lazyload_threshold', 300 );
 
-		/**
-		 * Filters the use of the polyfill for intersectionObserver
-		 *
-		 * @since 3.3
-		 * @author Remy Perona
-		 *
-		 * @param bool $polyfill True to use the polyfill, false otherwise.
-		 */
-		$polyfill = apply_filters( 'rocket_lazyload_polyfill', false );
-
 		$script_args = [
 			'base_url' => ROCKET_LL_FRONT_JS_URL,
 			'version'  => '16.1',
-			'polyfill' => $polyfill,
+			'polyfill' => false,
 		];
 
 		$inline_args = [
