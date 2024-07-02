@@ -7,7 +7,6 @@
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
-use RocketLazyLoadPlugin\Admin\AdminPage;
 use RocketLazyLoadPlugin\Admin\ImagifyNotice;
 use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\Container\AbstractServiceProvider;
 
@@ -15,7 +14,6 @@ use RocketLazyLoadPlugin\Dependencies\League\Container\Definition\DefinitionInte
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image;
-use RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber;
 use RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber;
 use RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber;
 use RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber;

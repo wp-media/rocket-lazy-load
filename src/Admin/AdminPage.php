@@ -9,8 +9,8 @@ namespace RocketLazyLoadPlugin\Admin;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
 
-use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Interfaces\OptionsAwareInterface;
-use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\OptionsAwareTrait;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Interfaces\SettingsAwareInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\SettingsAwareTrait;
 
 
 /**
@@ -19,9 +19,9 @@ use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\OptionsAw
  * @since 2.0
  * @author Remy Perona
  */
-class AdminPage implements OptionsAwareInterface
+class AdminPage implements SettingsAwareInterface
 {
-	use OptionsAwareTrait;
+	use SettingsAwareTrait;
 
     /**
      * Plugin slug

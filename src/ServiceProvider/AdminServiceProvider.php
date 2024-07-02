@@ -11,10 +11,6 @@ use RocketLazyLoadPlugin\Admin\AdminPage;
 use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\Container\AbstractServiceProvider;
 use RocketLazyLoadPlugin\Dependencies\League\Container\Definition\DefinitionInterface;
 use RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber;
-use RocketLazyLoadPlugin\Dependencies\LaunchpadOptions\Interfaces\OptionsInterface;
-use RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber;
-use RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber;
-use RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber;
 
 /**
  * Adds the admin page to the container
