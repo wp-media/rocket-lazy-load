@@ -51,8 +51,8 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 */
 	public function disableIfAMP() {
 		if ( $this->isAmpEndpoint() ) {
-			$this->event_manager->addCallback( 'do_rocket_lazyload', '__return_false' );
-			$this->event_manager->addCallback( 'do_rocket_lazyload_iframes', '__return_false' );
+			$this->event_manager->add_callback( 'do_rocket_lazyload', '__return_false' );
+			$this->event_manager->add_callback( 'do_rocket_lazyload_iframes', '__return_false' );
 		}
 	}
 
