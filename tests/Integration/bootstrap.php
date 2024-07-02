@@ -5,8 +5,8 @@
  * @package RocketlazyloadPlugin\Tests\Integration
  */
 
-if (version_compare(phpversion(), '5.6.0', '<')) {
-    die('Rocket Lazyload Plugin Integration Tests require PHP 5.6 or higher.');
+if (version_compare(phpversion(), '7.3.0', '<')) {
+    die('Rocket Lazyload Plugin Integration Tests require PHP 7.3 or higher.');
 }
 
 // Define testing constants.
