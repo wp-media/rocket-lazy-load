@@ -2,13 +2,12 @@
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
-use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Interfaces\OptionsAwareInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Interfaces\SettingsAwareInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\SettingsAwareTrait;
 use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
-
-use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\OptionsAwareTrait;
 
 /**
  * Lazyload Subscriber
@@ -16,10 +15,10 @@ use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\OptionsAw
  * @since 2.0
  * @author Remy Perona
  */
-class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
+class LazyloadSubscriber implements SubscriberInterface, SettingsAwareInterface
 {
 
-	use OptionsAwareTrait;
+	use SettingsAwareTrait;
 
 	/**
 	 * Assets instance
@@ -95,7 +94,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 	 * @return void
 	 */
 	public function insertLazyloadScript() {
-		if ( ! $this->options->get('options')['images'] && ! $this->options->get('options')['iframes'] ) {
+		if ( ! $this->settings->get('images') && ! $this->settings->get('iframes') ) {
 			return;
 		}
 
@@ -135,7 +134,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 			];
 		}
 
-		if ( $this->options->get('options')['images'] || $this->options->get('options')['iframes'] ) {
+		if ( $this->settings->get('images') || $this->settings->get('iframes') ) {
 			// This filter is documented in src/Subscriber/LazyloadSubscriber.php.
 			if ( apply_filters( 'rocket_use_native_lazyload', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 				$inline_args['elements']            = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
@@ -143,13 +142,13 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 			}
 		}
 
-		if ( $this->options->get('options')['images'] ) {
+		if ( $this->settings->get('images') ) {
 			$inline_args['elements']                     = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
 			$inline_args['elements']['image']            = 'img[data-lazy-src]';
 			$inline_args['elements']['background_image'] = '.rocket-lazyload';
 		}
 
-		if ( $this->options->get('options')['iframes'] ) {
+		if ( $this->settings->get('iframes') ) {
 			$inline_args['elements']           = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
 			$inline_args['elements']['iframe'] = 'iframe[data-lazy-src]';
 		}
@@ -177,7 +176,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 	 * @return void
 	 */
 	public function insertYoutubeThumbnailScript() {
-		if ( ! $this->options->get('options')['youtube'] ) {
+		if ( ! $this->settings->get('youtube') ) {
 			return;
 		}
 
@@ -198,7 +197,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 		$this->assets->insertYoutubeThumbnailScript(
 			[
 				'resolution' => $thumbnail_resolution,
-				'lazy_image' => (bool) $this->options->get('options')['images'],
+				'lazy_image' => (bool) $this->settings->get('images'),
 			]
 		);
 	}
@@ -228,7 +227,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 	 * @return void
 	 */
 	public function insertYoutubeThumbnailStyle() {
-		if ( ! $this->options->get('options')['youtube'] ) {
+		if ( ! $this->settings->get('youtube') ) {
 			return;
 		}
 
@@ -330,15 +329,15 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 		$buffer = $this->ignoreScripts( $html );
 		$buffer = $this->ignoreNoscripts( $buffer );
 
-		if ( $this->options->get('options')['images']) {
+		if ( $this->settings->get('images')) {
 			$html = $this->image->lazyloadImages( $html, $buffer );
 			$html = $this->image->lazyloadPictures( $html, $buffer );
 			$html = $this->image->lazyloadBackgroundImages( $html, $buffer );
 		}
 
-		if ( $this->options->get('options')['iframes'] ) {
+		if ( $this->settings->get('iframes') ) {
 			$args = [
-				'youtube' => $this->options->get('options')['youtube'],
+				'youtube' => $this->settings->get('youtube'),
 			];
 
 			$html = $this->iframe->lazyloadIframes( $html, $buffer, $args );
@@ -373,7 +372,7 @@ class LazyloadSubscriber implements SubscriberInterface, OptionsAwareInterface
 			return;
 		}
 
-		if ( ! $this->options->get('options')['images'] ) {
+		if ( ! $this->settings->get('images') ) {
 			return;
 		}
 
