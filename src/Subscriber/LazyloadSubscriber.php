@@ -15,8 +15,7 @@ use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
  * @since 2.0
  * @author Remy Perona
  */
-class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInterface
-{
+class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInterface {
 
 	use SettingsAwareTrait;
 
@@ -53,17 +52,18 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Constructor
 	 *
-	 * @since 2.0
+	 * @param Assets $assets Assets instance.
+	 * @param Image $image Image instance.
+	 * @param Iframe $iframe Iframe instance.
+	 *
 	 * @author Remy Perona
 	 *
-	 * @param Assets      $assets Assets instance.
-	 * @param Image       $image Image instance.
-	 * @param Iframe      $iframe Iframe instance.
+	 * @since 2.0
 	 */
 	public function __construct( Assets $assets, Image $image, Iframe $iframe ) {
-		$this->assets       = $assets;
-		$this->image        = $image;
-		$this->iframe       = $iframe;
+		$this->assets = $assets;
+		$this->image  = $image;
+		$this->iframe = $iframe;
 	}
 
 	/**
@@ -88,13 +88,13 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Inserts the lazyload script in the footer
 	 *
-	 * @since 2.0
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0
 	 */
 	public function insertLazyloadScript() {
-		if ( ! $this->settings->get('images') && ! $this->settings->get('iframes') ) {
+		if ( ! $this->settings->get( 'images' ) && ! $this->settings->get( 'iframes' ) ) {
 			return;
 		}
 
@@ -105,10 +105,11 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 		/**
 		 * Filters the threshold at which lazyload is triggered
 		 *
-		 * @since 1.2
+		 * @param int $threshold Threshold value.
+		 *
 		 * @author Remy Perona
 		 *
-		 * @param int $threshold Threshold value.
+		 * @since 1.2
 		 */
 		$threshold = apply_filters( 'rocket_lazyload_threshold', 300 );
 
@@ -125,8 +126,9 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 		/**
 		 * Filters the use of native lazyload
 		 *
-		 * @since 2.3.3
 		 * @param bool $use_native True to enable native lazyload usage.
+		 *
+		 * @since 2.3.3
 		 */
 		if ( apply_filters( 'rocket_use_native_lazyload', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 			$inline_args['options'] = [
@@ -134,7 +136,7 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 			];
 		}
 
-		if ( $this->settings->get('images') || $this->settings->get('iframes') ) {
+		if ( $this->settings->get( 'images' ) || $this->settings->get( 'iframes' ) ) {
 			// This filter is documented in src/Subscriber/LazyloadSubscriber.php.
 			if ( apply_filters( 'rocket_use_native_lazyload', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 				$inline_args['elements']            = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
@@ -142,13 +144,13 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 			}
 		}
 
-		if ( $this->settings->get('images') ) {
+		if ( $this->settings->get( 'images' ) ) {
 			$inline_args['elements']                     = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
 			$inline_args['elements']['image']            = 'img[data-lazy-src]';
 			$inline_args['elements']['background_image'] = '.rocket-lazyload';
 		}
 
-		if ( $this->settings->get('iframes') ) {
+		if ( $this->settings->get( 'iframes' ) ) {
 			$inline_args['elements']           = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
 			$inline_args['elements']['iframe'] = 'iframe[data-lazy-src]';
 		}
@@ -156,10 +158,11 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 		/**
 		 * Filters the arguments array for the lazyload script options
 		 *
-		 * @since 2.0
+		 * @param array $inline_args Arguments used for the lazyload script options.
+		 *
 		 * @author Remy Perona
 		 *
-		 * @param array $inline_args Arguments used for the lazyload script options.
+		 * @since 2.0
 		 */
 		$inline_args = apply_filters( 'rocket_lazyload_script_args', $inline_args );
 
@@ -170,13 +173,13 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Inserts the Youtube thumbnail script in the footer
 	 *
-	 * @since 2.0
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0
 	 */
 	public function insertYoutubeThumbnailScript() {
-		if ( ! $this->settings->get('youtube') ) {
+		if ( ! $this->settings->get( 'youtube' ) ) {
 			return;
 		}
 
@@ -187,17 +190,18 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 		/**
 		 * Filters the resolution of the YouTube thumbnail
 		 *
-		 * @since 1.4.8
+		 * @param string $thumbnail_resolution The resolution of the thumbnail. Accepted values: default, mqdefault, sddefault, hqdefault, maxresdefault
+		 *
 		 * @author Arun Basil Lal
 		 *
-		 * @param string $thumbnail_resolution The resolution of the thumbnail. Accepted values: default, mqdefault, sddefault, hqdefault, maxresdefault
+		 * @since 1.4.8
 		 */
 		$thumbnail_resolution = apply_filters( 'rocket_lazyload_youtube_thumbnail_resolution', 'hqdefault' );
 
 		$this->assets->insertYoutubeThumbnailScript(
 			[
 				'resolution' => $thumbnail_resolution,
-				'lazy_image' => (bool) $this->settings->get('images'),
+				'lazy_image' => (bool) $this->settings->get( 'images' ),
 			]
 		);
 	}
@@ -205,10 +209,10 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Inserts the no JS CSS compatibility in the header
 	 *
-	 * @since 2.0.3
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0.3
 	 */
 	public function insertNoJSStyle() {
 		if ( ! $this->shouldLazyload() ) {
@@ -221,13 +225,13 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Inserts the Youtube thumbnail CSS in the header
 	 *
-	 * @since 2.0
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0
 	 */
 	public function insertYoutubeThumbnailStyle() {
-		if ( ! $this->settings->get('youtube') ) {
+		if ( ! $this->settings->get( 'youtube' ) ) {
 			return;
 		}
 
@@ -246,10 +250,10 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Checks if lazyload should be applied
 	 *
-	 * @since 2.0
+	 * @return bool
 	 * @author Remy Perona
 	 *
-	 * @return bool
+	 * @since 2.0
 	 */
 	private function shouldLazyload() {
 		if ( is_admin() || is_feed() || is_preview() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || ( defined( 'DONOTLAZYLOAD' ) && DONOTLAZYLOAD ) ) {
@@ -263,10 +267,11 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 		/**
 		 * Filters the lazyload application
 		 *
-		 * @since 2.0
+		 * @param bool $do_rocket_lazyload True to apply lazyload, false otherwise.
+		 *
 		 * @author Remy Perona
 		 *
-		 * @param bool $do_rocket_lazyload True to apply lazyload, false otherwise.
+		 * @since 2.0
 		 */
 		if ( ! apply_filters( 'do_rocket_lazyload', true ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 			return false;
@@ -278,10 +283,10 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Checks if current page is a page builder editor.
 	 *
-	 * @since 2.2.2
+	 * @return bool
 	 * @author Remy Perona
 	 *
-	 * @return bool
+	 * @since 2.2.2
 	 */
 	private function isPageBuilder() {
 		// Exclude Page Builders editors.
@@ -303,10 +308,10 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Gets the content to lazyload
 	 *
-	 * @since 2.0
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0
 	 */
 	public function lazyload() {
 		if ( ! $this->shouldLazyload() ) {
@@ -319,25 +324,26 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Applies lazyload on the provided content
 	 *
+	 * @param string $html HTML content.
+	 *
+	 * @return string
 	 * @since 2.0
 	 * @author Remy Perona
 	 *
-	 * @param string $html HTML content.
-	 * @return string
 	 */
 	public function lazyloadBuffer( $html ) {
 		$buffer = $this->ignoreScripts( $html );
 		$buffer = $this->ignoreNoscripts( $buffer );
 
-		if ( $this->settings->get('images')) {
+		if ( $this->settings->get( 'images' ) ) {
 			$html = $this->image->lazyloadImages( $html, $buffer );
 			$html = $this->image->lazyloadPictures( $html, $buffer );
 			$html = $this->image->lazyloadBackgroundImages( $html, $buffer );
 		}
 
-		if ( $this->settings->get('iframes') ) {
+		if ( $this->settings->get( 'iframes' ) ) {
 			$args = [
-				'youtube' => $this->settings->get('youtube'),
+				'youtube' => $this->settings->get( 'youtube' ),
 			];
 
 			$html = $this->iframe->lazyloadIframes( $html, $buffer, $args );
@@ -349,11 +355,12 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Applies lazyload on responsive images attributes srcset and sizes
 	 *
+	 * @param string $html Image HTML.
+	 *
+	 * @return string
 	 * @since 2.0
 	 * @author Remy Perona
 	 *
-	 * @param string $html Image HTML.
-	 * @return string
 	 */
 	public function lazyloadResponsive( $html ) {
 		return $this->image->lazyloadResponsiveAttributes( $html );
@@ -362,17 +369,17 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	/**
 	 * Applies lazyload on WordPress smilies
 	 *
-	 * @since 2.0
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0
 	 */
 	public function lazyloadSmilies() {
 		if ( ! $this->shouldLazyload() ) {
 			return;
 		}
 
-		if ( ! $this->settings->get('images') ) {
+		if ( ! $this->settings->get( 'images' ) ) {
 			return;
 		}
 
@@ -396,6 +403,7 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	 * Remove inline scripts from the HTML to parse
 	 *
 	 * @param string $html HTML content.
+	 *
 	 * @return string
 	 */
 	private function ignoreScripts( $html ) {
@@ -406,6 +414,7 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	 * Remove noscript tags from the HTML to parse
 	 *
 	 * @param string $html HTML content.
+	 *
 	 * @return string
 	 */
 	private function ignoreNoscripts( $html ) {

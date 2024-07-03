@@ -35,6 +35,7 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 * Set the WordPress event manager for the subscriber.
 	 *
 	 * @param EventManager $event_manager EventManager instance.
+	 *
 	 * @return void
 	 */
 	public function set_event_manager( EventManager $event_manager ) {
@@ -44,10 +45,10 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	/**
 	 * Disable if on AMP page
 	 *
-	 * @since 2.0.2
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0.2
 	 */
 	public function disableIfAMP() {
 		if ( $this->isAmpEndpoint() ) {
@@ -59,10 +60,10 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	/**
 	 * Checks if current page uses AMP
 	 *
-	 * @since 2.0
+	 * @return boolean
 	 * @author Remy Perona
 	 *
-	 * @return boolean
+	 * @since 2.0
 	 */
 	private function isAmpEndpoint() {
 		if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
