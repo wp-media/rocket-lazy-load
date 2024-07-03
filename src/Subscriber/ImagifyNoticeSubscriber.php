@@ -9,7 +9,7 @@ namespace RocketLazyLoadPlugin\Subscriber;
 
 defined('ABSPATH') || die('Cheatin\' uh?');
 
-use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\ClassicSubscriberInterface;
 use RocketLazyLoadPlugin\Admin\ImagifyNotice;
 
 /**
@@ -18,7 +18,7 @@ use RocketLazyLoadPlugin\Admin\ImagifyNotice;
  * @since 2.0
  * @author Remy Perona
  */
-class ImagifyNoticeSubscriber implements SubscriberInterface
+class ImagifyNoticeSubscriber implements ClassicSubscriberInterface
 {
     /**
      * ImagifyNotice instance
@@ -46,7 +46,7 @@ class ImagifyNoticeSubscriber implements SubscriberInterface
     /**
      * @inheritDoc
      */
-    public static function get_subscribed_events(): array {
+    public function get_subscribed_events(): array {
         return [
             'admin_notices'                              => 'imagifyNotice',
             'admin_footer-settings_page_rocket_lazyload' => 'dismissNoticeJS',

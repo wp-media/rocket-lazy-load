@@ -31,7 +31,7 @@ class AdminPage implements SettingsAwareInterface
      *
      * @var string
      */
-    private string $slug = 'rocket_lazyload';
+    private $slug = 'rocket_lazyload';
 
     /**
      * Template path
@@ -41,7 +41,7 @@ class AdminPage implements SettingsAwareInterface
      *
      * @var string
      */
-    private string $template_path;
+    private $template_path;
 
     /**
      * Constructor

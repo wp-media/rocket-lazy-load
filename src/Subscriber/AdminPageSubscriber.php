@@ -2,7 +2,7 @@
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
-use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\ClassicSubscriberInterface;
 use RocketLazyLoadPlugin\Admin\AdminPage;
 
 /**
@@ -11,7 +11,7 @@ use RocketLazyLoadPlugin\Admin\AdminPage;
  * @since 2.0
  * @author Remy Perona
  */
-class AdminPageSubscriber implements SubscriberInterface {
+class AdminPageSubscriber implements ClassicSubscriberInterface {
 
 	/**
 	 * AdminPage instance
@@ -31,7 +31,7 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @var string
 	 */
-	private static string $plugin_basename;
+	private static $plugin_basename;
 
 	/**
 	 * Constructor
@@ -52,7 +52,7 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @return array
 	 */
-	public static function get_subscribed_events(): array {
+	public function get_subscribed_events(): array {
 		return [
 			'admin_init'                                   => 'configure',
 			'admin_menu'                                   => 'addAdminPage',

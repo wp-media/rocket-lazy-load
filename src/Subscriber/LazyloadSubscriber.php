@@ -2,9 +2,9 @@
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\ClassicSubscriberInterface;
 use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Interfaces\SettingsAwareInterface;
 use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\SettingsAwareTrait;
-use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
@@ -15,7 +15,7 @@ use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
  * @since 2.0
  * @author Remy Perona
  */
-class LazyloadSubscriber implements SubscriberInterface, SettingsAwareInterface
+class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInterface
 {
 
 	use SettingsAwareTrait;
@@ -71,7 +71,7 @@ class LazyloadSubscriber implements SubscriberInterface, SettingsAwareInterface
 	 *
 	 * @return array
 	 */
-	public static function get_subscribed_events(): array {
+	public function get_subscribed_events(): array {
 		return [
 			'wp_footer'            => [
 				[ 'insertLazyloadScript', \ROCKET_LL_INT_MAX ],

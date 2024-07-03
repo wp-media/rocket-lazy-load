@@ -25,7 +25,7 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 *
 	 * @return array
 	 */
-	public static function get_subscribed_events() {
+	public function get_subscribed_events() {
 		return [
 			'wp' => 'disableIfAMP',
 		];
