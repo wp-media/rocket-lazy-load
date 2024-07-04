@@ -44,27 +44,6 @@ use function RocketLazyLoadPlugin\Dependencies\LaunchpadCore\boot;
 
 require ROCKET_LL_PATH . 'includes/RocketLazyloadRequirementsCheck.php';
 
-/**
- * Loads plugin translations
- *
- * @since 2.0
- * @author Remy Perona
- *
- * @return void
- */
-function rocket_lazyload_textdomain() {
-	// Load translations from the languages directory.
-	$locale = get_locale();
-
-	// This filter is documented in /wp-includes/l10n.php.
-	$locale = apply_filters( 'plugin_locale', $locale, 'rocket-lazy-load' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-	load_textdomain( 'rocket-lazy-load', WP_LANG_DIR . '/plugins/rocket-lazy-load-' . $locale . '.mo' );
-
-	load_plugin_textdomain( 'rocket-lazy-load', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-}
-
-add_action( 'plugins_loaded', 'rocket_lazyload_textdomain' );
-
 $rocket_lazyload_requirement_checks = new Rocket_Lazyload_Requirements_Check(
 	[
 		'plugin_name'    => 'Lazy Load by WP Rocket',
