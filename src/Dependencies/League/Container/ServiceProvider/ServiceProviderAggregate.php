@@ -1,16 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\ContainerAwareInterface;
-use RocketLazyLoadPlugin\Dependencies\League\Container\ContainerAwareTrait;
+use Generator;
+use RocketLazyLoadPlugin\Dependencies\League\Container\{ContainerAwareInterface, ContainerAwareTrait};
+use RocketLazyLoadPlugin\Dependencies\League\Container\Exception\ContainerException;
 
 class ServiceProviderAggregate implements ServiceProviderAggregateInterface
 {
     use ContainerAwareTrait;
 
     /**
-     * @var array
+     * @var ServiceProviderInterface[]
      */
     protected $providers = [];
 
@@ -22,14 +23,20 @@ class ServiceProviderAggregate implements ServiceProviderAggregateInterface
     /**
      * {@inheritdoc}
      */
-    public function add($provider)
+    public function add($provider) : ServiceProviderAggregateInterface
     {
-        if (is_string($provider) && class_exists($provider)) {
+        if (is_string($provider) && $this->getContainer()->has($provider)) {
+            $provider = $this->getContainer()->get($provider);
+        } elseif (is_string($provider) && class_exists($provider)) {
             $provider = new $provider;
         }
 
+        if (in_array($provider, $this->providers, true)) {
+            return $this;
+        }
+
         if ($provider instanceof ContainerAwareInterface) {
-            $provider->setContainer($this->getContainer());
+            $provider->setLeagueContainer($this->getLeagueContainer());
         }
 
         if ($provider instanceof BootableServiceProviderInterface) {
@@ -37,14 +44,12 @@ class ServiceProviderAggregate implements ServiceProviderAggregateInterface
         }
 
         if ($provider instanceof ServiceProviderInterface) {
-            foreach ($provider->provides() as $service) {
-                $this->providers[$service] = $provider;
-            }
+            $this->providers[] = $provider;
 
             return $this;
         }
 
-        throw new \InvalidArgumentException(
+        throw new ContainerException(
             'A service provider must be a fully qualified class name or instance ' .
             'of (\RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\ServiceProviderInterface)'
         );
@@ -53,36 +58,49 @@ class ServiceProviderAggregate implements ServiceProviderAggregateInterface
     /**
      * {@inheritdoc}
      */
-    public function provides($service)
+    public function provides(string $service) : bool
     {
-        return array_key_exists($service, $this->providers);
+        foreach ($this->getIterator() as $provider) {
+            if ($provider->provides($service)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register($service)
+    public function getIterator() : Generator
     {
-        if (! array_key_exists($service, $this->providers)) {
-            throw new \InvalidArgumentException(
+        $count = count($this->providers);
+
+        for ($i = 0; $i < $count; $i++) {
+            yield $this->providers[$i];
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function register(string $service)
+    {
+        if (false === $this->provides($service)) {
+            throw new ContainerException(
                 sprintf('(%s) is not provided by a service provider', $service)
             );
         }
 
-        $provider  = $this->providers[$service];
-        $signature = get_class($provider);
+        foreach ($this->getIterator() as $provider) {
+            if (in_array($provider->getIdentifier(), $this->registered, true)) {
+                continue;
+            }
 
-        if ($provider instanceof SignatureServiceProviderInterface) {
-            $signature = $provider->getSignature();
+            if ($provider->provides($service)) {
+                $this->registered[] = $provider->getIdentifier();
+                $provider->register();
+            }
         }
-
-        // ensure that the provider hasn't already been invoked by any other service request
-        if (in_array($signature, $this->registered)) {
-            return;
-        }
-
-        $provider->register();
-
-        $this->registered[] = $signature;
     }
 }

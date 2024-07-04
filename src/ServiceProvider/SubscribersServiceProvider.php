@@ -7,54 +7,48 @@
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Admin\ImagifyNotice;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\Container\AbstractServiceProvider;
 
-/**
- * Adds the subscribers to the container
- *
- * @since 2.0
- * @author Remy Perona
- */
-class SubscribersServiceProvider extends AbstractServiceProvider
-{
-    /**
-     * Data provided by the service provider
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var array
-     */
-    protected $provides = [
-        'RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber',
-        'RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber',
-        'RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber',
-        'RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber',
-    ];
+use RocketLazyLoadPlugin\Dependencies\League\Container\Definition\DefinitionInterface;
+use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets;
+use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
+use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image;
+use RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber;
+use RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber;
+use RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber;
 
-    /**
-     * Registers the subscribers in the container
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber');
+class SubscribersServiceProvider extends AbstractServiceProvider {
 
-        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber')
-            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Admin\AdminPage'))
-            ->withArgument($this->getContainer()->get('plugin_basename'));
+	public function get_common_subscribers(): array {
+		return [
+			AMPSubscriber::class,
+			ImagifyNoticeSubscriber::class,
+			LazyloadSubscriber::class
+		];
+	}
 
-        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber')
-            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Admin\ImagifyNotice'));
+	public function define() {
+		$this->register_service( AMPSubscriber::class )
+		     ->share();
 
-        $this->getContainer()->share('RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber')
-            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Options\OptionArray'))
-            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets'))
-            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image'))
-            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe'));
-    }
+		$this->register_service( ImagifyNoticeSubscriber::class )
+		     ->share()
+		     ->set_definition( function ( DefinitionInterface $instance ) {
+			     $instance->addArgument( ImagifyNotice::class );
+		     } );
+
+		$this->register_service( LazyloadSubscriber::class )
+		     ->share()
+		     ->set_definition( function ( DefinitionInterface $instance ) {
+			     $instance->addArguments( [
+					     Assets::class,
+					     Image::class,
+					     Iframe::class
+				     ]
+			     );
+		     }
+		     );
+	}
+
 }

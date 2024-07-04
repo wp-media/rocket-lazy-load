@@ -3,8 +3,9 @@
  * Plugin Name: Lazy Load - Optimize Images
  * Plugin URI: http://wordpress.org/plugins/rocket-lazy-load/
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
- * Version: 2.3.7
- * Requires PHP: 5.6
+ * Version: 2.3.8
+ * Requires at least: 4.9
+ * Requires PHP: 7.3
  * Author: WP Rocket
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -12,7 +13,7 @@
  *
  * @package RocketLazyloadPlugin
  *
- * Copyright 2015-2019 WP Media
+ * Copyright 2015-2024 WP Media
  *
  * This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -30,16 +31,18 @@
 
 defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
 
-define( 'ROCKET_LL_VERSION', '2.3.7' );
+define( 'ROCKET_LL_VERSION', '2.3.8' );
 define( 'ROCKET_LL_WP_VERSION', '4.9' );
-define( 'ROCKET_LL_PHP_VERSION', '5.6' );
+define( 'ROCKET_LL_PHP_VERSION', '7.3' );
 define( 'ROCKET_LL_BASENAME', plugin_basename( __FILE__ ) );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
 define( 'ROCKET_LL_INT_MAX', PHP_INT_MAX - 15 );
 
-require ROCKET_LL_PATH . 'src/rocket-lazyload-requirements-check.php';
+use function RocketLazyLoadPlugin\Dependencies\LaunchpadCore\boot;
+
+require ROCKET_LL_PATH . 'includes/RocketLazyloadRequirementsCheck.php';
 
 /**
  * Loads plugin translations
@@ -72,7 +75,10 @@ $rocket_lazyload_requirement_checks = new Rocket_Lazyload_Requirements_Check(
 );
 
 if ( $rocket_lazyload_requirement_checks->check() ) {
-	require ROCKET_LL_PATH . 'main.php';
+	require __DIR__ . '/src/Dependencies/LaunchpadCore/boot.php';
+
+	boot( __FILE__ );
 }
+
 
 unset( $rocket_lazyload_requirement_checks );

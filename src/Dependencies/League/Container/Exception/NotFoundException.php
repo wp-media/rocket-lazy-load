@@ -2,7 +2,7 @@
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container\Exception;
 
-use RocketLazyLoadPlugin\Dependencies\Interop\Container\Exception\NotFoundException as NotFoundExceptionInterface;
+use RocketLazyLoadPlugin\Dependencies\Psr\Container\NotFoundExceptionInterface;
 use InvalidArgumentException;
 
 class NotFoundException extends InvalidArgumentException implements NotFoundExceptionInterface

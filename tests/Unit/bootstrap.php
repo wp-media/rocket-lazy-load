@@ -5,8 +5,8 @@
  * @package RocketLazyload\Tests\Unit
  */
 
-if (version_compare(phpversion(), '5.6.0', '<')) {
-    die('Rocket Lazyload Plugin Unit Tests require PHP 5.6 or higher.');
+if (version_compare(phpversion(), '7.3.0', '<')) {
+    die('Rocket Lazyload Plugin Unit Tests require PHP 7.3 or higher.');
 }
 
 define('RLL_PLUGIN_TESTS_ROOT', __DIR__);

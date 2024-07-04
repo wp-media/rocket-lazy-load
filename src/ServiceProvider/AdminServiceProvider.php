@@ -7,7 +7,10 @@
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Admin\AdminPage;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\Container\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Dependencies\League\Container\Definition\DefinitionInterface;
+use RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber;
 
 /**
  * Adds the admin page to the container
@@ -15,33 +18,30 @@ use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractS
  * @since 2.0
  * @author Remy Perona
  */
-class AdminServiceProvider extends AbstractServiceProvider
-{
-    /**
-     * Data provided by the service provider
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var array
-     */
-    protected $provides = [
-        'RocketLazyLoadPlugin\Admin\AdminPage',
-    ];
+class AdminServiceProvider extends AbstractServiceProvider {
 
-    /**
-     * Registers the admin page in the container
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->getContainer()->add('RocketLazyLoadPlugin\Admin\AdminPage')
-            ->withArgument($this->getContainer()->get('options'))
-            ->withArgument($this->getContainer()->get('RocketLazyLoadPlugin\Options\OptionArray'))
-            ->withArgument($this->getContainer()->get('template_path'));
-    }
+	public function get_common_subscribers(): array {
+		return [
+			AdminPageSubscriber::class,
+		];
+	}
+
+	public function define() {
+		$this->register_service( AdminPage::class )
+		     ->set_definition( function ( DefinitionInterface $instance ) {
+			     $instance->addArguments( [
+				     'template_path'
+			     ] );
+		     } );
+
+		$this->register_service( AdminPageSubscriber::class )
+		     ->share()
+		     ->set_definition( function ( DefinitionInterface $instance ) {
+			     $instance->addArguments( [
+					     AdminPage::class,
+					     'plugin_basename'
+				     ]
+			     );
+		     } );
+	}
 }

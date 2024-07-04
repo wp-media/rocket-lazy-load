@@ -1,9 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Dependencies\League\Container\Argument;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\Exception\NotFoundException;
+use RocketLazyLoadPlugin\Dependencies\League\Container\Container;
+use RocketLazyLoadPlugin\Dependencies\League\Container\Exception\{ContainerException, NotFoundException};
 use RocketLazyLoadPlugin\Dependencies\League\Container\ReflectionContainer;
+use RocketLazyLoadPlugin\Dependencies\Psr\Container\ContainerInterface;
 use ReflectionFunctionAbstract;
 use ReflectionParameter;
 
@@ -12,57 +14,88 @@ trait ArgumentResolverTrait
     /**
      * {@inheritdoc}
      */
-    public function resolveArguments(array $arguments)
+    public function resolveArguments(array $arguments) : array
     {
-        foreach ($arguments as &$arg) {
-            if ($arg instanceof RawArgumentInterface) {
-                $arg = $arg->getValue();
-                continue;
+        return array_map(function ($argument) {
+            $justStringValue = false;
+
+            if ($argument instanceof RawArgumentInterface) {
+                return $argument->getValue();
+            } elseif ($argument instanceof ClassNameInterface) {
+                $id = $argument->getClassName();
+            } elseif (!is_string($argument)) {
+                return $argument;
+            } else {
+                $justStringValue = true;
+                $id = $argument;
             }
 
-            if (! is_string($arg)) {
-                 continue;
-            }
+            $container = null;
 
-            $container = $this->getContainer();
-
-            if (is_null($container) && $this instanceof ReflectionContainer) {
-                $container = $this;
-            }
-
-            if (! is_null($container) && $container->has($arg)) {
-                $arg = $container->get($arg);
-
-                if ($arg instanceof RawArgumentInterface) {
-                    $arg = $arg->getValue();
+            try {
+                $container = $this->getLeagueContainer();
+            } catch (ContainerException $e) {
+                if ($this instanceof ReflectionContainer) {
+                    $container = $this;
                 }
-
-                continue;
             }
-        }
 
-        return $arguments;
+            if ($container !== null) {
+                try {
+                    return $container->get($id);
+                } catch (NotFoundException $exception) {
+                    if ($argument instanceof ClassNameWithOptionalValue) {
+                        return $argument->getOptionalValue();
+                    }
+
+                    if ($justStringValue) {
+                        return $id;
+                    }
+
+                    throw $exception;
+                }
+            }
+
+            if ($argument instanceof ClassNameWithOptionalValue) {
+                return $argument->getOptionalValue();
+            }
+
+            // Just a string value.
+            return $id;
+        }, $arguments);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function reflectArguments(ReflectionFunctionAbstract $method, array $args = [])
+    public function reflectArguments(ReflectionFunctionAbstract $method, array $args = []) : array
     {
         $arguments = array_map(function (ReflectionParameter $param) use ($method, $args) {
-            $name  = $param->getName();
-            $class = $param->getClass();
+            $name = $param->getName();
+            $type = $param->getType();
 
             if (array_key_exists($name, $args)) {
-                return $args[$name];
+                return new RawArgument($args[$name]);
             }
 
-            if (! is_null($class)) {
-                return $class->getName();
+            if ($type) {
+                if (PHP_VERSION_ID >= 70100) {
+                    $typeName = $type->getName();
+                } else {
+                    $typeName = (string) $type;
+                }
+
+                $typeName = ltrim($typeName, '?');
+
+                if ($param->isDefaultValueAvailable()) {
+                    return new ClassNameWithOptionalValue($typeName, $param->getDefaultValue());
+                }
+
+                return new ClassName($typeName);
             }
 
             if ($param->isDefaultValueAvailable()) {
-                return $param->getDefaultValue();
+                return new RawArgument($param->getDefaultValue());
             }
 
             throw new NotFoundException(sprintf(
@@ -76,7 +109,12 @@ trait ArgumentResolverTrait
     }
 
     /**
-     * @return \RocketLazyLoadPlugin\Dependencies\League\Container\ContainerInterface
+     * @return ContainerInterface
      */
-    abstract public function getContainer();
+    abstract public function getContainer() : ContainerInterface;
+
+    /**
+     * @return Container
+     */
+    abstract public function getLeagueContainer() : Container;
 }

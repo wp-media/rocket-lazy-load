@@ -2,7 +2,7 @@
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
-use RocketLazyLoadPlugin\EventManagement\SubscriberInterface;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\ClassicSubscriberInterface;
 use RocketLazyLoadPlugin\Admin\AdminPage;
 
 /**
@@ -11,7 +11,7 @@ use RocketLazyLoadPlugin\Admin\AdminPage;
  * @since 2.0
  * @author Remy Perona
  */
-class AdminPageSubscriber implements SubscriberInterface {
+class AdminPageSubscriber implements ClassicSubscriberInterface {
 
 	/**
 	 * AdminPage instance
@@ -31,20 +31,21 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @var string
 	 */
-	private $plugin_basename;
+	private static $plugin_basename;
 
 	/**
 	 * Constructor
 	 *
+	 * @param AdminPage $page AdminPage instance.
+	 * @param string $plugin_basename Plugin basename.
+	 *
 	 * @since 2.0
 	 * @author Remy Perona
 	 *
-	 * @param AdminPage $page AdminPage instance.
-	 * @param string    $plugin_basename Plugin basename.
 	 */
 	public function __construct( AdminPage $page, $plugin_basename ) {
 		$this->page            = $page;
-		$this->plugin_basename = $plugin_basename;
+		self::$plugin_basename = $plugin_basename;
 	}
 
 	/**
@@ -52,22 +53,22 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @return array
 	 */
-	public function getSubscribedEvents() {
+	public function get_subscribed_events(): array {
 		return [
-			'admin_init'                                   => 'configure',
-			'admin_menu'                                   => 'addAdminPage',
-			"plugin_action_links_{$this->plugin_basename}" => 'addPluginPageLink',
-			'admin_enqueue_scripts'                        => 'enqueueAdminStyle',
+			'admin_init'                                    => 'configure',
+			'admin_menu'                                    => 'addAdminPage',
+			"plugin_action_links_" . self::$plugin_basename => 'addPluginPageLink',
+			'admin_enqueue_scripts'                         => 'enqueueAdminStyle',
 		];
 	}
 
 	/**
 	 * Registers the plugin settings in WordPress
 	 *
-	 * @since 2.0
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0
 	 */
 	public function configure() {
 		$this->page->configure();
@@ -76,10 +77,10 @@ class AdminPageSubscriber implements SubscriberInterface {
 	/**
 	 * Adds the admin page to the settings menu
 	 *
-	 * @since 2.0
+	 * @return void
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @since 2.0
 	 */
 	public function addAdminPage() {
 		add_options_page(
@@ -94,11 +95,12 @@ class AdminPageSubscriber implements SubscriberInterface {
 	/**
 	 * Adds a link to the plugin settings on the plugins page
 	 *
+	 * @param array $actions Actions for the plugin.
+	 *
+	 * @return array
 	 * @since 2.0
 	 * @author Remy Perona
 	 *
-	 * @param array $actions Actions for the plugin.
-	 * @return array
 	 */
 	public function addPluginPageLink( $actions ) {
 		array_unshift(
@@ -116,10 +118,11 @@ class AdminPageSubscriber implements SubscriberInterface {
 	/**
 	 * Enqueue the css for the option page
 	 *
-	 * @since 2.0
+	 * @param string $hook_suffix Current page hook.
+	 *
 	 * @author Remy Perona
 	 *
-	 * @param string $hook_suffix Current page hook.
+	 * @since 2.0
 	 */
 	public function enqueueAdminStyle( $hook_suffix ) {
 		if ( 'settings_page_rocket_lazyload' !== $hook_suffix ) {

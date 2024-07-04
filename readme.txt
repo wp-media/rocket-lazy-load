@@ -1,10 +1,10 @@
 === LazyLoad Plugin – Lazy Load Images, Videos, and Iframes ===
 Contributors: wp_rocket, wp_media
 Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
-Requires at least: 4.7
-Tested up to: 6.3
-Requires PHP: 5.6
-Stable tag: 2.3.7
+Requires at least: 4.9
+Tested up to: 6.5.5
+Requires PHP: 7.3
+Stable tag: 2.3.8
 Tags: lazy load, lazy loading, defer offscreen images, lazy load plugin, lazy load images, image lazy loading, iframe lazy load, video lazy load
 
 The best free lazy load plugin for WordPress. Lazy load images, videos, and iframes to improve performance and Core Web Vitals scores.
@@ -100,8 +100,8 @@ You can also apply it manually. The element you want to apply lazy load on must 
 
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
-= Where do I report security bugs found in this plugin? =  
-  
+= Where do I report security bugs found in this plugin? =
+
 You can report any security bugs found in the source code of the site-reviews plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/rocket-lazy-load). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
 
 = Related Plugins =
@@ -113,6 +113,12 @@ You can report any security bugs found in the source code of the site-reviews pl
 * [Increase Max upload file size](https://wordpress.org/plugins/upload-max-file-size/) is the best plugin to increase the upload file size limit to any value with one click.
 
 == Changelog ==
+= 2.3.8 =
+Enhancement: Launchpad compatibility (see https://github.com/wp-launchpad)
+Enhancement: Raised compatibility with PHP > 7.3
+Bug: Removed `wp-media/rocket-lazyload-common` from vendors
+Enhancement: Raised `wp-media/rocket-lazyload-common` to 3.0
+
 = 2.3.7 =
 Bugfix: Removed `rocket_lazyload_polyfill` filter due to a vulnerability on polyfill
 
