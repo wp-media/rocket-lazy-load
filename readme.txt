@@ -118,6 +118,7 @@ Enhancement: Launchpad compatibility (see https://github.com/wp-launchpad)
 Enhancement: Raised compatibility with PHP > 7.3
 Bug: Removed `wp-media/rocket-lazyload-common` from vendors
 Enhancement: Raised `wp-media/rocket-lazyload-common` to 3.0
+
 = 2.3.7 =
 Bugfix: Removed `rocket_lazyload_polyfill` filter due to a vulnerability on polyfill
 
