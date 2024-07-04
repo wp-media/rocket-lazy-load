@@ -8,5 +8,5 @@ return [
 	'is_mu_plugin'              => false,
 	'translation_key'           => 'rocket-lazy-load',
 	'prefix'                    => 'rocket_lazyload_',
-	'rocket_lazyload__settings' => 'options'
+	'rocket_lazyload_settings'  => 'options'
 ];
