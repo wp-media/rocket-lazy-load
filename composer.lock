@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c18ef2fc1d2c23563098a57fe28ab2e",
+    "content-hash": "7d34084ad823de124118731064df1041",
     "packages": [
         {
             "name": "composer/installers",
@@ -151,55 +151,6 @@
                 }
             ],
             "time": "2024-06-24T20:46:46+00:00"
-        },
-        {
-            "name": "wp-media/rocket-lazyload-common",
-            "version": "v3.0.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-                "reference": "df4369bdb0b8777bca7a7375e3d956c5794d844c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/df4369bdb0b8777bca7a7375e3d956c5794d844c",
-                "reference": "df4369bdb0b8777bca7a7375e3d956c5794d844c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-                "php": ">=7.0",
-                "phpcompatibility/phpcompatibility-wp": "^2.0",
-                "phpunit/phpunit": "^7.5 || ^8 || ^9",
-                "szepeviktor/phpstan-wordpress": "^0.7.0",
-                "wp-coding-standards/wpcs": "^2.0",
-                "wp-media/phpunit": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "RocketLazyload\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "WP Media",
-                    "email": "contact@wp-media.me"
-                }
-            ],
-            "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
-            "support": {
-                "issues": "https://github.com/wp-media/rocket-lazyload-common/issues",
-                "source": "https://github.com/wp-media/rocket-lazyload-common"
-            },
-            "time": "2023-04-20T06:44:58+00:00"
         }
     ],
     "packages-dev": [
@@ -4080,6 +4031,55 @@
                 "source": "https://github.com/wp-media/phpunit"
             },
             "time": "2023-05-10T15:56:16+00:00"
+        },
+        {
+            "name": "wp-media/rocket-lazyload-common",
+            "version": "v3.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-media/rocket-lazyload-common.git",
+                "reference": "df4369bdb0b8777bca7a7375e3d956c5794d844c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/df4369bdb0b8777bca7a7375e3d956c5794d844c",
+                "reference": "df4369bdb0b8777bca7a7375e3d956c5794d844c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "php": ">=7.0",
+                "phpcompatibility/phpcompatibility-wp": "^2.0",
+                "phpunit/phpunit": "^7.5 || ^8 || ^9",
+                "szepeviktor/phpstan-wordpress": "^0.7.0",
+                "wp-coding-standards/wpcs": "^2.0",
+                "wp-media/phpunit": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RocketLazyload\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "WP Media",
+                    "email": "contact@wp-media.me"
+                }
+            ],
+            "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
+            "support": {
+                "issues": "https://github.com/wp-media/rocket-lazyload-common/issues",
+                "source": "https://github.com/wp-media/rocket-lazyload-common"
+            },
+            "time": "2023-04-20T06:44:58+00:00"
         },
         {
             "name": "yoast/phpunit-polyfills",

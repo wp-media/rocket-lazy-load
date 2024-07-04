@@ -116,6 +116,7 @@ You can report any security bugs found in the source code of the site-reviews pl
 = 2.3.8 =
 Enhancement: Launchpad compatibility (see https://github.com/wp-launchpad)
 Enhancement: Raised compatibility with PHP > 7.3
+Bug: Removed `wp-media/rocket-lazyload-common` from vendors
 
 = 2.3.7 =
 Bugfix: Removed `rocket_lazyload_polyfill` filter due to a vulnerability on polyfill

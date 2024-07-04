@@ -123,22 +123,14 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 			'threshold' => $threshold,
 		];
 
-		/**
-		 * Filters the use of native lazyload
-		 *
-		 * @param bool $use_native True to enable native lazyload usage.
-		 *
-		 * @since 2.3.3
-		 */
-		if ( apply_filters( 'rocket_use_native_lazyload', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+		if ( $this->is_native_images() ) {
 			$inline_args['options'] = [
 				'use_native' => 'true',
 			];
 		}
 
 		if ( $this->settings->get( 'images' ) || $this->settings->get( 'iframes' ) ) {
-			// This filter is documented in src/Subscriber/LazyloadSubscriber.php.
-			if ( apply_filters( 'rocket_use_native_lazyload', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+			if ( $this->is_native_images() ) {
 				$inline_args['elements']            = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
 				$inline_args['elements']['loading'] = '[loading=lazy]';
 			}
@@ -336,7 +328,7 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 		$buffer = $this->ignoreNoscripts( $buffer );
 
 		if ( $this->settings->get( 'images' ) ) {
-			$html = $this->image->lazyloadImages( $html, $buffer );
+			$html = $this->image->lazyloadImages( $html, $buffer , $this->is_native_images() );
 			$html = $this->image->lazyloadPictures( $html, $buffer );
 			$html = $this->image->lazyloadBackgroundImages( $html, $buffer );
 		}
@@ -420,4 +412,18 @@ class LazyloadSubscriber implements ClassicSubscriberInterface, SettingsAwareInt
 	private function ignoreNoscripts( $html ) {
 		return preg_replace( '#<noscript>(?:.+)</noscript>#Umsi', '', $html );
 	}
+
+    /**
+     * Checks if native lazyload is enabled for images
+     **
+     * @return bool
+     */
+    private function is_native_images(): bool {
+        /**
+         * Filters the use of native lazyload for images
+         *
+         * @param bool $use_native True to use native lazyload for images, false otherwise.
+         */
+        return (bool) apply_filters( 'rocket_use_native_lazyload', false );
+    }
 }
