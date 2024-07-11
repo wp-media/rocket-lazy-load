@@ -11,3 +11,4 @@ composer.lock
 LICENSE
 phpcs.xml
 phpunit.xml.dist
+readme.md
