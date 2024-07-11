@@ -114,7 +114,7 @@ You can report any security bugs found in the source code of the site-reviews pl
 
 == Changelog ==
 = 2.3.9 =
-Update version to fix a mismatch between the tag of the release on Github and the release version which leads to a deployment issue that.
+Updated version to fix a mismatch between the tag of the release on Github and the release version which leads to a deployment issue that.
 = 2.3.8 =
 Enhancement: Launchpad compatibility (see https://github.com/wp-launchpad)
 Enhancement: Raised compatibility with PHP > 7.3
