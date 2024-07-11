@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: build
+    - name: regular build
+      run: composer install --ignore-platform-reqs
+    - name: build without dev
       run: composer install --no-dev --no-scripts --ignore-platform-reqs
     - name: remove composer/installers
       run: composer remove composer/installers --update-no-dev --no-scripts --ignore-platform-reqs

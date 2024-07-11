@@ -7,7 +7,7 @@
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
-use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\Container\AbstractServiceProvider;
 
 /**
  * Adds the lazyload library to the container
@@ -15,34 +15,11 @@ use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractS
  * @since 2.0
  * @author Remy Perona
  */
-class LazyloadServiceProvider extends AbstractServiceProvider
-{
-    /**
-     * Data provided by the service provider
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @var array
-     */
-    protected $provides = [
-        'RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets',
-        'RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image',
-        'RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe',
-    ];
+class LazyloadServiceProvider extends AbstractServiceProvider {
 
-    /**
-     * Registers the lazyload library in the container
-     *
-     * @since 2.0
-     * @author Remy Perona
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->getContainer()->add('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets');
-        $this->getContainer()->add('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image');
-        $this->getContainer()->add('RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe');
-    }
+	public function define() {
+		$this->register_service( \RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets::class );
+		$this->register_service( \RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image::class );
+		$this->register_service( \RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe::class );
+	}
 }

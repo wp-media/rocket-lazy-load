@@ -1,15 +1,9 @@
-=== LazyLoad Plugin – Lazy Load Images, Videos, and Iframes ===
-Contributors: wp_rocket, wp_media
-Tags: lazyload, lazy load, images, iframes, thumbnail, thumbnails, smiley, smilies, avatar, gravatar, youtube
-Requires at least: 4.9
-Tested up to: 6.5
-Requires PHP: 7.3
-Stable tag: 2.3.8
-Tags: lazy load, lazy loading, defer offscreen images, lazy load plugin, lazy load images, image lazy loading, iframe lazy load, video lazy load
+# LazyLoad Plugin – Lazy Load Images, Videos, and Iframes
 
 The best free lazy load plugin for WordPress. Lazy load images, videos, and iframes to improve performance and Core Web Vitals scores.
+[Download the plugin on wordpress.org](https://wordpress.org/plugins/rocket-lazy-load/).
 
-== Description ==
+## Description
 
 LazyLoad is the best free lazy load plugin for WordPress to lazy load images, videos, and iframes on WordPress. In a nutshell, LazyLoad displays images, videos, and iframes on a page only when they are visible to the user – that’s one crucial way to [speed up your WordPress site](https://wp-rocket.me/blog/guide-to-page-speed-optimization-for-wordpress/) and [optimize images for Google PageSpeed](https://imagify.io/blog/optimize-images-page-speed-google/#lazy-loading).
 
@@ -17,7 +11,7 @@ You can lazy load images in post content or widget text, plus thumbnails, avatar
 
 No JavaScript library such as jQuery is used, and the script weight is less than 10KB.
 
-= Why is lazy loading crucial for performance? =
+## Why is lazy loading crucial for performance?
 
 Lazy loading is a key performance technique to make your site faster. You’ll reduce loading time, [improve your Lighthouse performance score](https://wp-rocket.me/lighthouse-performance-score-wordpress/) and [optimize your Core Web Vitals grades](https://wp-rocket.me/google-core-web-vitals-wordpress/).
 
@@ -30,7 +24,17 @@ Lazy loading is a key performance technique to make your site faster. You’ll r
 Take a look at our complete list of reasons [why you should use lazy loading](https://wp-rocket.me/blog/lazyloading/#section-2). Then, turn on LazyLoad and make your WordPress website faster!
 
 
-= Dependencies =
+## How to build the plugin
+
+In order to build the plugin you need have composer installed.
+
+Once it is the case you can follow these steps:
+- Download the zip from the plugin and unzip in a folder.
+- Move inside that folder and run the command `composer i` to install the full plugin and let the script installing protected dependencies run.
+- Run the command `composer i --no-dev --no-scripts -o` to install a production version from dependencies.
+- Zip back the folder and you have a working version from the plugin.
+
+## Dependencies
 
 LazyLoad script: [https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
 
@@ -39,16 +43,16 @@ LazyLoad script: [https://github.com/verlok/lazyload](https://github.com/verlok/
 1. Upload the complete `rocket-lazy-load` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
-= How can I use native lazyload? =
+### How can I use native lazyload?
 To use native lazyload on browsers supporting this feature, you need to use the following line:
 
 `add_filter( 'rocket_use_native_lazyload', '__return_true' );`
 
 Browsers that do not support native lazyload will use the JS-based solution as before.
 
-= How can I deactivate Lazy Load on some pages? =
+### How can I deactivate Lazy Load on some pages?
 
 You can use the `do_rocket_lazyload` filter.
 
@@ -57,13 +61,13 @@ Here is an example to put in functions.php files that disable lazyload on posts:
 `
 add_action( 'wp', 'deactivate_rocket_lazyload_on_single' );
 function deactivate_rocket_lazyload_on_single() {
-	if ( is_single() ) {
-		add_filter( 'do_rocket_lazyload', '__return_false' );
-	}
+if ( is_single() ) {
+add_filter( 'do_rocket_lazyload', '__return_false' );
+}
 }
 `
 
-= How can I deactivate Lazy Load on some images? =
+###  How can I deactivate Lazy Load on some images?
 
 Simply add a `data-no-lazy="1"` property in you `img` or `iframe` tag.
 
@@ -71,7 +75,7 @@ You can also use the filters `rocket_lazyload_excluded_attributes` or `rocket_la
 
 For iframes, the filter is `rocket_lazyload_iframe_excluded_patterns`.
 
-= How can I change the threshold to trigger the load? =
+### How can I change the threshold to trigger the load?
 
 You can use the `rocket_lazyload_threshold` filter.
 
@@ -79,16 +83,16 @@ Code sample:
 
 `
 function rocket_lazyload_custom_threshold( $threshold ) {
-	return 100;
+return 100;
 }
 add_filter( 'rocket_lazyload_threshold', 'rocket_lazyload_custom_threshold' );
 `
 
-= I use plugin X and my images don't show anymore =
+### I use plugin X and my images don't show anymore
 
 Some plugins are not compatible without lazy loading. Please open a support thread, and we will see how we can solve the issue by excluding lazy loading for this plugin.
 
-= How can I lazy load a background-image? =
+### How can I lazy load a background-image?
 
 The plugin will automatically lazy load background-images set with a `style` attribute to a `div` element:
 
@@ -100,11 +104,11 @@ You can also apply it manually. The element you want to apply lazy load on must 
 
 The element must have the class `rocket-lazyload`, and a `data-bg` attribute, which value is the CSS url for the image.
 
-= Where do I report security bugs found in this plugin? =
+### Where do I report security bugs found in this plugin?
 
 You can report any security bugs found in the source code of the site-reviews plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/rocket-lazy-load). The Patchstack team will assist you with verification, CVE assignment and take care of notifying the developers of this plugin.
 
-= Related Plugins =
+### Related Plugins
 
 * [Imagify: The Best image optimizer](https://imagify.io/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin) to speed up your website with lighter images.
 * [WP Rocket: Best performance plugin](https://wp-rocket.me/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=LazyLoadPlugin) to speed up your WordPress website.
@@ -112,7 +116,7 @@ You can report any security bugs found in the source code of the site-reviews pl
 * [RocketCDN: The best CDN plugin for WordPress](https://rocketcdn.me/wordpress/) to propel your content at the speed of light – no matter where your users are located in the world.
 * [Increase Max upload file size](https://wordpress.org/plugins/upload-max-file-size/) is the best plugin to increase the upload file size limit to any value with one click.
 
-== Changelog ==
+## Changelog
 = 2.3.8 =
 Enhancement: Launchpad compatibility (see https://github.com/wp-launchpad)
 Enhancement: Raised compatibility with PHP > 7.3
@@ -334,10 +338,10 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 = 1.1 =
 * 2017-02-12
 * *New*
- * JS library updated
- * Support for iFrame
- * Support for srcset and sizes
- * New options page
+* JS library updated
+* Support for iFrame
+* Support for srcset and sizes
+* New options page
 
 = 1.0.4 =
 * 2015-04-28
