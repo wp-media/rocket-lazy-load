@@ -1,6 +1,7 @@
 # LazyLoad Plugin – Lazy Load Images, Videos, and Iframes
 
 The best free lazy load plugin for WordPress. Lazy load images, videos, and iframes to improve performance and Core Web Vitals scores.
+[Download the plugin on wordpress.org](https://wordpress.org/plugins/rocket-lazy-load/).
 
 ## Description
 
