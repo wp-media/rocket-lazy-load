@@ -1,6 +1,6 @@
 .DS_Store
 /vendor/
-src/Dependencies
 .lando.yml
 package-lock.json
 .idea
+src/Dependencies/Launchpad*/
