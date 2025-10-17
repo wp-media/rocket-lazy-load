@@ -117,6 +117,9 @@ You can report any security bugs found in the source code of the site-reviews pl
 * [Increase Max upload file size](https://wordpress.org/plugins/upload-max-file-size/) is the best plugin to increase the upload file size limit to any value with one click.
 
 ## Changelog
+= 2.4.0 =
+Security: Fix an authenticated Stored Cross-Site Scripting (XSS) vulnerability reported by Pathstack.
+
 = 2.3.9 =
 Updated version to fix a mismatch between the tag of the release on Github and the release version which leads to a deployment issue that.
 
