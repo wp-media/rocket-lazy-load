@@ -30,10 +30,10 @@ class ImagifyNoticeSubscriber implements SubscriberInterface {
 	 */
 	public static function get_subscribed_events(): array {
 		return [
-			'admin_notices'                              => 'imagifyNotice',
-			'admin_footer-settings_page_rocket_lazyload' => 'dismissNoticeJS',
-			'wp_ajax_rocket_lazyload_ignore'             => 'dismissBoxes',
-			'admin_post_rocket_lazyload_ignore'          => 'dismissBoxes',
+			'admin_notices'                              => 'imagify_notice',
+			'admin_footer-settings_page_rocket_lazyload' => 'dismiss_notice_js',
+			'wp_ajax_rocket_lazyload_ignore'             => 'dismiss_boxes',
+			'admin_post_rocket_lazyload_ignore'          => 'dismiss_boxes',
 		];
 	}
 
@@ -44,7 +44,7 @@ class ImagifyNoticeSubscriber implements SubscriberInterface {
 	 *
 	 * @since 2.0
 	 */
-	public function imagifyNotice() {
+	public function imagify_notice() {
 		$current_screen = get_current_screen();
 
 		if ( 'admin_notices' === current_filter() && ( isset( $current_screen ) && 'settings_page_rocket_lazyload' !== $current_screen->base ) ) {
@@ -57,7 +57,7 @@ class ImagifyNoticeSubscriber implements SubscriberInterface {
 			return;
 		}
 
-		$this->imagify_notice->displayNotice();
+		$this->imagify_notice->display_notice();
 	}
 
 	/**
@@ -67,7 +67,7 @@ class ImagifyNoticeSubscriber implements SubscriberInterface {
 	 *
 	 * @since 2.0
 	 */
-	public function dismissNoticeJS() {
+	public function dismiss_notice_js() {
 		echo "<script>
         jQuery( document ).ready( function( $ ){
             $( '.rktll-cross' ).on( 'click', function( e ) {
@@ -86,7 +86,7 @@ class ImagifyNoticeSubscriber implements SubscriberInterface {
 	 *
 	 * @since 2.0
 	 */
-	public function dismissBoxes() {
+	public function dismiss_boxes() {
 		if ( ! isset( $_GET['box'], $_GET['action'], $_GET['_wpnonce'] ) ) {
 			return;
 		}
