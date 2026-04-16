@@ -18,12 +18,12 @@ $rll_action_url = wp_nonce_url(
 		admin_url( 'update.php' )
 	),
 	'install-plugin_imagify'
-); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound.
+);
 
 $rll_dismiss_url = wp_nonce_url(
 	admin_url( 'admin-post.php?action=rocket_lazyload_ignore&box=rocket_lazyload_imagify_notice' ),
 	'rocket_lazyload_ignore_rocket_lazyload_imagify_notice'
-); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound.
+);
 
 ?>
 <div id="plugin-filter" class="updated plugin-card plugin-card-imagify rktll-imagify-notice">
