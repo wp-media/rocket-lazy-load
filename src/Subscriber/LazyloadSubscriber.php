@@ -388,7 +388,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 
 	/**
 	 * Checks if native lazyload is enabled for images
-	 * *
 	 *
 	 * @return bool
 	 */

@@ -4,8 +4,6 @@ use RocketLazyLoadPlugin\Config;
 
 defined( 'ABSPATH' ) || exit;
 
-global $wp_version;
-
 $rll_options = [
 	'images'  => [
 		'label' => __( 'Images', 'rocket-lazy-load' ),

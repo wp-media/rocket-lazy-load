@@ -37,9 +37,10 @@ class Rocket_Lazyload_Requirements_Check {
 	 * @param array $args {
 	 *     Arguments to populate the class properties.
 	 *
-	 *     @type string $plugin_name Plugin name.
-	 *     @type string $wp_version  Required WordPress version.
-	 *     @type string $php_version Required PHP version.
+	 *     @type string $plugin_name    Plugin name.
+	 *     @type string $plugin_version Plugin version.
+	 *     @type string $wp_version     Required WordPress version.
+	 *     @type string $php_version    Required PHP version.
 	 * }
 	 */
 	public function __construct( $args ) {
@@ -75,7 +76,7 @@ class Rocket_Lazyload_Requirements_Check {
 	}
 
 	/**
-	 * Checks if the current WordPress version is equal or superior to the required PHP version
+	 * Checks if the current WordPress version is equal or superior to the required WordPress version
 	 *
 	 * @return bool
 	 */
