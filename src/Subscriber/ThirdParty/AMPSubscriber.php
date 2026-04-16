@@ -1,18 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Subscriber\ThirdParty;
 
-use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\EventManagerAwareSubscriberInterface;
-use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\EventManager;
+use WPMedia\EventManager\EventManagerAwareSubscriberInterface;
+use WPMedia\EventManager\EventManager;
 
-/**
- * Manages compatibility with the AMP plugin
- *
- * @since 2.0
- * @author Remy Perona
- */
 class AMPSubscriber implements EventManagerAwareSubscriberInterface {
-
 	/**
 	 * EventManager instance
 	 *
@@ -25,7 +19,7 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 *
 	 * @return array
 	 */
-	public function get_subscribed_events() {
+	public static function get_subscribed_events(): array {
 		return [
 			'wp' => 'disableIfAMP',
 		];
@@ -38,7 +32,7 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 *
 	 * @return void
 	 */
-	public function set_event_manager( EventManager $event_manager ) {
+	public function set_event_manager( EventManager $event_manager ): void {
 		$this->event_manager = $event_manager;
 	}
 
@@ -46,22 +40,20 @@ class AMPSubscriber implements EventManagerAwareSubscriberInterface {
 	 * Disable if on AMP page
 	 *
 	 * @return void
-	 * @author Remy Perona
 	 *
 	 * @since 2.0.2
 	 */
 	public function disableIfAMP() {
 		if ( $this->isAmpEndpoint() ) {
-			$this->event_manager->add_callback( 'do_rocket_lazyload', '__return_false' );
-			$this->event_manager->add_callback( 'do_rocket_lazyload_iframes', '__return_false' );
+			$this->event_manager->add_listener( 'do_rocket_lazyload', '__return_false' );
+			$this->event_manager->add_listener( 'do_rocket_lazyload_iframes', '__return_false' );
 		}
 	}
 
 	/**
 	 * Checks if current page uses AMP
 	 *
-	 * @return boolean
-	 * @author Remy Perona
+	 * @return bool
 	 *
 	 * @since 2.0
 	 */
