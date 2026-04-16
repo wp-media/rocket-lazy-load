@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RocketLazyLoadPlugin\Dependencies\League\Container\Exception;
 
 use RocketLazyLoadPlugin\Dependencies\Psr\Container\NotFoundExceptionInterface;
