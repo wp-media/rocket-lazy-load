@@ -5,7 +5,7 @@
  * Description: The tiny Lazy Load script for WordPress without jQuery or others libraries.
  * Version: 2.4.0
  * Requires at least: 4.9
- * Requires PHP: 7.3
+ * Requires PHP: 7.4
  * Author: WP Rocket
  * Author URI: https://wp-rocket.me
  * Text Domain: rocket-lazy-load
@@ -29,18 +29,18 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
+defined( 'ABSPATH' ) || exit;
 
 define( 'ROCKET_LL_VERSION', '2.4.0' );
 define( 'ROCKET_LL_WP_VERSION', '4.9' );
-define( 'ROCKET_LL_PHP_VERSION', '7.3' );
+define( 'ROCKET_LL_PHP_VERSION', '7.4' );
 define( 'ROCKET_LL_BASENAME', plugin_basename( __FILE__ ) );
 define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
 define( 'ROCKET_LL_INT_MAX', PHP_INT_MAX - 15 );
 
-use function RocketLazyLoadPlugin\Dependencies\LaunchpadCore\boot;
+use RocketLazyLoadPlugin\Plugin;
 
 require ROCKET_LL_PATH . 'includes/RocketLazyloadRequirementsCheck.php';
 
@@ -54,10 +54,15 @@ $rocket_lazyload_requirement_checks = new Rocket_Lazyload_Requirements_Check(
 );
 
 if ( $rocket_lazyload_requirement_checks->check() ) {
-	require __DIR__ . '/src/Dependencies/LaunchpadCore/boot.php';
+	if ( file_exists( ROCKET_LL_PATH . 'vendor/autoload.php' ) ) {
+		require ROCKET_LL_PATH . 'vendor/autoload.php';
+	}
 
-	boot( __FILE__ );
+	$providers = require ROCKET_LL_PATH . 'configs/providers.php';
+
+	$plugin = new Plugin( $providers );
+
+	add_action( 'plugins_loaded', [ $plugin, 'load' ] );
 }
-
 
 unset( $rocket_lazyload_requirement_checks );
