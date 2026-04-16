@@ -14,46 +14,51 @@ use WPMedia\Options\OptionArray;
 use WPMedia\Options\Options;
 
 class Plugin {
-    /**
-     * Container instance
-     *
-     * @var Container
-     */
-    private $container;
+	/**
+	 * Container instance
+	 *
+	 * @var Container
+	 */
+	private $container;
 
-    /**
-     * Is plugin loaded
-     *
-     * @var bool
-     */
-    private $loaded;
+	/**
+	 * Is plugin loaded
+	 *
+	 * @var bool
+	 */
+	private $loaded;
 
-    /**
-     * Array of service providers
-     *
-     * @var array
-     */
-    private $providers;
+	/**
+	 * Array of service providers
+	 *
+	 * @var array
+	 */
+	private $providers;
 
-    public function __construct( array $providers ) {
-        $this->providers = $providers;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param array $providers Array of service providers.
+	 */
+	public function __construct( array $providers ) {
+		$this->providers = $providers;
+	}
 
-    /**
-     * Load the plugin
-     *
-     * @return void
-     */
-    public function load(): void {
-        if ( $this->loaded ) {
-            return;
-        }
+	/**
+	 * Load the plugin
+	 *
+	 * @return void
+	 */
+	public function load(): void {
+		if ( $this->loaded ) {
+			return;
+		}
 
-        $this->loaded = true;
+		$this->loaded = true;
 
-        $this->container = new Container();
+		$this->container = new Container();
 
-        $this->container->add( 'template_path', new StringArgument( Config::get( 'path' ) . 'views/' ) );
+		$this->container->add( 'template_path', new StringArgument( Config::get( 'path' ) . 'views/' ) );
 		$this->container->add( 'plugin_basename', new StringArgument( Config::get( 'basename' ) ) );
 
 		$this->container->add(
@@ -63,13 +68,13 @@ class Plugin {
 			}
 		);
 
-        $this->container->add( OptionArray::class )
-            ->addArguments(
-                [
-                    new ArrayArgument( $this->container->get( Options::class )->get( '_options', [] ) ),
-                    new StringArgument( 'rocket_lazyload' ),
-                ]
-            );
+		$this->container->add( OptionArray::class )
+			->addArguments(
+				[
+					new ArrayArgument( $this->container->get( Options::class )->get( '_options', [] ) ),
+					new StringArgument( 'rocket_lazyload' ),
+				]
+			);
 
 		$this->container->add(
 			EventManager::class,
@@ -78,16 +83,16 @@ class Plugin {
 			}
 		);
 
-        foreach ( $this->providers as $provider ) {
-            $provider_instance = new $provider();
+		foreach ( $this->providers as $provider ) {
+			$provider_instance = new $provider();
 
-            $this->container->addServiceProvider( $provider_instance );
-    
-            $this->load_subscribers( $provider_instance );
-        }
-    }
+			$this->container->addServiceProvider( $provider_instance );
 
-    /**
+			$this->load_subscribers( $provider_instance );
+		}
+	}
+
+	/**
 	 * Load list of event subscribers from service provider.
 	 *
 	 * @param ServiceProviderInterface $service_provider Instance of service provider.

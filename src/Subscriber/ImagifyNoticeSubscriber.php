@@ -24,7 +24,9 @@ class ImagifyNoticeSubscriber implements SubscriberInterface {
 	}
 
 	/**
-	 * @inheritDoc
+	 * Returns an array of events this subscriber wants to listen to.
+	 *
+	 * @return array
 	 */
 	public static function get_subscribed_events(): array {
 		return [

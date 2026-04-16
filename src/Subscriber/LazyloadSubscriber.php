@@ -15,7 +15,7 @@ use WPMedia\Options\OptionArray;
  *
  * @since 2.0
  */
-class LazyloadSubscriber implements SubscriberInterface{
+class LazyloadSubscriber implements SubscriberInterface {
 	/**
 	 * Assets instance
 	 *
@@ -47,9 +47,10 @@ class LazyloadSubscriber implements SubscriberInterface{
 	/**
 	 * Constructor
 	 *
-	 * @param Assets $assets Assets instance.
-	 * @param Image $image Image instance.
-	 * @param Iframe $iframe Iframe instance.
+	 * @param Assets      $assets Assets instance.
+	 * @param Image       $image Image instance.
+	 * @param Iframe      $iframe Iframe instance.
+	 * @param OptionArray $options Option array instance.
 	 */
 	public function __construct( Assets $assets, Image $image, Iframe $iframe, OptionArray $options ) {
 		$this->assets  = $assets;
@@ -297,14 +298,13 @@ class LazyloadSubscriber implements SubscriberInterface{
 	 *
 	 * @return string
 	 * @since 2.0
-	 *
 	 */
 	public function lazyloadBuffer( $html ) {
 		$buffer = $this->ignoreScripts( $html );
 		$buffer = $this->ignoreNoscripts( $buffer );
 
 		if ( $this->options->get( 'images' ) ) {
-			$html = $this->image->lazyloadImages( $html, $buffer , $this->is_native_images() );
+			$html = $this->image->lazyloadImages( $html, $buffer, $this->is_native_images() );
 			$html = $this->image->lazyloadPictures( $html, $buffer );
 			$html = $this->image->lazyloadBackgroundImages( $html, $buffer );
 		}
@@ -327,7 +327,6 @@ class LazyloadSubscriber implements SubscriberInterface{
 	 *
 	 * @return string
 	 * @since 2.0
-	 *
 	 */
 	public function lazyloadResponsive( $html ) {
 		return $this->image->lazyloadResponsiveAttributes( $html );
@@ -387,17 +386,18 @@ class LazyloadSubscriber implements SubscriberInterface{
 		return preg_replace( '#<noscript>(?:.+)</noscript>#Umsi', '', $html );
 	}
 
-    /**
-     * Checks if native lazyload is enabled for images
-     **
-     * @return bool
-     */
-    private function is_native_images(): bool {
-        /**
-         * Filters the use of native lazyload for images
-         *
-         * @param bool $use_native True to use native lazyload for images, false otherwise.
-         */
-        return (bool) apply_filters( 'rocket_use_native_lazyload', false );
-    }
+	/**
+	 * Checks if native lazyload is enabled for images
+	 * *
+	 *
+	 * @return bool
+	 */
+	private function is_native_images(): bool {
+		/**
+		 * Filters the use of native lazyload for images
+		 *
+		 * @param bool $use_native True to use native lazyload for images, false otherwise.
+		 */
+		return (bool) apply_filters( 'rocket_use_native_lazyload', false ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+	}
 }

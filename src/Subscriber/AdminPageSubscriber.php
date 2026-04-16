@@ -27,7 +27,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @param AdminPage $page            AdminPage instance.
 	 * @param string    $plugin_basename Plugin basename.
-	 *
 	 */
 	public function __construct( AdminPage $page, $plugin_basename ) {
 		$this->page            = $page;
@@ -41,10 +40,10 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 */
 	public static function get_subscribed_events(): array {
 		return [
-			'admin_init'                                    => 'configure',
-			'admin_menu'                                    => 'addAdminPage',
-			"plugin_action_links_" . self::$plugin_basename => 'addPluginPageLink',
-			'admin_enqueue_scripts'                         => 'enqueueAdminStyle',
+			'admin_init'            => 'configure',
+			'admin_menu'            => 'addAdminPage',
+			'plugin_action_links_' . self::$plugin_basename => 'addPluginPageLink',
+			'admin_enqueue_scripts' => 'enqueueAdminStyle',
 		];
 	}
 
@@ -83,7 +82,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @return array
 	 * @since 2.0
-	 *
 	 */
 	public function addPluginPageLink( $actions ) {
 		array_unshift(

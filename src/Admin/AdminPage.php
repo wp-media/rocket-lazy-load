@@ -30,7 +30,8 @@ class AdminPage {
 	/**
 	 * Constructor
 	 *
-	 * @param string $template_path Template path.
+	 * @param OptionArray $options Option array instance.
+	 * @param string      $template_path Template path.
 	 */
 	public function __construct( OptionArray $options, string $template_path ) {
 		$this->options       = $options;
@@ -45,7 +46,7 @@ class AdminPage {
 	 * @since 2.0
 	 */
 	public function configure() {
-		register_setting( $this->getSlug(), $this->getSlug() . '_options' );
+		register_setting( $this->get_slug(), $this->get_slug() . '_options' );
 	}
 
 	/**
@@ -55,7 +56,7 @@ class AdminPage {
 	 *
 	 * @since 2.0
 	 */
-	public function getPageTitle() {
+	public function get_page_title() {
 		return __( 'LazyLoad by WP Rocket', 'rocket-lazy-load' );
 	}
 
@@ -66,7 +67,7 @@ class AdminPage {
 	 *
 	 * @since 2.0
 	 */
-	public function getMenuTitle() {
+	public function get_menu_title() {
 		return __( 'LazyLoad', 'rocket-lazy-load' );
 	}
 
@@ -77,7 +78,7 @@ class AdminPage {
 	 *
 	 * @since 2.0
 	 */
-	public function getSlug() {
+	public function get_slug() {
 		return $this->slug;
 	}
 
@@ -88,7 +89,7 @@ class AdminPage {
 	 *
 	 * @since 2.0
 	 */
-	public function getCapability() {
+	public function get_capability() {
 		return 'manage_options';
 	}
 
@@ -99,8 +100,8 @@ class AdminPage {
 	 *
 	 * @since 2.0
 	 */
-	public function renderPage() {
-		$this->renderTemplate( 'admin-page' );
+	public function render_page() {
+		$this->render_template( 'admin-page' );
 	}
 
 	/**
@@ -110,7 +111,7 @@ class AdminPage {
 	 *
 	 * @since 2.0
 	 */
-	protected function renderTemplate( $template ) {
+	protected function render_template( $template ) {
 		$template_path = $this->template_path . $template . '.php';
 
 		if ( ! is_readable( $template_path ) ) {
