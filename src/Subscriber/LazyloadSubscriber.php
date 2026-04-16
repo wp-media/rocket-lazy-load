@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
+use RocketLazyLoadPlugin\Config;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
@@ -65,11 +66,11 @@ class LazyloadSubscriber implements SubscriberInterface{
 	public static function get_subscribed_events(): array {
 		return [
 			'wp_footer'            => [
-				[ 'insertLazyloadScript', \ROCKET_LL_INT_MAX ],
-				[ 'insertYoutubeThumbnailScript', \ROCKET_LL_INT_MAX ],
+				[ 'insertLazyloadScript', PHP_INT_MAX ],
+				[ 'insertYoutubeThumbnailScript', PHP_INT_MAX ],
 			],
-			'wp_head'              => [ 'insertNoJSStyle', \ROCKET_LL_INT_MAX ],
-			'wp_enqueue_scripts'   => [ 'insertYoutubeThumbnailStyle', \ROCKET_LL_INT_MAX ],
+			'wp_head'              => [ 'insertNoJSStyle', PHP_INT_MAX ],
+			'wp_enqueue_scripts'   => [ 'insertYoutubeThumbnailStyle', PHP_INT_MAX ],
 			'template_redirect'    => [ 'lazyload', 2 ],
 			'rocket_lazyload_html' => 'lazyloadResponsive',
 			'init'                 => 'lazyloadSmilies',
@@ -102,7 +103,7 @@ class LazyloadSubscriber implements SubscriberInterface{
 		$threshold = apply_filters( 'rocket_lazyload_threshold', 300 );
 
 		$script_args = [
-			'base_url' => ROCKET_LL_FRONT_JS_URL,
+			'base_url' => Config::get( 'assets_url' ) . 'js/',
 			'version'  => '16.1',
 			'polyfill' => false,
 		];
@@ -214,7 +215,7 @@ class LazyloadSubscriber implements SubscriberInterface{
 
 		$this->assets->insertYoutubeThumbnailCSS(
 			[
-				'base_url'          => ROCKET_LL_ASSETS_URL,
+				'base_url'          => Config::get( 'assets_url' ),
 				'responsive_embeds' => current_theme_supports( 'responsive-embeds' ),
 			]
 		);

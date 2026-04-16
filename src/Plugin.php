@@ -53,8 +53,8 @@ class Plugin {
 
         $this->container = new Container();
 
-        $this->container->add( 'template_path', new StringArgument( ROCKET_LL_PATH . 'views/' ) );
-		$this->container->add( 'plugin_basename', new StringArgument( ROCKET_LL_BASENAME ) );
+        $this->container->add( 'template_path', new StringArgument( Config::get( 'path' ) . 'views/' ) );
+		$this->container->add( 'plugin_basename', new StringArgument( Config::get( 'basename' ) ) );
 
 		$this->container->add(
 			Options::class,
