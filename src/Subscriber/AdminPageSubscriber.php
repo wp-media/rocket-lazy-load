@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace RocketLazyLoadPlugin\Subscriber;
 
 use RocketLazyLoadPlugin\Admin\AdminPage;
+use RocketLazyLoadPlugin\Config;
 use WPMedia\EventManager\SubscriberInterface;
 
 class AdminPageSubscriber implements SubscriberInterface {
@@ -109,6 +110,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 			return;
 		}
 
-		wp_enqueue_style( 'rocket-lazyload', \ROCKET_LL_ASSETS_URL . 'css/admin.css', null, \ROCKET_LL_VERSION );
+		wp_enqueue_style( 'rocket-lazyload', Config::get( 'assets_url' ) . 'css/admin.css', null, Config::get( 'version' ) );
 	}
 }
