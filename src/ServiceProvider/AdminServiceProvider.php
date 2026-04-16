@@ -1,47 +1,61 @@
 <?php
-/**
- * Service Provider for the admin page classes
- *
- * @package RocketLazyload
- */
+declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\ServiceProvider;
 
 use RocketLazyLoadPlugin\Admin\AdminPage;
-use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\Container\AbstractServiceProvider;
-use RocketLazyLoadPlugin\Dependencies\League\Container\Definition\DefinitionInterface;
+use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
 use RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber;
+use WPMedia\Options\OptionArray;
 
-/**
- * Adds the admin page to the container
- *
- * @since 2.0
- * @author Remy Perona
- */
 class AdminServiceProvider extends AbstractServiceProvider {
+	/**
+	 * Services provided by this provider
+	 *
+	 * @var array
+	 */
+	protected $provides = [
+		AdminPage::class,
+		AdminPageSubscriber::class
+	];
 
-	public function get_common_subscribers(): array {
+	/**
+	 * Check if the service provider provides a specific service.
+	 *
+	 * @param string $id The id of the service.
+	 *
+	 * @return bool
+	 */
+	public function provides( string $id ): bool {
+		return in_array( $id, $this->provides, true );
+	}
+
+	public function get_subscribers(): array {
 		return [
 			AdminPageSubscriber::class,
 		];
 	}
 
-	public function define() {
-		$this->register_service( AdminPage::class )
-		     ->set_definition( function ( DefinitionInterface $instance ) {
-			     $instance->addArguments( [
-				     'template_path'
-			     ] );
-		     } );
+	/**
+	 * Registers the provided classes
+	 *
+	 * @return void
+	 */
+	public function register(): void {
+		$this->getContainer()->add( AdminPage::class )
+			->addArguments(
+				[
+					OptionArray::class,
+					$this->container->get( 'template_path' ),
+				]
+			);
 
-		$this->register_service( AdminPageSubscriber::class )
-		     ->share()
-		     ->set_definition( function ( DefinitionInterface $instance ) {
-			     $instance->addArguments( [
-					     AdminPage::class,
-					     'plugin_basename'
-				     ]
-			     );
-		     } );
+		$this->getContainer()->add( AdminPageSubscriber::class )
+		     ->addArguments(
+				[
+				    AdminPage::class,
+				    $this->container->get( 'plugin_basename' ),
+			    ]
+		     );
 	}
 }
