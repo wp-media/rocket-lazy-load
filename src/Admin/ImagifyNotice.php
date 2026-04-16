@@ -1,24 +1,11 @@
 <?php
-/**
- * Imagify Notice Class
- *
- * @package RocketLazyloadPlugin
- */
+declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Admin;
 
-/**
- * Imagify Notice display
- *
- * @since 2.0
- * @author Remy Perona
- */
 class ImagifyNotice {
 	/**
 	 * Template path
-	 *
-	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var string
 	 */
@@ -28,10 +15,6 @@ class ImagifyNotice {
 	 * Constructor
 	 *
 	 * @param string $template_path Template path.
-	 *
-	 * @author Remy Perona
-	 *
-	 * @since 2.0
 	 */
 	public function __construct( $template_path ) {
 		$this->template_path = $template_path;
@@ -40,25 +23,22 @@ class ImagifyNotice {
 	/**
 	 * Renders the Imagify notice
 	 *
-	 * @return void
-	 * @author Remy Perona
-	 *
 	 * @since 2.0
+	 *
+	 * @return void
 	 */
-	public function displayNotice() {
-		$this->renderTemplate( 'imagify-notice' );
+	public function display_notice() {
+		$this->render_template( 'imagify-notice' );
 	}
 
 	/**
 	 * Renders the given template if it's readable.
 	 *
-	 * @param string $template Template name.
-	 *
-	 * @author Remy Perona
-	 *
 	 * @since 2.0
+	 *
+	 * @param string $template Template name.
 	 */
-	protected function renderTemplate( $template ) {
+	protected function render_template( $template ) {
 		$template_path = $this->template_path . $template . '.php';
 
 		if ( ! is_readable( $template_path ) ) {

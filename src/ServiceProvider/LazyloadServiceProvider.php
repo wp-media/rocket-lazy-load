@@ -33,7 +33,7 @@ class LazyloadServiceProvider extends AbstractServiceProvider {
 	public function get_subscribers(): array {
 		return [
 			AMPSubscriber::class,
-			LazyloadSubscriber::class
+			LazyloadSubscriber::class,
 		];
 	}
 
@@ -61,7 +61,7 @@ class LazyloadServiceProvider extends AbstractServiceProvider {
 		$this->getContainer()->addShared( AMPSubscriber::class );
 
 		$this->getContainer()->addShared( LazyloadSubscriber::class )
-		    ->addArguments(
+			->addArguments(
 				[
 					Assets::class,
 					Image::class,

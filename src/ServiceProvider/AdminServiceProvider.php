@@ -16,7 +16,7 @@ class AdminServiceProvider extends AbstractServiceProvider {
 	 */
 	protected $provides = [
 		AdminPage::class,
-		AdminPageSubscriber::class
+		AdminPageSubscriber::class,
 	];
 
 	/**
@@ -30,6 +30,11 @@ class AdminServiceProvider extends AbstractServiceProvider {
 		return in_array( $id, $this->provides, true );
 	}
 
+	/**
+	 * Get the list of subscribers provided by this service provider.
+	 *
+	 * @return array
+	 */
 	public function get_subscribers(): array {
 		return [
 			AdminPageSubscriber::class,
@@ -51,11 +56,11 @@ class AdminServiceProvider extends AbstractServiceProvider {
 			);
 
 		$this->getContainer()->add( AdminPageSubscriber::class )
-		     ->addArguments(
+			->addArguments(
 				[
-				    AdminPage::class,
-				    $this->container->get( 'plugin_basename' ),
-			    ]
-		     );
+					AdminPage::class,
+					$this->container->get( 'plugin_basename' ),
+				]
+			);
 	}
 }

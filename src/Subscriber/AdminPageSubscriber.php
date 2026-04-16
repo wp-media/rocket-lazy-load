@@ -27,7 +27,6 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @param AdminPage $page            AdminPage instance.
 	 * @param string    $plugin_basename Plugin basename.
-	 *
 	 */
 	public function __construct( AdminPage $page, $plugin_basename ) {
 		$this->page            = $page;
@@ -41,10 +40,10 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 */
 	public static function get_subscribed_events(): array {
 		return [
-			'admin_init'                                    => 'configure',
-			'admin_menu'                                    => 'addAdminPage',
-			"plugin_action_links_" . self::$plugin_basename => 'addPluginPageLink',
-			'admin_enqueue_scripts'                         => 'enqueueAdminStyle',
+			'admin_init'            => 'configure',
+			'admin_menu'            => 'add_admin_page',
+			'plugin_action_links_' . self::$plugin_basename => 'add_plugin_page_link',
+			'admin_enqueue_scripts' => 'enqueue_admin_style',
 		];
 	}
 
@@ -66,13 +65,13 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @since 2.0
 	 */
-	public function addAdminPage() {
+	public function add_admin_page() {
 		add_options_page(
-			$this->page->getPageTitle(),
-			$this->page->getMenuTitle(),
-			$this->page->getCapability(),
-			$this->page->getSlug(),
-			[ $this->page, 'renderPage' ]
+			$this->page->get_page_title(),
+			$this->page->get_menu_title(),
+			$this->page->get_capability(),
+			$this->page->get_slug(),
+			[ $this->page, 'render_page' ]
 		);
 	}
 
@@ -83,14 +82,13 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @return array
 	 * @since 2.0
-	 *
 	 */
-	public function addPluginPageLink( $actions ) {
+	public function add_plugin_page_link( $actions ) {
 		array_unshift(
 			$actions,
 			sprintf(
 				'<a href="%s">%s</a>',
-				admin_url( 'options-general.php?page=' . $this->page->getSlug() ),
+				admin_url( 'options-general.php?page=' . $this->page->get_slug() ),
 				__( 'Settings', 'rocket-lazy-load' )
 			)
 		);
@@ -105,7 +103,7 @@ class AdminPageSubscriber implements SubscriberInterface {
 	 *
 	 * @since 2.0
 	 */
-	public function enqueueAdminStyle( $hook_suffix ) {
+	public function enqueue_admin_style( $hook_suffix ) {
 		if ( 'settings_page_rocket_lazyload' !== $hook_suffix ) {
 			return;
 		}

@@ -69,6 +69,8 @@
 		}
 	},
 	"scripts": {
+		"phpcs": "vendor/bin/phpcs",
+		"phpcbf": "vendor/bin/phpcbf",
         "test-unit":"\"vendor/bin/phpunit\" --testsuite unit --colors=always",
 		"test-integration": "\"vendor/bin/phpunit\" --testsuite integration --colors=always --configuration tests/Integration/phpunit.xml.dist",
 		"post-install-cmd": [

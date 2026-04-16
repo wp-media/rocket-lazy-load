@@ -6,6 +6,7 @@ namespace RocketLazyLoadPlugin;
 class Config {
 	/**
 	 * The configuration container.
+	 *
 	 * @var array<string, mixed>|null
 	 */
 	private static ?array $container = null;
@@ -13,7 +14,7 @@ class Config {
 	/**
 	 * Initialize the configuration container.
 	 *
-	 * @param array<string, mixed> $container
+	 * @param array<string, mixed> $container The configuration values to store.
 	 */
 	public static function init( array $container ): void {
 		if ( isset( self::$container ) ) {

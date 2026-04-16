@@ -47,9 +47,9 @@ class ImagifyNoticeServiceProvider extends AbstractServiceProvider {
 	 */
 	public function register(): void {
 		$this->getContainer()->add( ImagifyNotice::class )
-		    ->addArgument( $this->container->get( 'template_path' ) );
+			->addArgument( $this->container->get( 'template_path' ) );
 
 		$this->getContainer()->addShared( ImagifyNoticeSubscriber::class )
-		    ->addArgument( ImagifyNotice::class );
+			->addArgument( ImagifyNotice::class );
 	}
 }

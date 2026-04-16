@@ -35,17 +35,17 @@ defined( 'ABSPATH' ) || exit;
 
 // Load autoloader.
 if ( ! class_exists( Config::class ) && is_file( __DIR__ . '/vendor/autoload.php' ) ) {
-    require_once __DIR__ . '/vendor/autoload.php';
+	require_once __DIR__ . '/vendor/autoload.php';
 }
 
 Config::init(
 	[
-		'version' => '2.4.0',
-		'wp_version' => '4.9',
+		'version'     => '2.4.0',
+		'wp_version'  => '4.9',
 		'php_version' => '7.4',
-		'basename' => plugin_basename( __FILE__ ),
-		'path' => realpath( plugin_dir_path( __FILE__ ) ) . '/',
-		'assets_url' => plugin_dir_url( __FILE__ ) . 'assets/',
+		'basename'    => plugin_basename( __FILE__ ),
+		'path'        => realpath( plugin_dir_path( __FILE__ ) ) . '/',
+		'assets_url'  => plugin_dir_url( __FILE__ ) . 'assets/',
 	]
 );
 
@@ -63,11 +63,11 @@ $rocket_lazyload_requirement_checks = new Rocket_Lazyload_Requirements_Check(
 );
 
 if ( $rocket_lazyload_requirement_checks->check() ) {
-	$providers = require Config::get( 'path' ) . 'configs/providers.php';
+	$rll_providers = require Config::get( 'path' ) . 'configs/providers.php';
 
-	$plugin = new Plugin( $providers );
+	$rll_plugin = new Plugin( $rll_providers );
 
-	add_action( 'plugins_loaded', [ $plugin, 'load' ] );
+	add_action( 'plugins_loaded', [ $rll_plugin, 'load' ] );
 }
 
 unset( $rocket_lazyload_requirement_checks );
