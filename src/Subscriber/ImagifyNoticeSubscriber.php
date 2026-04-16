@@ -1,29 +1,14 @@
 <?php
-/**
- * Imagify Notice subscriber
- *
- * @package RocketLazyload
- */
+declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
-defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
-
-use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\ClassicSubscriberInterface;
 use RocketLazyLoadPlugin\Admin\ImagifyNotice;
+use WPMedia\EventManager\SubscriberInterface;
 
-/**
- * Imagify Notice Subscriber
- *
- * @since 2.0
- * @author Remy Perona
- */
-class ImagifyNoticeSubscriber implements ClassicSubscriberInterface {
+class ImagifyNoticeSubscriber implements SubscriberInterface {
 	/**
 	 * ImagifyNotice instance
-	 *
-	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var ImagifyNotice
 	 */
@@ -33,10 +18,6 @@ class ImagifyNoticeSubscriber implements ClassicSubscriberInterface {
 	 * Constructor
 	 *
 	 * @param ImagifyNotice $imagify_notice ImagifyNotice instance.
-	 *
-	 * @author Remy Perona
-	 *
-	 * @since 2.0
 	 */
 	public function __construct( ImagifyNotice $imagify_notice ) {
 		$this->imagify_notice = $imagify_notice;
@@ -45,7 +26,7 @@ class ImagifyNoticeSubscriber implements ClassicSubscriberInterface {
 	/**
 	 * @inheritDoc
 	 */
-	public function get_subscribed_events(): array {
+	public static function get_subscribed_events(): array {
 		return [
 			'admin_notices'                              => 'imagifyNotice',
 			'admin_footer-settings_page_rocket_lazyload' => 'dismissNoticeJS',
@@ -58,7 +39,6 @@ class ImagifyNoticeSubscriber implements ClassicSubscriberInterface {
 	 * Displays the Imagify notice
 	 *
 	 * @return void
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -82,7 +62,6 @@ class ImagifyNoticeSubscriber implements ClassicSubscriberInterface {
 	 * Inserts the javascript to dismiss the notice
 	 *
 	 * @return void
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -102,7 +81,6 @@ class ImagifyNoticeSubscriber implements ClassicSubscriberInterface {
 	 * Saves the dismiss for the user
 	 *
 	 * @return void
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */

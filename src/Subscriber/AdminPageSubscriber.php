@@ -1,23 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Subscriber;
 
-use RocketLazyLoadPlugin\Dependencies\LaunchpadCore\EventManagement\ClassicSubscriberInterface;
 use RocketLazyLoadPlugin\Admin\AdminPage;
+use WPMedia\EventManager\SubscriberInterface;
 
-/**
- * Admin Page Subscriber
- *
- * @since 2.0
- * @author Remy Perona
- */
-class AdminPageSubscriber implements ClassicSubscriberInterface {
-
+class AdminPageSubscriber implements SubscriberInterface {
 	/**
 	 * AdminPage instance
-	 *
-	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var AdminPage
 	 */
@@ -26,9 +17,6 @@ class AdminPageSubscriber implements ClassicSubscriberInterface {
 	/**
 	 * Plugin basename
 	 *
-	 * @since 2.0
-	 * @author Remy Perona
-	 *
 	 * @var string
 	 */
 	private static $plugin_basename;
@@ -36,11 +24,8 @@ class AdminPageSubscriber implements ClassicSubscriberInterface {
 	/**
 	 * Constructor
 	 *
-	 * @param AdminPage $page AdminPage instance.
-	 * @param string $plugin_basename Plugin basename.
-	 *
-	 * @since 2.0
-	 * @author Remy Perona
+	 * @param AdminPage $page            AdminPage instance.
+	 * @param string    $plugin_basename Plugin basename.
 	 *
 	 */
 	public function __construct( AdminPage $page, $plugin_basename ) {
@@ -53,7 +38,7 @@ class AdminPageSubscriber implements ClassicSubscriberInterface {
 	 *
 	 * @return array
 	 */
-	public function get_subscribed_events(): array {
+	public static function get_subscribed_events(): array {
 		return [
 			'admin_init'                                    => 'configure',
 			'admin_menu'                                    => 'addAdminPage',
@@ -66,7 +51,6 @@ class AdminPageSubscriber implements ClassicSubscriberInterface {
 	 * Registers the plugin settings in WordPress
 	 *
 	 * @return void
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -78,7 +62,6 @@ class AdminPageSubscriber implements ClassicSubscriberInterface {
 	 * Adds the admin page to the settings menu
 	 *
 	 * @return void
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -99,7 +82,6 @@ class AdminPageSubscriber implements ClassicSubscriberInterface {
 	 *
 	 * @return array
 	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 */
 	public function addPluginPageLink( $actions ) {
@@ -119,8 +101,6 @@ class AdminPageSubscriber implements ClassicSubscriberInterface {
 	 * Enqueue the css for the option page
 	 *
 	 * @param string $hook_suffix Current page hook.
-	 *
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */

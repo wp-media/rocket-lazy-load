@@ -12,15 +12,15 @@ global $wp_version;
 $options = [
     'images'  => [
         'label' => __('Images', 'rocket-lazy-load'),
-        'value' => $this->settings->get('images'),
+        'value' => $this->options->get('images'),
     ],
     'iframes' => [
         'label' => __('Iframes &amp; Videos', 'rocket-lazy-load'),
-        'value' => $this->settings->get('iframes'),
+        'value' => $this->options->get('iframes'),
     ],
     'youtube' => [
         'label' => __('Replace Youtube videos by thumbnail', 'rocket-lazy-load'),
-        'value' => $this->settings->get('youtube'),
+        'value' => $this->options->get('youtube'),
     ],
 ];
 
