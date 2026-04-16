@@ -1,42 +1,27 @@
 <?php
-/**
- * Admin Page Class
- *
- * @package RocketLazyloadPlugin
- */
+declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Admin;
 
-defined( 'ABSPATH' ) || die( 'Cheatin\' uh?' );
+use WPMedia\Options\OptionArray;
 
-use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Interfaces\SettingsAwareInterface;
-use RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\Traits\SettingsAwareTrait;
-
-
-/**
- * Admin page configuration
- *
- * @since 2.0
- * @author Remy Perona
- */
-class AdminPage implements SettingsAwareInterface {
-	use SettingsAwareTrait;
-
+class AdminPage {
 	/**
 	 * Plugin slug
-	 *
-	 * @since 2.0
-	 * @author Remy Perona
 	 *
 	 * @var string
 	 */
 	private $slug = 'rocket_lazyload';
 
 	/**
-	 * Template path
+	 * OptionArray instance
 	 *
-	 * @since 2.0
-	 * @author Remy Perona
+	 * @var OptionArray
+	 */
+	private $options;
+
+	/**
+	 * Template path
 	 *
 	 * @var string
 	 */
@@ -46,12 +31,9 @@ class AdminPage implements SettingsAwareInterface {
 	 * Constructor
 	 *
 	 * @param string $template_path Template path.
-	 *
-	 * @author Remy Perona
-	 *
-	 * @since 2.0
 	 */
-	public function __construct( string $template_path ) {
+	public function __construct( OptionArray $options, string $template_path ) {
+		$this->options       = $options;
 		$this->template_path = $template_path;
 	}
 
@@ -59,7 +41,6 @@ class AdminPage implements SettingsAwareInterface {
 	 * Registers plugin settings with WordPress
 	 *
 	 * @return void
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -71,7 +52,6 @@ class AdminPage implements SettingsAwareInterface {
 	 * Gets the settings page title
 	 *
 	 * @return string
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -83,7 +63,6 @@ class AdminPage implements SettingsAwareInterface {
 	 * Gets the settings submenu title
 	 *
 	 * @return string
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -95,7 +74,6 @@ class AdminPage implements SettingsAwareInterface {
 	 * Gets the plugin slug
 	 *
 	 * @return string
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -107,7 +85,6 @@ class AdminPage implements SettingsAwareInterface {
 	 * Gets the plugin required capability
 	 *
 	 * @return string
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -119,7 +96,6 @@ class AdminPage implements SettingsAwareInterface {
 	 * Renders the admin page template
 	 *
 	 * @return void
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
@@ -131,8 +107,6 @@ class AdminPage implements SettingsAwareInterface {
 	 * Renders the given template if it's readable.
 	 *
 	 * @param string $template Template name.
-	 *
-	 * @author Remy Perona
 	 *
 	 * @since 2.0
 	 */
