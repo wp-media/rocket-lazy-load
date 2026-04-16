@@ -29,36 +29,41 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use RocketLazyLoadPlugin\Config;
+
 defined( 'ABSPATH' ) || exit;
 
-define( 'ROCKET_LL_VERSION', '2.4.0' );
-define( 'ROCKET_LL_WP_VERSION', '4.9' );
-define( 'ROCKET_LL_PHP_VERSION', '7.4' );
-define( 'ROCKET_LL_BASENAME', plugin_basename( __FILE__ ) );
-define( 'ROCKET_LL_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
-define( 'ROCKET_LL_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
-define( 'ROCKET_LL_FRONT_JS_URL', ROCKET_LL_ASSETS_URL . 'js/' );
-define( 'ROCKET_LL_INT_MAX', PHP_INT_MAX - 15 );
+// Load autoloader.
+if ( ! class_exists( Config::class ) && is_file( __DIR__ . '/vendor/autoload.php' ) ) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
+Config::init(
+	[
+		'version' => '2.4.0',
+		'wp_version' => '4.9',
+		'php_version' => '7.4',
+		'basename' => plugin_basename( __FILE__ ),
+		'path' => realpath( plugin_dir_path( __FILE__ ) ) . '/',
+		'assets_url' => plugin_dir_url( __FILE__ ) . 'assets/',
+	]
+);
 
 use RocketLazyLoadPlugin\Plugin;
 
-require ROCKET_LL_PATH . 'includes/RocketLazyloadRequirementsCheck.php';
+require Config::get( 'path' ) . 'includes/RocketLazyloadRequirementsCheck.php';
 
 $rocket_lazyload_requirement_checks = new Rocket_Lazyload_Requirements_Check(
 	[
 		'plugin_name'    => 'Lazy Load by WP Rocket',
-		'plugin_version' => ROCKET_LL_VERSION,
-		'wp_version'     => ROCKET_LL_WP_VERSION,
-		'php_version'    => ROCKET_LL_PHP_VERSION,
+		'plugin_version' => Config::get( 'version' ),
+		'wp_version'     => Config::get( 'wp_version' ),
+		'php_version'    => Config::get( 'php_version' ),
 	]
 );
 
 if ( $rocket_lazyload_requirement_checks->check() ) {
-	if ( file_exists( ROCKET_LL_PATH . 'vendor/autoload.php' ) ) {
-		require ROCKET_LL_PATH . 'vendor/autoload.php';
-	}
-
-	$providers = require ROCKET_LL_PATH . 'configs/providers.php';
+	$providers = require Config::get( 'path' ) . 'configs/providers.php';
 
 	$plugin = new Plugin( $providers );
 

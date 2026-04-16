@@ -5,6 +5,8 @@
  * @package RocketLazyloadPlugin
  */
 
+use RocketLazyLoadPlugin\Config;
+
 defined('ABSPATH') || die('Cheatin\' uh?');
 
 $action_url = wp_nonce_url(
@@ -28,7 +30,7 @@ $dismiss_url = wp_nonce_url(
 <a href="<?php echo esc_url($dismiss_url); ?>" class="rktll-cross"><span class="dashicons dashicons-no"></span></a>
 
 <p class="rktll-imagify-logo">
-    <img src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/logo-imagify.png'); ?>" srcset="<?php echo esc_attr(ROCKET_LL_ASSETS_URL . 'img/logo-imagify.svg 2x'); ?>" alt="Imagify" width="150" height="18">
+    <img src="<?php echo esc_url(Config::get('assets_url') . 'img/logo-imagify.png'); ?>" srcset="<?php echo esc_attr(Config::get('assets_url') . 'img/logo-imagify.svg 2x'); ?>" alt="Imagify" width="150" height="18">
 </p>
 <p class="rktll-imagify-msg">
     <?php esc_html_e('Speed up your website and boost your SEO by reducing image file sizes without losing quality with Imagify.', 'rocket-lazy-load'); ?>

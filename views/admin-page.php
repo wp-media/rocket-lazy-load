@@ -5,6 +5,8 @@
  * @package RocketLazyloadPlugin
  */
 
+use RocketLazyLoadPlugin\Config;
+
 defined('ABSPATH') || die('Cheatin\' uh?');
 
 global $wp_version;
@@ -31,7 +33,7 @@ $options = [
     <<?php echo $heading_tag; ?> class="screen-reader-text"><?php echo esc_html(get_admin_page_title()); ?></<?php echo $heading_tag; ?>>
     <div class="rocket-lazyload-header">
         <div>
-            <p class="rocket-lazyload-title"><img src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/logo.png'); ?>" srcset="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/logo@2x.png'); ?> 2x" alt="<?php echo esc_attr(get_admin_page_title()); ?>" width="216" height="59"></p>
+            <p class="rocket-lazyload-title"><img src="<?php echo esc_url(Config::get('assets_url') . 'img/logo.png'); ?>" srcset="<?php echo esc_url(Config::get('assets_url') . 'img/logo@2x.png'); ?> 2x" alt="<?php echo esc_attr(get_admin_page_title()); ?>" width="216" height="59"></p>
             <p class="rocket-lazyload-subtitle"><?php esc_html_e('Settings', 'rocket-lazy-load'); ?></p>
         </div>
         <?php $rocket_lazyload_rate_url = 'https://wordpress.org/support/plugin/rocket-lazy-load/reviews/?rate=5#postform'; ?>
@@ -73,7 +75,7 @@ $options = [
                 <p class="rocket-lazyload-subtitle"><?php esc_html_e('We recommend for you', 'rocket-lazy-load'); ?></p>
                 <p class="rocket-lazyload-bigtext">
                     <?php esc_html_e('Go Premium with', 'rocket-lazy-load'); ?>
-                    <img class="rocket-lazyload-rocket-logo" src="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/wprocket.png'); ?>" srcset="<?php echo esc_url(ROCKET_LL_ASSETS_URL . 'img/wprocket@2x.png'); ?>" width="232" height="63" alt="WP Rocket">
+                    <img class="rocket-lazyload-rocket-logo" src="<?php echo esc_url(Config::get('assets_url') . 'img/wprocket.png'); ?>" srcset="<?php echo esc_url(Config::get('assets_url') . 'img/wprocket@2x.png'); ?> 2x" width="232" height="63" alt="WP Rocket">
                 </p>
 
                 <div class="rocket-lazyload-cta-block">
