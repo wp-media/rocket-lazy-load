@@ -129,7 +129,7 @@ class AdminPage {
 	 *
 	 * @return void
 	 */
-	protected function render_template( $template, $data = [] ): void {
+	protected function render_template( $template, $data = [] ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		$template_path = $this->template_path . $template . '.php';
 
 		if ( ! is_readable( $template_path ) ) {
