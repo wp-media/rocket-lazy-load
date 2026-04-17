@@ -19,7 +19,8 @@
 		"sort-packages": true,
 		"allow-plugins": {
 			"composer/installers": true,
-			"dealerdirect/phpcodesniffer-composer-installer": true
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
 		}
 	},
 	"support": {
@@ -51,7 +52,9 @@
 		"coenjacobs/mozart": "^0.7.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.0",
+		"phpstan/extension-installer": "^1.4",
 		"phpunit/phpunit": "^8 || ^9",
+		"szepeviktor/phpstan-wordpress": "^2.0",
 		"wp-coding-standards/wpcs": "^3.0",
 		"wp-media/phpunit": "^3.0"
 	},
@@ -71,6 +74,7 @@
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
 		"phpcbf": "vendor/bin/phpcbf",
+		"phpstan": "vendor/bin/phpstan analyze --memory-limit=2G",
         "test-unit":"\"vendor/bin/phpunit\" --testsuite unit --colors=always",
 		"test-integration": "\"vendor/bin/phpunit\" --testsuite integration --colors=always --configuration tests/Integration/phpunit.xml.dist",
 		"post-install-cmd": [
