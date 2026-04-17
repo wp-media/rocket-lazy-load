@@ -1,0 +1,11 @@
+includes:
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+parameters:
+    level: 5
+    inferPrivatePropertyTypeFromConstructor: true
+    paths:
+        - includes/
+        - src/
+        - rocket-lazy-load.php
+    excludePaths:
+        - src/Dependencies/
