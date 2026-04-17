@@ -37,8 +37,10 @@ class ImagifyNotice {
 	 * @since 2.0
 	 *
 	 * @param string $template Template name.
+	 *
+	 * @return void
 	 */
-	protected function render_template( $template ) {
+	protected function render_template( $template ): void {
 		$template_path = $this->template_path . $template . '.php';
 
 		if ( ! is_readable( $template_path ) ) {

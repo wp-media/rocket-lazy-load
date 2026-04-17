@@ -7,6 +7,7 @@ use RocketLazyLoadPlugin\Dependencies\League\Container\Argument\Literal\ArrayArg
 use RocketLazyLoadPlugin\Dependencies\League\Container\Argument\Literal\StringArgument;
 use RocketLazyLoadPlugin\Dependencies\League\Container\Container;
 use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\ServiceProviderInterface;
+use RocketLazyLoadPlugin\ServiceProvider\ServiceProviderSubscribersInterface;
 use WPMedia\EventManager\EventManager;
 use WPMedia\EventManager\PluginApiManager;
 use WPMedia\EventManager\SubscriberInterface;
@@ -26,12 +27,12 @@ class Plugin {
 	 *
 	 * @var bool
 	 */
-	private $loaded;
+	private $loaded = false;
 
 	/**
 	 * Array of service providers
 	 *
-	 * @var array
+	 * @var array<ServiceProviderInterface>
 	 */
 	private $providers;
 
@@ -88,18 +89,20 @@ class Plugin {
 
 			$this->container->addServiceProvider( $provider_instance );
 
-			$this->load_subscribers( $provider_instance );
+			if ( $provider_instance instanceof ServiceProviderSubscribersInterface ) {
+				$this->load_subscribers( $provider_instance );
+			}
 		}
 	}
 
 	/**
 	 * Load list of event subscribers from service provider.
 	 *
-	 * @param ServiceProviderInterface $service_provider Instance of service provider.
+	 * @param ServiceProviderSubscribersInterface $service_provider Instance of service provider.
 	 *
 	 * @return void
 	 */
-	private function load_subscribers( ServiceProviderInterface $service_provider ) {
+	private function load_subscribers( ServiceProviderSubscribersInterface $service_provider ) {
 		if ( empty( $service_provider->get_subscribers() ) ) {
 			return;
 		}

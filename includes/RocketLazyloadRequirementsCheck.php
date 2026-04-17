@@ -88,8 +88,10 @@ class Rocket_Lazyload_Requirements_Check {
 
 	/**
 	 * Displays a notice if requirements are not met.
+	 *
+	 * @return void
 	 */
-	public function notice() {
+	public function notice(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}

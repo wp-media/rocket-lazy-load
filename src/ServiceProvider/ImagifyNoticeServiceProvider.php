@@ -7,7 +7,7 @@ use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractS
 use RocketLazyLoadPlugin\Admin\ImagifyNotice;
 use RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber;
 
-class ImagifyNoticeServiceProvider extends AbstractServiceProvider {
+class ImagifyNoticeServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
 	/**
 	 * Services provided by this provider
 	 *
@@ -21,7 +21,7 @@ class ImagifyNoticeServiceProvider extends AbstractServiceProvider {
 	/**
 	 * Subscribers provided by this provider
 	 *
-	 * @var array
+	 * @return array
 	 */
 	public function get_subscribers(): array {
 		return [
@@ -47,7 +47,7 @@ class ImagifyNoticeServiceProvider extends AbstractServiceProvider {
 	 */
 	public function register(): void {
 		$this->getContainer()->add( ImagifyNotice::class )
-			->addArgument( $this->container->get( 'template_path' ) );
+			->addArgument( $this->getContainer()->get( 'template_path' ) );
 
 		$this->getContainer()->addShared( ImagifyNoticeSubscriber::class )
 			->addArgument( ImagifyNotice::class );

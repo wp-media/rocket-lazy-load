@@ -11,7 +11,7 @@ use RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber;
 use RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber;
 use WPMedia\Options\OptionArray;
 
-class LazyloadServiceProvider extends AbstractServiceProvider {
+class LazyloadServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
 	/**
 	 * Services provided by this provider
 	 *
@@ -28,7 +28,7 @@ class LazyloadServiceProvider extends AbstractServiceProvider {
 	/**
 	 * Subscribers provided by this provider
 	 *
-	 * @var array
+	 * @return array
 	 */
 	public function get_subscribers(): array {
 		return [
