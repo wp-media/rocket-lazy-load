@@ -32,14 +32,14 @@ class Plugin {
 	/**
 	 * Array of service providers
 	 *
-	 * @var array<ServiceProviderInterface>
+	 * @var array<class-string<ServiceProviderInterface>>
 	 */
 	private $providers;
 
 	/**
 	 * Constructor
 	 *
-	 * @param array $providers Array of service providers.
+	 * @param array<class-string<ServiceProviderInterface>> $providers Array of service providers.
 	 */
 	public function __construct( array $providers ) {
 		$this->providers = $providers;
