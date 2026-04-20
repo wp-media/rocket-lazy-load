@@ -101,17 +101,35 @@ class AdminPage {
 	 * @since 2.0
 	 */
 	public function render_page() {
-		$this->render_template( 'admin-page' );
+		$data = [
+			'images'  => [
+				'label' => __( 'Images', 'rocket-lazy-load' ),
+				'value' => $this->options->get( 'images' ),
+			],
+			'iframes' => [
+				'label' => __( 'Iframes &amp; Videos', 'rocket-lazy-load' ),
+				'value' => $this->options->get( 'iframes' ),
+			],
+			'youtube' => [
+				'label' => __( 'Replace Youtube videos by thumbnail', 'rocket-lazy-load' ),
+				'value' => $this->options->get( 'youtube' ),
+			],
+		];
+
+		$this->render_template( 'admin-page', $data );
 	}
 
 	/**
 	 * Renders the given template if it's readable.
 	 *
-	 * @param string $template Template name.
-	 *
 	 * @since 2.0
+	 *
+	 * @param string $template Template name.
+	 * @param array  $data     Data to pass to the template.
+	 *
+	 * @return void
 	 */
-	protected function render_template( $template ) {
+	protected function render_template( $template, array $data = [] ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		$template_path = $this->template_path . $template . '.php';
 
 		if ( ! is_readable( $template_path ) ) {

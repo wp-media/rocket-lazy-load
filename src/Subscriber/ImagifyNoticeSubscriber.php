@@ -120,7 +120,13 @@ class ImagifyNoticeSubscriber implements SubscriberInterface {
 		if ( defined( 'DOING_AJAX' ) ) {
 			wp_send_json( [ 'error' => 0 ] );
 		} else {
-			wp_safe_redirect( esc_url_raw( wp_get_referer() ) );
+			$referer = wp_get_referer();
+
+			if ( false === $referer ) {
+				$referer = admin_url( 'options-general.php?page=rocket_lazyload' );
+			}
+
+			wp_safe_redirect( esc_url_raw( $referer ) );
 			die();
 		}
 	}

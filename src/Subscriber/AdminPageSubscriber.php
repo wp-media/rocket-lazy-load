@@ -99,15 +99,17 @@ class AdminPageSubscriber implements SubscriberInterface {
 	/**
 	 * Enqueue the css for the option page
 	 *
+	 * @since 2.0
+	 *
 	 * @param string $hook_suffix Current page hook.
 	 *
-	 * @since 2.0
+	 * @return void
 	 */
-	public function enqueue_admin_style( $hook_suffix ) {
+	public function enqueue_admin_style( $hook_suffix ): void {
 		if ( 'settings_page_rocket_lazyload' !== $hook_suffix ) {
 			return;
 		}
 
-		wp_enqueue_style( 'rocket-lazyload', Config::get( 'assets_url' ) . 'css/admin.css', null, Config::get( 'version' ) );
+		wp_enqueue_style( 'rocket-lazyload', Config::get( 'assets_url' ) . 'css/admin.css', [], Config::get( 'version' ) );
 	}
 }

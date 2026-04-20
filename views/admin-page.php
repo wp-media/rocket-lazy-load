@@ -4,21 +4,6 @@ use RocketLazyLoadPlugin\Config;
 
 defined( 'ABSPATH' ) || exit;
 
-$rll_options = [
-	'images'  => [
-		'label' => __( 'Images', 'rocket-lazy-load' ),
-		'value' => $this->options->get( 'images' ),
-	],
-	'iframes' => [
-		'label' => __( 'Iframes &amp; Videos', 'rocket-lazy-load' ),
-		'value' => $this->options->get( 'iframes' ),
-	],
-	'youtube' => [
-		'label' => __( 'Replace Youtube videos by thumbnail', 'rocket-lazy-load' ),
-		'value' => $this->options->get( 'youtube' ),
-	],
-];
-
 ?>
 <div class="wrap rocket-lazyload-settings">
 	<h1 class="screen-reader-text"><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -45,7 +30,7 @@ $rll_options = [
 				<p><?php esc_html_e( 'This mechanism reduces the number of HTTP requests and improves the loading time.', 'rocket-lazy-load' ); ?></p>
 				<ul class="rocket-lazyload-options">
 					<?php
-					foreach ( $rll_options as $rll_slug => $rll_infos ) :
+					foreach ( $data as $rll_slug => $rll_infos ) :
 						?>
 					<li class="rocket-lazyload-option">
 						<input type="checkbox" value="1" id="lazyload-<?php echo esc_attr( $rll_slug ); ?>" name="rocket_lazyload_options[<?php echo esc_attr( $rll_slug ); ?>]" <?php checked( $rll_infos['value'] ?? 0, 1 ); ?> aria-labelledby="describe-lazyload-<?php echo esc_attr( $rll_slug ); ?>">

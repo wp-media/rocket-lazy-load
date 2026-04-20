@@ -8,7 +8,7 @@ use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractS
 use RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber;
 use WPMedia\Options\OptionArray;
 
-class AdminServiceProvider extends AbstractServiceProvider {
+class AdminServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
 	/**
 	 * Services provided by this provider
 	 *
@@ -51,7 +51,7 @@ class AdminServiceProvider extends AbstractServiceProvider {
 			->addArguments(
 				[
 					OptionArray::class,
-					$this->container->get( 'template_path' ),
+					$this->getContainer()->get( 'template_path' ),
 				]
 			);
 
@@ -59,7 +59,7 @@ class AdminServiceProvider extends AbstractServiceProvider {
 			->addArguments(
 				[
 					AdminPage::class,
-					$this->container->get( 'plugin_basename' ),
+					$this->getContainer()->get( 'plugin_basename' ),
 				]
 			);
 	}

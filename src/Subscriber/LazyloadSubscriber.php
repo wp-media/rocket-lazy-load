@@ -106,7 +106,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 		$script_args = [
 			'base_url' => Config::get( 'assets_url' ) . 'js/',
 			'version'  => '16.1',
-			'polyfill' => false,
 		];
 
 		$inline_args = [
@@ -121,7 +120,6 @@ class LazyloadSubscriber implements SubscriberInterface {
 
 		if ( $this->options->get( 'images' ) || $this->options->get( 'iframes' ) ) {
 			if ( $this->is_native_images() ) {
-				$inline_args['elements']            = isset( $inline_args['elements'] ) ? $inline_args['elements'] : [];
 				$inline_args['elements']['loading'] = '[loading=lazy]';
 			}
 		}
@@ -176,9 +174,10 @@ class LazyloadSubscriber implements SubscriberInterface {
 		$thumbnail_resolution = apply_filters( 'rocket_lazyload_youtube_thumbnail_resolution', 'hqdefault' );
 
 		$this->assets->insertYoutubeThumbnailScript(
+			// @phpstan-ignore-next-line
 			[
 				'resolution' => $thumbnail_resolution,
-				'lazy_image' => (bool) $this->options->get( 'images' ),
+				'lazy_image' => (bool) $this->options->get( 'images', false ),
 			]
 		);
 	}
@@ -372,7 +371,13 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * @return string
 	 */
 	private function ignoreScripts( $html ) {
-		return preg_replace( '/<script\b(?:[^>]*)>(?:.+)?<\/script>/Umsi', '', $html );
+		$replaced = preg_replace( '/<script\b(?:[^>]*)>(?:.+)?<\/script>/Umsi', '', $html );
+
+		if ( null === $replaced ) {
+			return $html;
+		}
+
+		return $replaced;
 	}
 
 	/**
@@ -383,7 +388,13 @@ class LazyloadSubscriber implements SubscriberInterface {
 	 * @return string
 	 */
 	private function ignoreNoscripts( $html ) {
-		return preg_replace( '#<noscript>(?:.+)</noscript>#Umsi', '', $html );
+		$replaced = preg_replace( '#<noscript>(?:.+)</noscript>#Umsi', '', $html );
+
+		if ( null === $replaced ) {
+			return $html;
+		}
+
+		return $replaced;
 	}
 
 	/**
