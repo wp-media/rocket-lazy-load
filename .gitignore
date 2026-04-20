@@ -1,3 +1,4 @@
 /vendor/
 package-lock.json
 .phpunit.result.cache
+composer.lock
