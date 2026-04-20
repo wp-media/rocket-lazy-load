@@ -6,9 +6,9 @@
 
 .distignore
 .gitignore
-.travis.yml
 composer.lock
 LICENSE
 phpcs.xml
+phpstan.neon.dist
 phpunit.xml.dist
 readme.md
