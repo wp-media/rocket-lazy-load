@@ -1,7 +1,7 @@
 {
   "name": "rocket-lazy-load",
   "version": "2.4.0",
-  "description": "Standalone LazyLoad plugin for WordPress (based on WP Rocket) ",
+  "description": "Standalone LazyLoad plugin for WordPress (based on WP Rocket)",
   "author": "WP Media",
   "license": "GPL-2.0-or-later",
   "keywords": ["lazyload", "wordpress", "plugin"],
