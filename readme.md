@@ -26,7 +26,7 @@ Take a look at our complete list of reasons [why you should use lazy loading](ht
 
 ## How to build the plugin
 
-In order to build the plugin you need have composer installed.
+In order to build the plugin you need to have Composer installed.
 
 Once it is the case you can follow these steps:
 
@@ -124,10 +124,10 @@ You can report any security bugs found in the source code of the site-reviews pl
 Security: Fix an authenticated Stored Cross-Site Scripting (XSS) vulnerability reported by Pathstack.
 
 = 2.3.9 =
-Updated version to fix a mismatch between the tag of the release on Github and the release version which leads to a deployment issue that.
+Updated version to fix a mismatch between the tag of the release on GitHub and the release version which leads to a deployment issue that.
 
 = 2.3.8 =
-Enhancement: Launchpad compatibility (see [https://github.com/wp-launchpad])
+Enhancement: Launchpad compatibility (see [wp-launchpad](https://github.com/wp-launchpad))
 Enhancement: Raised compatibility with PHP > 7.3
 Bug: Removed `wp-media/rocket-lazyload-common` from vendors
 Enhancement: Raised `wp-media/rocket-lazyload-common` to 3.0
