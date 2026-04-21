@@ -1,25 +1,29 @@
 {
-  "name": "rocket-lazy-load",
-  "version": "2.4.0",
-  "description": "Standalone LazyLoad plugin for WordPress (based on WP Rocket) ",
-  "author": "WP Media",
-  "license": "GPL-2.0-or-later",
-  "keywords": ["lazyload", "wordpress", "plugin"],
-  "homepage": "https://github.com/wp-media/rocket-lazy-load",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wp-media/rocket-lazy-load.git"
-  },
-  "bugs": {
-    "url": "https://github.com/wp-media/rocket-lazy-load/issues"
-  },
+	"name": "rocket-lazy-load",
+	"version": "2.4.0",
+	"description": "Standalone LazyLoad plugin for WordPress (based on WP Rocket) ",
+	"author": "WP Media",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"lazyload",
+		"wordpress",
+		"plugin"
+	],
+	"homepage": "https://github.com/wp-media/rocket-lazy-load",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wp-media/rocket-lazy-load.git"
+	},
+	"bugs": {
+		"url": "https://github.com/wp-media/rocket-lazy-load/issues"
+	},
 	"devDependencies": {
 		"@wordpress/scripts": "^32.0.0"
 	},
 	"scripts": {
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
-    "lint:md:docs": "wp-scripts lint-md-docs",
-    "lint:pkg-json": "wp-scripts lint-pkg-json"
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:pkg-json": "wp-scripts lint-pkg-json"
 	}
 }
