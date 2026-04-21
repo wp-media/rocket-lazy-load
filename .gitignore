@@ -1,6 +1,4 @@
-.DS_Store
 /vendor/
-.lando.yml
 package-lock.json
-.idea
-src/Dependencies/Launchpad*/
+.phpunit.result.cache
+composer.lock
