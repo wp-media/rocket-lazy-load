@@ -33,11 +33,11 @@
 		}
 	},
 	"autoload-dev": {
-        "psr-4": {
-            "RocketLazyLoadPlugin\\Tests\\Unit\\": "tests/Unit",
-            "RocketLazyLoadPlugin\\Tests\\Integration\\": "tests/Integration"
-        }
-    },
+		"psr-4": {
+			"RocketLazyLoadPlugin\\Tests\\Unit\\": "tests/Unit",
+			"RocketLazyLoadPlugin\\Tests\\Integration\\": "tests/Integration"
+		}
+	},
 	"require": {
 		"php": ">=7.4",
 		"composer/installers": "^2.0",
@@ -75,7 +75,7 @@
 		"phpcs": "vendor/bin/phpcs",
 		"phpcbf": "vendor/bin/phpcbf",
 		"phpstan": "vendor/bin/phpstan analyze --memory-limit=2G",
-        "test-unit": "\"vendor/bin/phpunit\" --testsuite unit --colors=always --configuration tests/Unit/phpunit.xml.dist",
+		"test-unit": "\"vendor/bin/phpunit\" --testsuite unit --colors=always --configuration tests/Unit/phpunit.xml.dist",
 		"test-integration": "\"vendor/bin/phpunit\" --testsuite integration --colors=always --configuration tests/Integration/phpunit.xml.dist",
 		"post-install-cmd": [
 			"\"vendor/bin/mozart\" compose",

@@ -1,14 +1,14 @@
 name: PHPUnit Tests
 
 on:
-  pull_request:
-  # Allow manually triggering the workflow.
-  workflow_dispatch:
+    pull_request:
+    # Allow manually triggering the workflow.
+    workflow_dispatch:
 
 # Cancel all previous workflow runs for the same branch that have not yet completed.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
 
 jobs:
     setup:
@@ -22,8 +22,8 @@ jobs:
         name: WP ${{ matrix.wp-versions }} with PHP ${{ matrix.php-versions }}
 
         env:
-            WP_TESTS_DIR: "/tmp/tests/phpunit"
-            WP_CORE_DIR: "/tmp/wordpress-develop"
+            WP_TESTS_DIR: '/tmp/tests/phpunit'
+            WP_CORE_DIR: '/tmp/wordpress-develop'
 
         steps:
             - name: Checkout
@@ -33,7 +33,7 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php-versions }}
-                  coverage: none  # XDebug can be enabled here 'coverage: xdebug'
+                  coverage: none # XDebug can be enabled here 'coverage: xdebug'
                   tools: composer:v2, phpunit
 
             - name: Install SVN
@@ -49,7 +49,7 @@ jobs:
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
             - name: Install Composer dependencies
-              uses: "ramsey/composer-install@v3"
+              uses: 'ramsey/composer-install@v3'
               with:
                   # Bust the cache at least once a month - output format: YYYY-MM.
                   custom-cache-suffix: $(date -u "+%Y-%m")

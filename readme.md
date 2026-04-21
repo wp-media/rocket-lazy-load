@@ -17,7 +17,7 @@ Lazy loading is a key performance technique to make your site faster. You’ll r
 
 [Lazy loading your images on WordPress](https://wp-rocket.me/blog/lazy-loading-wordpress-5-5/) will help you achieve a better PageSpeed Insights score for three main reasons:
 
-* You’ll address a specific PageSpeed Insights recommendation: [Defer offscreen images](https://wp-rocket.me/google-core-web-vitals-wordpress/defer-offscreen-images/, which means image lazy loading.
+* You’ll address a specific PageSpeed Insights recommendation: [Defer offscreen images](https://wp-rocket.me/google-core-web-vitals-wordpress/defer-offscreen-images/), which means image lazy loading.
 * You’ll improve the performance of two key metrics: [First Input Delay](https://wp-rocket.me/google-core-web-vitals-wordpress/improve-first-input-delay/) (Core Web Vital) and [Total Blocking Time](https://wp-rocket.me/lighthouse-performance-score-wordpress/reduce-total-blocking-time/) (Lighthouse metric).
 * You’ll [make fewer HTTP requests](https://wp-rocket.me/blog/reduce-http-requests-speed-wordpress-site/) – that is another way to boost your site speed and [improve the Largest Contentful Paint score](https://wp-rocket.me/google-core-web-vitals-wordpress/improve-largest-contentful-paint/) (another Core Web Vital).
 
@@ -29,10 +29,11 @@ Take a look at our complete list of reasons [why you should use lazy loading](ht
 In order to build the plugin you need have composer installed.
 
 Once it is the case you can follow these steps:
-- Download the zip from the plugin and unzip in a folder.
-- Move inside that folder and run the command `composer i` to install the full plugin and let the script installing protected dependencies run.
-- Run the command `composer i --no-dev --no-scripts -o` to install a production version from dependencies.
-- Zip back the folder and you have a working version from the plugin.
+
+* Download the zip from the plugin and unzip in a folder.
+* Move inside that folder and run the command `composer i` to install the full plugin and let the script installing protected dependencies run.
+* Run the command `composer i --no-dev --no-scripts -o` to install a production version from dependencies.
+* Zip back the folder and you have a working version from the plugin.
 
 ## Dependencies
 
@@ -46,6 +47,7 @@ LazyLoad script: [https://github.com/verlok/lazyload](https://github.com/verlok/
 ## Frequently Asked Questions
 
 ### How can I use native lazyload?
+
 To use native lazyload on browsers supporting this feature, you need to use the following line:
 
 `add_filter( 'rocket_use_native_lazyload', '__return_true' );`
@@ -67,7 +69,7 @@ add_filter( 'do_rocket_lazyload', '__return_false' );
 }
 `
 
-###  How can I deactivate Lazy Load on some images?
+### How can I deactivate Lazy Load on some images?
 
 Simply add a `data-no-lazy="1"` property in you `img` or `iframe` tag.
 
@@ -117,6 +119,7 @@ You can report any security bugs found in the source code of the site-reviews pl
 * [Increase Max upload file size](https://wordpress.org/plugins/upload-max-file-size/) is the best plugin to increase the upload file size limit to any value with one click.
 
 ## Changelog
+
 = 2.4.0 =
 Security: Fix an authenticated Stored Cross-Site Scripting (XSS) vulnerability reported by Pathstack.
 
@@ -124,7 +127,7 @@ Security: Fix an authenticated Stored Cross-Site Scripting (XSS) vulnerability r
 Updated version to fix a mismatch between the tag of the release on Github and the release version which leads to a deployment issue that.
 
 = 2.3.8 =
-Enhancement: Launchpad compatibility (see https://github.com/wp-launchpad)
+Enhancement: Launchpad compatibility (see [https://github.com/wp-launchpad])
 Enhancement: Raised compatibility with PHP > 7.3
 Bug: Removed `wp-media/rocket-lazyload-common` from vendors
 Enhancement: Raised `wp-media/rocket-lazyload-common` to 3.0
@@ -138,13 +141,13 @@ Enhancement: Change WP readme content.
 
 = 2.3.4 =
 Enhancement: Allow `<a>` tags to lazyload background images
-Enhancement: Add <noscript> tag to lazyloaded picture elements
+Enhancement: Add `<noscript>` tag to lazyloaded picture elements
 Bugfix: Prevent a Fatal error related to the League Container package conflict with WooCommerce 4.4
 Bugfix: Update lazyload for background images support for new version of lazyload script
 Bugfix: Correctly apply the rocket-lazyload class on elements with a background-image and an empty class value
 Bugfix: Correctly apply the rocket-lazyloadclass on elements with malformed HTML
 Bugfix: Prevent a display issue with background-images when using different types of quotes around the URL
-Bugfix: Prevent Layout from breaking when <img> alt attribute has any html encoded characters
+Bugfix: Prevent Layout from breaking when `<img>` alt attribute has any html encoded characters
 
 = 2.3.3 =
 Enhancement: Add data-skip-lazy and skip-lazy class to exclusions list as part of the interoperability initiative between lazyload plugins
@@ -168,6 +171,7 @@ Bugfix: Prevent broken image in some cases for picture element
 Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a picture element
 
 = 2.2.3 =
+
 * Enhancement: Improve compatibility for the picture element
 * Enhancement: Apply lazyload on background images set on section, span and li elements
 * Enhancement: also pass $width and $height values to the rocket_lazyload_placeholder filter
@@ -176,10 +180,12 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Bugfix: Exclude Enfold avia-background-fixed background images and data-large_image from lazyload
 
 = 2.2.2 =
+
 * Bugfix: Auto-exclude data-height-percentage attribute to prevent display issues
 * Bugfix: Correctly handle responsive videos using fitVids again
 
 = 2.2.1 =
+
 * Enhancement: add a way to customize the lazyload script options
 * Bugfix: Prevent error on Internet Explorer 11
 * Bugfix: Prevent conflict with WooCommerce variation swatches
@@ -187,11 +193,13 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Bugfix: Prevent issue when the original `src` attribute uses single quotes
 
 = 2.2 =
+
 * Enhancement: Update lazyload script to the latest version
 * Enhancement: Use the dimensions of the original image for the placeholder size when possible, to reduce content reflow
 * Enhancement: Ignore images using the new loading attribute introduce by Chrome for browser-native lazyload
 
 = 2.1.5 =
+
 * Bugfix: Prevent matching with the wrong data when a data-style attribute is on a div for background images
 * Remove data-cfasync="false" by default
 * Enhancement: Add filter rocket_lazyload_script_tag to modify the lazyload script HTML if needed
@@ -199,12 +207,15 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Enhancement: Improve MutationObserver code to only call the lazyload update method if an image/iframe or element with .rocket-lazyload is contained in the new node(s) added to the DOM
 
 = 2.1.4 =
+
 * Regression fix: Correctly exclude scripts from lazyload again
 
 = 2.1.3 =
+
 * Bugfix: Ignore content inside noscript tags to prevent modifying them and causing some display issues
 
 = 2.1.2 =
+
 * Enhancement: Update lazyload script to the latest version
 * Enhancement: Add a way to lazyload the Youtube thumbnail image
 * Enhancement: Add width and height attributes to the Youtube thumbnail image depending on the resolution
@@ -215,39 +226,48 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 
 
 = 2.1.1 =
+
 * Bugfix: Correctly apply lazyload on `picture` elements
 * Bugfix: Prevent double loading of an image when an `img` element inside a `picture` element only has a `srcset` attribute and no `src` attribute
 
 = 2.1 =
+
 * Enhancement: Update lazyload script to the latest version
 * Enhancement: Apply lazyload on picture elements found on the page
 * Enhancement: Apply lazyload on div elements with a background image found on the page. See FAQ for more info.
 
 = 2.0.4 =
+
 * Enhancement: Add filter for iframe lazyload pattern exclusion
 * Enhancement: Auto-exclude soliloquy-image pattern from lazyload
 * Bugfix: Prevent issue when an image/iframe is duplicated on the same page
 * Bugfix: Prevent W3C validation error for the SVG placeholder
 
 = 2.0.3.2 =
+
 * Bugfix: Correctly ignore inline scripts with line breaks inside
 
 = 2.0.3.1 =
+
 * Bugfix: Correct an issue preventing lazyload from working
 
 = 2.0.3 =
+
 * Bugfix: Prevent incorrect display if JavaScript is disabled
 * Bugfix: Don't apply lazyload on Divi/Extra/Beaver Builder Editor pages
 * Bugfix: Use the correct URL for each iframe when multiple iframes are on the same page
 * Bugfix: Ignore content inside inline script tags to prevent applying lazyload in it
 
 = 2.0.2 =
+
 * Bugfix: Fix an error in the compatibility for the AMP plugin
 
 = 2.0.1 =
+
 * Bugfix: Prevent a fatal error on case sensitive operating systems
 
 = 2.0 =
+
 * Enhancement: Lazyload is now applied on the template_redirect hook, which should allow the plugin to apply the optimization on more images and encountering less conflicts at the same time
 * Enhancement: Specifically target with the lazyload script images/iframes elements with a data-lazy-src attribute
 * Enhancement: Update lazyload script to the latest version
@@ -259,6 +279,7 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Bugfix: Update CSS for the Youtube thumbnail option to prevent issue with the Gutenberg embeds block
 
 = 1.4.9 =
+
 * Enhancement: Update lazyload script to the latest available version
 * Enhancement: Use lazy-sizes to prevent W3C validation error when sizes is defined but srcset is not
 * Enhancement: Parse images or iframes only if the element is selected to be lazyloaded in the options
@@ -266,6 +287,7 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Fix: Prevent PHP Notice with WooCommerce for product images
 
 = 1.4.8 =
+
 * Notice: Minimum WordPress version required is now 4.7
 * Enhancement: Update lazyload script version
 * Enhancement: Remove placeholder image to improve perceived loading time
@@ -279,47 +301,59 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Fix: Correct text domain for translations (thanks @ Chantal Coolsma)
 
 = 1.4.7 =
+
 * Fix compatibility with infinite scroll
 * Prevent lazyload on masterSlider images
 
 = 1.4.6 =
+
 * Correctly include version 8.5.2 of lazyload script
 * Prevent 404 error on lazyload script if URL contains "-v"
 
 = 1.4.5 =
+
 * Rename Setting Page Name in WP Menu
 * New Product Banner in Settings Page
 * Conditionally load a different version of the script depending on browser support of IntersectionObserver
 * Fix a bug where images initially hidden are not correctly displayed when coming into view (slider, tabs, accordion)
 
 = 1.4.4 =
+
 * Admin Redesign
 
 = 1.4.3 =
+
 * Plugin is compatible again with PHP < 5.4
 
 = 1.4.2 =
+
 * Update lazyload script to bring back compatibility with IE9/10
 
 = 1.4.1 =
+
 * Fix bug caused by a too aggressive cleanup
 
 = 1.4 =
+
 * New option: replace Youtube videos by thumbnail. This option can improve your loading time a lot, especially if you have multiple videos on the same page
 
 = 1.3.3 =
+
 * 2017-09-16
 * Prevent scripts and styles being removed during html parsing
 
 = 1.3.2 =
+
 * 2017-09-12
 * Fix images not displaying in certain conditions because image attributes exclusion was not working correctly
 
 = 1.3.1 =
+
 * 2017-09-07
 * Don't apply lazyload on Divi slider
 
 = 1.3 =
+
 * 2017-09-01
 * Improve HTML parsing of images and iframes to be faster and more efficient
 * Make the lazyload compatible with fitVids for iframes
@@ -328,20 +362,24 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * Don't apply lazyload on upPrev thumbnail
 
 = 1.2.1 =
+
 * 2017-08-22
 * Fix missing lazyload script
 * Don't lazyload for images in REST API requests
 
 = 1.2 =
+
 * 2017-08-22
 * Update lazyload script to latest version
 * Change the way the script is loaded
 
 = 1.1.1 =
+
 * 2017-02-13
 * Bug fix: Remove use of short tag to prevent 500 error on some installations
 
 = 1.1 =
+
 * 2017-02-12
 * *New*
 * JS library updated
@@ -350,27 +388,33 @@ Bugfix: Prevent wrong lazy attributes for srcset and sizes on an image inside a 
 * New options page
 
 = 1.0.4 =
+
 * 2015-04-28
 * Bug Fix: Resolved a conflict between LazyLoad & Emoji since WordPress 4.2
 
 = 1.0.3 =
+
 * 2015-01-08
 * Bug Fix: Don't apply LazyLoad on captcha from Really Simple CAPTCHA to prevent conflicts.
 
 = 1.0.2 =
+
 * 2014-12-28
 * Improvement: Add « rocket_lazyload_html » filter to manage the output that will be printed.
 
 = 1.0.1.1 =
+
 * 2014-07-25
 * Fix stupid error with new regex in 1.0.1
 
 = 1.0.1 =
+
 * 2014-07-16
 * Bug Fix: when a IMG tag or content (widget or post) contains the string "data-no-lazy", all IMG tags were ignored instead of one.
 * Security fix: The preg_replace() could lead to a XSS vuln, thanks to Alexander Concha
 * Code compliance
 
 = 1.0 =
+
 * 2014-01-01
 * Initial release.
