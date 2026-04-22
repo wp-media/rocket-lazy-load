@@ -7,43 +7,43 @@ use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractS
 use RocketLazyLoadPlugin\ServiceProvider\ServiceProviderSubscribersInterface;
 
 class ServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
-    /**
-     * Services provided by this provider
-     *
-     * @var array
-     */
-    protected $provides = [
-        AMPSubscriber::class,
-    ];
+	/**
+	 * Services provided by this provider
+	 *
+	 * @var array
+	 */
+	protected $provides = [
+		AMPSubscriber::class,
+	];
 
-    /**
-     * Subscribers provided by this provider
-     *
-     * @return array
-     */
-    public function get_subscribers(): array {
-        return [
-            AMPSubscriber::class,
-        ];
-    }
+	/**
+	 * Subscribers provided by this provider
+	 *
+	 * @return array
+	 */
+	public function get_subscribers(): array {
+		return [
+			AMPSubscriber::class,
+		];
+	}
 
-    /**
-     * Check if the service provider provides a specific service.
-     *
-     * @param string $id The id of the service.
-     *
-     * @return bool
-     */
-    public function provides( string $id ): bool {
-        return in_array( $id, $this->provides, true );
-    }
+	/**
+	 * Check if the service provider provides a specific service.
+	 *
+	 * @param string $id The id of the service.
+	 *
+	 * @return bool
+	 */
+	public function provides( string $id ): bool {
+		return in_array( $id, $this->provides, true );
+	}
 
-    /**
-     * Registers the provided classes
-     *
-     * @return void
-     */
-    public function register(): void {
-        $this->getContainer()->addShared( AMPSubscriber::class );
-    }
+	/**
+	 * Registers the provided classes
+	 *
+	 * @return void
+	 */
+	public function register(): void {
+		$this->getContainer()->addShared( AMPSubscriber::class );
+	}
 }
