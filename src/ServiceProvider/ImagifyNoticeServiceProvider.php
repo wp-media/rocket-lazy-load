@@ -5,6 +5,7 @@ namespace RocketLazyLoadPlugin\ServiceProvider;
 
 use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
 use RocketLazyLoadPlugin\Admin\ImagifyNotice;
+use RocketLazyLoadPlugin\Render\Render;
 use RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber;
 
 class ImagifyNoticeServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
@@ -47,7 +48,7 @@ class ImagifyNoticeServiceProvider extends AbstractServiceProvider implements Se
 	 */
 	public function register(): void {
 		$this->getContainer()->add( ImagifyNotice::class )
-			->addArgument( $this->getContainer()->get( 'template_path' ) );
+			->addArgument( Render::class );
 
 		$this->getContainer()->addShared( ImagifyNoticeSubscriber::class )
 			->addArgument( ImagifyNotice::class );
