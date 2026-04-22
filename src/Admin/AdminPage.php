@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace RocketLazyLoadPlugin\Admin;
 
 use WPMedia\Options\OptionArray;
+use RocketLazyLoadPlugin\Render\Render;
 
 class AdminPage {
 	/**
@@ -21,21 +22,21 @@ class AdminPage {
 	private $options;
 
 	/**
-	 * Template path
+	 * Render instance
 	 *
-	 * @var string
+	 * @var Render
 	 */
-	private $template_path;
+	private $render;
 
 	/**
 	 * Constructor
 	 *
 	 * @param OptionArray $options Option array instance.
-	 * @param string      $template_path Template path.
+	 * @param Render      $render  Render instance.
 	 */
-	public function __construct( OptionArray $options, string $template_path ) {
+	public function __construct( OptionArray $options, Render $render ) {
 		$this->options       = $options;
-		$this->template_path = $template_path;
+		$this->render        = $render;
 	}
 
 	/**
@@ -116,26 +117,6 @@ class AdminPage {
 			],
 		];
 
-		$this->render_template( 'admin-page', $data );
-	}
-
-	/**
-	 * Renders the given template if it's readable.
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $template Template name.
-	 * @param array  $data     Data to pass to the template.
-	 *
-	 * @return void
-	 */
-	protected function render_template( $template, array $data = [] ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		$template_path = $this->template_path . $template . '.php';
-
-		if ( ! is_readable( $template_path ) ) {
-			return;
-		}
-
-		include $template_path;
+		$this->render->render_template( 'admin-page', $data );
 	}
 }

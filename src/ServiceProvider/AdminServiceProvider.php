@@ -5,6 +5,7 @@ namespace RocketLazyLoadPlugin\ServiceProvider;
 
 use RocketLazyLoadPlugin\Admin\AdminPage;
 use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
+use RocketLazyLoadPlugin\Render\Render;
 use RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber;
 use WPMedia\Options\OptionArray;
 
@@ -51,7 +52,7 @@ class AdminServiceProvider extends AbstractServiceProvider implements ServicePro
 			->addArguments(
 				[
 					OptionArray::class,
-					$this->getContainer()->get( 'template_path' ),
+					Render::class,
 				]
 			);
 

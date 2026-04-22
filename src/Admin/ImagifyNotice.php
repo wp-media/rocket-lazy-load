@@ -3,21 +3,23 @@ declare(strict_types=1);
 
 namespace RocketLazyLoadPlugin\Admin;
 
+use RocketLazyLoadPlugin\Render\Render;
+
 class ImagifyNotice {
 	/**
-	 * Template path
+	 * Render instance
 	 *
-	 * @var string
+	 * @var Render
 	 */
-	private $template_path;
+	private $render;
 
 	/**
 	 * Constructor
 	 *
-	 * @param string $template_path Template path.
+	 * @param Render $render Render instance.
 	 */
-	public function __construct( $template_path ) {
-		$this->template_path = $template_path;
+	public function __construct( Render $render ) {
+		$this->render = $render;
 	}
 
 	/**
@@ -28,25 +30,6 @@ class ImagifyNotice {
 	 * @return void
 	 */
 	public function display_notice() {
-		$this->render_template( 'imagify-notice' );
-	}
-
-	/**
-	 * Renders the given template if it's readable.
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $template Template name.
-	 *
-	 * @return void
-	 */
-	protected function render_template( $template ): void {
-		$template_path = $this->template_path . $template . '.php';
-
-		if ( ! is_readable( $template_path ) ) {
-			return;
-		}
-
-		include $template_path;
+		$this->render->render_template( 'imagify-notice' );
 	}
 }
