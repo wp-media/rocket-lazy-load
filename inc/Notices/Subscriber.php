@@ -1,12 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace RocketLazyLoadPlugin\Subscriber;
+namespace RocketLazyLoadPlugin\Notices;
 
-use RocketLazyLoadPlugin\Admin\ImagifyNotice;
 use WPMedia\EventManager\SubscriberInterface;
 
-class ImagifyNoticeSubscriber implements SubscriberInterface {
+class Subscriber implements SubscriberInterface {
 	/**
 	 * ImagifyNotice instance
 	 *

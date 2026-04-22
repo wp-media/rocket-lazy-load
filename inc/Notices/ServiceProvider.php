@@ -1,14 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace RocketLazyLoadPlugin\ServiceProvider;
+namespace RocketLazyLoadPlugin\Notices;
 
 use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
-use RocketLazyLoadPlugin\Admin\ImagifyNotice;
+use RocketLazyLoadPlugin\ServiceProvider\ServiceProviderSubscribersInterface;
 use RocketLazyLoadPlugin\Render\Render;
-use RocketLazyLoadPlugin\Subscriber\ImagifyNoticeSubscriber;
 
-class ImagifyNoticeServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
+class ServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
 	/**
 	 * Services provided by this provider
 	 *
@@ -16,7 +15,7 @@ class ImagifyNoticeServiceProvider extends AbstractServiceProvider implements Se
 	 */
 	protected $provides = [
 		ImagifyNotice::class,
-		ImagifyNoticeSubscriber::class,
+		Subscriber::class,
 	];
 
 	/**
@@ -26,7 +25,7 @@ class ImagifyNoticeServiceProvider extends AbstractServiceProvider implements Se
 	 */
 	public function get_subscribers(): array {
 		return [
-			ImagifyNoticeSubscriber::class,
+			Subscriber::class,
 		];
 	}
 
@@ -50,7 +49,7 @@ class ImagifyNoticeServiceProvider extends AbstractServiceProvider implements Se
 		$this->getContainer()->add( ImagifyNotice::class )
 			->addArgument( Render::class );
 
-		$this->getContainer()->addShared( ImagifyNoticeSubscriber::class )
+		$this->getContainer()->addShared( Subscriber::class )
 			->addArgument( ImagifyNotice::class );
 	}
 }
