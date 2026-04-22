@@ -1,17 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace RocketLazyLoadPlugin\ServiceProvider;
+namespace RocketLazyLoadPlugin\Lazyload;
 
 use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Image;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Iframe;
-use RocketLazyLoadPlugin\Subscriber\LazyloadSubscriber;
-use RocketLazyLoadPlugin\Subscriber\ThirdParty\AMPSubscriber;
+use RocketLazyLoadPlugin\ServiceProvider\ServiceProviderSubscribersInterface;
 use WPMedia\Options\OptionArray;
 
-class LazyloadServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
+class ServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
 	/**
 	 * Services provided by this provider
 	 *
@@ -21,8 +20,7 @@ class LazyloadServiceProvider extends AbstractServiceProvider implements Service
 		Assets::class,
 		Image::class,
 		Iframe::class,
-		LazyloadSubscriber::class,
-		AMPSubscriber::class,
+		Subscriber::class,
 	];
 
 	/**
@@ -32,8 +30,7 @@ class LazyloadServiceProvider extends AbstractServiceProvider implements Service
 	 */
 	public function get_subscribers(): array {
 		return [
-			AMPSubscriber::class,
-			LazyloadSubscriber::class,
+			Subscriber::class,
 		];
 	}
 
@@ -58,9 +55,7 @@ class LazyloadServiceProvider extends AbstractServiceProvider implements Service
 		$this->getContainer()->add( Image::class );
 		$this->getContainer()->add( Iframe::class );
 
-		$this->getContainer()->addShared( AMPSubscriber::class );
-
-		$this->getContainer()->addShared( LazyloadSubscriber::class )
+		$this->getContainer()->addShared( Subscriber::class )
 			->addArguments(
 				[
 					Assets::class,

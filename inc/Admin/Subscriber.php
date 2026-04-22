@@ -1,13 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace RocketLazyLoadPlugin\Subscriber;
+namespace RocketLazyLoadPlugin\Admin;
 
-use RocketLazyLoadPlugin\Admin\AdminPage;
 use RocketLazyLoadPlugin\Config;
 use WPMedia\EventManager\SubscriberInterface;
 
-class AdminPageSubscriber implements SubscriberInterface {
+class Subscriber implements SubscriberInterface {
 	/**
 	 * AdminPage instance
 	 *

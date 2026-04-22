@@ -5,7 +5,7 @@ parameters:
     inferPrivatePropertyTypeFromConstructor: true
     paths:
         - includes/
-        - src/
+        - inc/
         - rocket-lazy-load.php
     excludePaths:
-        - src/Dependencies/
+        - inc/Dependencies/

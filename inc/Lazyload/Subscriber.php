@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace RocketLazyLoadPlugin\Subscriber;
+namespace RocketLazyLoadPlugin\Lazyload;
 
 use RocketLazyLoadPlugin\Config;
 use RocketLazyLoadPlugin\Dependencies\RocketLazyload\Assets;
@@ -15,7 +15,7 @@ use WPMedia\Options\OptionArray;
  *
  * @since 2.0
  */
-class LazyloadSubscriber implements SubscriberInterface {
+class Subscriber implements SubscriberInterface {
 	/**
 	 * Assets instance
 	 *

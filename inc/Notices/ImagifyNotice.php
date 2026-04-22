@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace RocketLazyLoadPlugin\Admin;
+namespace RocketLazyLoadPlugin\Notices;
 
 use RocketLazyLoadPlugin\Render\Render;
 

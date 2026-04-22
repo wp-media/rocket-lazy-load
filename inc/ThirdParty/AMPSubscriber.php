@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace RocketLazyLoadPlugin\Subscriber\ThirdParty;
+namespace RocketLazyLoadPlugin\ThirdParty;
 
 use WPMedia\EventManager\EventManagerAwareSubscriberInterface;
 use WPMedia\EventManager\EventManager;

@@ -4,7 +4,8 @@ defined( 'ABSPATH' ) || exit;
 
 return [
 	\RocketLazyLoadPlugin\Render\ServiceProvider::class,
-	\RocketLazyLoadPlugin\ServiceProvider\AdminServiceProvider::class,
-	\RocketLazyLoadPlugin\ServiceProvider\ImagifyNoticeServiceProvider::class,
-	\RocketLazyLoadPlugin\ServiceProvider\LazyloadServiceProvider::class,
+	\RocketLazyLoadPlugin\Admin\ServiceProvider::class,
+	\RocketLazyLoadPlugin\Notices\ServiceProvider::class,
+	\RocketLazyLoadPlugin\Lazyload\ServiceProvider::class,
+	\RocketLazyLoadPlugin\ThirdParty\ServiceProvider::class,
 ];

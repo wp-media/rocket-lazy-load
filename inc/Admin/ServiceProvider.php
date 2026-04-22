@@ -1,15 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace RocketLazyLoadPlugin\ServiceProvider;
+namespace RocketLazyLoadPlugin\Admin;
 
-use RocketLazyLoadPlugin\Admin\AdminPage;
 use RocketLazyLoadPlugin\Dependencies\League\Container\ServiceProvider\AbstractServiceProvider;
 use RocketLazyLoadPlugin\Render\Render;
-use RocketLazyLoadPlugin\Subscriber\AdminPageSubscriber;
+use RocketLazyLoadPlugin\ServiceProvider\ServiceProviderSubscribersInterface;
 use WPMedia\Options\OptionArray;
 
-class AdminServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
+class ServiceProvider extends AbstractServiceProvider implements ServiceProviderSubscribersInterface {
 	/**
 	 * Services provided by this provider
 	 *
@@ -17,7 +16,7 @@ class AdminServiceProvider extends AbstractServiceProvider implements ServicePro
 	 */
 	protected $provides = [
 		AdminPage::class,
-		AdminPageSubscriber::class,
+		Subscriber::class,
 	];
 
 	/**
@@ -38,7 +37,7 @@ class AdminServiceProvider extends AbstractServiceProvider implements ServicePro
 	 */
 	public function get_subscribers(): array {
 		return [
-			AdminPageSubscriber::class,
+			Subscriber::class,
 		];
 	}
 
@@ -56,7 +55,7 @@ class AdminServiceProvider extends AbstractServiceProvider implements ServicePro
 				]
 			);
 
-		$this->getContainer()->add( AdminPageSubscriber::class )
+		$this->getContainer()->add( Subscriber::class )
 			->addArguments(
 				[
 					AdminPage::class,
