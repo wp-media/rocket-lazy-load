@@ -29,7 +29,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"RocketLazyLoadPlugin\\": "src/"
+			"RocketLazyLoadPlugin\\": "inc/"
 		}
 	},
 	"autoload-dev": {
@@ -61,7 +61,7 @@
 	"extra": {
 		"mozart": {
 			"dep_namespace": "RocketLazyLoadPlugin\\Dependencies\\",
-			"dep_directory": "/src/Dependencies/",
+			"dep_directory": "/inc/Dependencies/",
 			"classmap_directory": "/classes/dependencies/",
 			"classmap_prefix": "RLLP_",
 			"packages": [
