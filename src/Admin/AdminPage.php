@@ -35,8 +35,8 @@ class AdminPage {
 	 * @param Render      $render  Render instance.
 	 */
 	public function __construct( OptionArray $options, Render $render ) {
-		$this->options       = $options;
-		$this->render        = $render;
+		$this->options = $options;
+		$this->render  = $render;
 	}
 
 	/**

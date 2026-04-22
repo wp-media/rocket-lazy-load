@@ -4,23 +4,23 @@ declare(strict_types=1);
 namespace RocketLazyLoadPlugin\Render;
 
 class Render {
-    /**
-     * Template path
-     *
-     * @var string
-     */
-    private $template_path;
+	/**
+	 * Template path
+	 *
+	 * @var string
+	 */
+	private $template_path;
 
-    /**
-     * Constructor
-     *
-     * @param string $template_path Template path.
-     */
-    public function __construct(string $template_path) {
-        $this->template_path = $template_path;
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $template_path Template path.
+	 */
+	public function __construct( string $template_path ) {
+		$this->template_path = $template_path;
+	}
 
-    /**
+	/**
 	 * Renders the given template if it's readable.
 	 *
 	 * @since 2.0
