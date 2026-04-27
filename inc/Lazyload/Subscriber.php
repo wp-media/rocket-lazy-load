@@ -105,7 +105,7 @@ class Subscriber implements SubscriberInterface {
 
 		$script_args = [
 			'base_url' => Config::get( 'assets_url' ) . 'js/',
-			'version'  => '16.1',
+			'version'  => '19.1.2',
 		];
 
 		$inline_args = [
