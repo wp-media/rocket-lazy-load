@@ -60,14 +60,14 @@ You can use the `do_rocket_lazyload` filter.
 
 Here is an example to put in functions.php files that disable lazyload on posts:
 
-`
+```
 add_action( 'wp', 'deactivate_rocket_lazyload_on_single' );
-function deactivate_rocket_lazyload_on_single() {
-if ( is_single() ) {
-add_filter( 'do_rocket_lazyload', '__return_false' );
+    function deactivate_rocket_lazyload_on_single() {
+    if ( is_single() ) {
+        add_filter( 'do_rocket_lazyload', '__return_false' );
+    }
 }
-}
-`
+```
 
 ### How can I deactivate Lazy Load on some images?
 
@@ -83,12 +83,46 @@ You can use the `rocket_lazyload_threshold` filter.
 
 Code sample:
 
-`
+```
 function rocket_lazyload_custom_threshold( $threshold ) {
-return 100;
+    return 100;
 }
 add_filter( 'rocket_lazyload_threshold', 'rocket_lazyload_custom_threshold' );
-`
+```
+
+### How to remove the `<noscript>` tag
+
+You can use the `rocket_lazyload_noscript` filter to disable the addition of the `<noscript>` tag used for compatibility when JS is disabled.
+
+`add_filter( 'rocket_lazyload_noscript', '__return_false' );`
+
+### How to change the image placeholder for lazyloaded images
+
+You can use the `rocket_lazyload_placeholder` to change the default placeholder for lazyloaded images.
+
+```
+function rocket_lazyload_custom_placeholder( $placeholder ) {
+    return 'default.jpg';
+}
+add_filter( 'rocket_lazyload_placeholder')
+```
+
+### How to change the HTML output before sending to the browser
+
+You can use the `rocket_lazyload_html` filter to modify the HTML output generated after applying the lazyload and before sending it to the browser.
+
+### How to exclude YouTube videos from lazyload
+
+You can use the `rocket_lazyload_exclude_youtube_thumbnail` filter to exclude patterns matching with the YouTube videos you don't want to lazyload.
+
+```
+function rocket_lazyload_exclude_youtube( $patterns ) {
+    $patterns[] = 'string_to_match';
+
+    return $patterns;
+}
+add_filter( 'rocket_lazyload_exclude_youtube_thumbnail', 'rocket_lazyload_exclude_youtube' );
+```
 
 ### I use plugin X and my images don't show anymore
 
