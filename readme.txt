@@ -98,7 +98,7 @@ You can use the `rocket_lazyload_placeholder` to change the default placeholder 
 function rocket_lazyload_custom_placeholder( $placeholder ) {
     return 'default.jpg';
 }
-add_filter( 'rocket_lazyload_placeholder')
+add_filter( 'rocket_lazyload_placeholder', 'rocket_lazyload_custom_placeholder' );
 ```
 
 = How to change the HTML output before sending to the browser =
@@ -109,14 +109,14 @@ You can use the `rocket_lazyload_html` filter to modify the HTML output generate
 
 You can use the `rocket_lazyload_exclude_youtube_thumbnail` filter to exclude patterns matching with the YouTube videos you don't want to lazyload.
 
-```
+`
 function rocket_lazyload_exclude_youtube( $patterns ) {
     $patterns[] = 'string_to_match';
 
     return $patterns;
 }
 add_filter( 'rocket_lazyload_exclude_youtube_thumbnail', 'rocket_lazyload_exclude_youtube' );
-```
+`
 
 = I use plugin X and my images don't show anymore =
 

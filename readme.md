@@ -104,7 +104,7 @@ You can use the `rocket_lazyload_placeholder` to change the default placeholder 
 function rocket_lazyload_custom_placeholder( $placeholder ) {
     return 'default.jpg';
 }
-add_filter( 'rocket_lazyload_placeholder')
+add_filter( 'rocket_lazyload_placeholder', 'rocket_lazyload_custom_placeholder' );
 ```
 
 ### How to change the HTML output before sending to the browser
