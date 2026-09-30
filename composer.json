@@ -51,7 +51,7 @@
 		"wp-media/apply-filters-typed": "^1.0",
 		"wp-media/event-manager": "^4.0",
 		"wp-media/options": "^4.0",
-		"wp-media/rocket-lazyload-common": "^3.0.21"
+		"wp-media/rocket-lazyload-common": "dev-fix/6542-bg-quotes-youtube-autoplay"
 	},
 	"require-dev": {
 		"coenjacobs/mozart": "^0.7.0",
