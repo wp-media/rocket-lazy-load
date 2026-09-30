@@ -51,7 +51,7 @@
 		"wp-media/apply-filters-typed": "^1.0",
 		"wp-media/event-manager": "^4.0",
 		"wp-media/options": "^4.0",
-		"wp-media/rocket-lazyload-common": "^3.0.20"
+		"wp-media/rocket-lazyload-common": "^3.0.21"
 	},
 	"require-dev": {
 		"coenjacobs/mozart": "^0.7.0",
