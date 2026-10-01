@@ -154,6 +154,9 @@ You can report any security bugs found in the source code of the site-reviews pl
 
 ## Changelog
 
+= 2.4.1 =
+Bugfix: Improve attribute detection for background images and harden YouTube thumbnail rendering (rocket-lazyload-common 3.0.22)
+
 = 2.4.0 =
 Security: Fix an authenticated Stored Cross-Site Scripting (XSS) vulnerability reported by Pathstack.
 
