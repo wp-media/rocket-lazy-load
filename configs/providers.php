@@ -3,9 +3,9 @@
 defined( 'ABSPATH' ) || exit;
 
 return [
-	\RocketLazyLoadPlugin\Dependencies\LaunchpadFrameworkOptions\ServiceProvider::class,
-	\RocketLazyLoadPlugin\ServiceProvider\SubscribersServiceProvider::class,
-	\RocketLazyLoadPlugin\ServiceProvider\AdminServiceProvider::class,
-	\RocketLazyLoadPlugin\ServiceProvider\ImagifyNoticeServiceProvider::class,
-	\RocketLazyLoadPlugin\ServiceProvider\LazyloadServiceProvider::class,
+	\RocketLazyLoadPlugin\Render\ServiceProvider::class,
+	\RocketLazyLoadPlugin\Admin\ServiceProvider::class,
+	\RocketLazyLoadPlugin\Notices\ServiceProvider::class,
+	\RocketLazyLoadPlugin\Lazyload\ServiceProvider::class,
+	\RocketLazyLoadPlugin\ThirdParty\ServiceProvider::class,
 ];
